@@ -247,8 +247,10 @@
   .summary-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 10px; }
   .summary-card { background: var(--color-background-primary); border-radius: var(--border-radius-md); padding: 14px 10px; text-align: center; cursor: pointer; border: 1px solid var(--color-border-tertiary); transition: background 0.15s; -webkit-tap-highlight-color: transparent; }
   .summary-card:hover, .summary-card:active { background: var(--color-background-secondary); }
-  .bottom-nav { display: flex; border-top: 1px solid var(--color-border-tertiary); background: var(--color-background-primary); flex-shrink: 0; padding-bottom: env(safe-area-inset-bottom, 0px); }
-  .nav-item { flex: 1; padding: 12px 8px 14px; display: flex; flex-direction: column; align-items: center; gap: 4px; cursor: pointer; border: none; background: transparent; transition: background 0.15s; -webkit-tap-highlight-color: transparent; }
+  .bottom-nav { display: flex; border-top: 1px solid var(--color-border-tertiary); background: var(--color-background-primary); flex-shrink: 0; padding-bottom: env(safe-area-inset-bottom, 0px); overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+  .bottom-nav::-webkit-scrollbar { display: none; }
+  .nav-item { flex: 0 0 20%; min-width: 60px; padding: 12px 8px 14px; display: flex; flex-direction: column; align-items: center; gap: 4px; cursor: pointer; border: none; background: transparent; transition: background 0.15s; -webkit-tap-highlight-color: transparent; scroll-snap-align: start; }
+  .nav-item.nav-history { flex: 0 0 20%; min-width: 60px; border-left: 1px dashed var(--color-border-secondary); }
   .nav-item:hover, .nav-item:active { background: var(--color-background-secondary); }
   .nav-icon { font-size: 20px; line-height: 1; }
   .nav-label { font-size: 10px; color: var(--color-text-secondary); font-weight: 600; }
@@ -263,7 +265,11 @@
   .settings-screen-row:last-child { border-bottom: none; }
   .save-indicator { font-size: 11px; color: #AFA9EC; opacity: 0; transition: opacity 0.4s; position: absolute; right: 16px; }
   .save-indicator.show { opacity: 1; }
-  .export-btn { width: 100%; padding: 12px; background: #E1F5EE; color: #0F6E56; border: 1px solid #1D9E75; border-radius: var(--border-radius-md); font-size: 14px; font-weight: 600; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+  .nav-history { position: relative; }
+  .nav-history::before { content: ''; position: absolute; left: 0; top: 20%; height: 60%; width: 1px; background: linear-gradient(to bottom, transparent, var(--color-border-secondary), transparent); }
+  .nav-history .nav-label { color: #534AB7; }
+  .nav-swipe-hint { position: absolute; right: 4px; bottom: 38px; font-size: 10px; color: #AFA9EC; pointer-events: none; animation: hint-pulse 2s ease-in-out 1s 3; opacity: 0; }
+  @keyframes hint-pulse { 0%,100%{opacity:0;transform:translateX(0)} 30%{opacity:1} 60%{opacity:1;transform:translateX(3px)} }
   .export-btn:hover { background: #9FE1CB; }
   .import-btn-settings { width: 100%; padding: 12px; background: #EEEDFE; color: #534AB7; border: 1px solid #534AB7; border-radius: var(--border-radius-md); font-size: 14px; font-weight: 600; cursor: pointer; -webkit-tap-highlight-color: transparent; }
   .import-btn-settings:hover { background: #AFA9EC; color: white; }
@@ -576,6 +582,7 @@
     <div class="workout-header">
       <span class="workout-back" onclick="closeWorkout()">✕</span>
       <div style="font-size:16px;font-weight:700;flex:1;text-align:center" id="workout-title"></div>
+      <button onclick="finishWorkout()" style="background:#3B6D11;border:none;color:white;font-size:12px;font-weight:700;padding:6px 12px;border-radius:8px;cursor:pointer;">✓ Terminer</button>
     </div>
     <div class="workout-body" id="workout-body"></div>
     <div class="timer-bar">
@@ -590,17 +597,25 @@
     </div>
   </div>
 
-  <nav class="bottom-nav">
+  <!-- HISTORIQUE SCREEN -->
+  <div class="screen" id="screen-historique">
+    <div><div class="screen-title">Historique</div><div class="screen-subtitle">Tes séances passées</div></div>
+    <div id="history-list"></div>
+  </div>
+
+  <nav class="bottom-nav" id="bottom-nav">
     <button class="nav-item active" id="nav-home" onclick="switchTab('home')"><span class="nav-icon">🏠</span><span class="nav-label">Accueil</span><div class="nav-dot"></div></button>
     <button class="nav-item" id="nav-planning" onclick="switchTab('planning')"><span class="nav-icon">📅</span><span class="nav-label">Planning</span><div class="nav-dot"></div></button>
     <button class="nav-item" id="nav-recettes" onclick="switchTab('recettes')"><span class="nav-icon">🍽️</span><span class="nav-label">Recettes</span><div class="nav-dot"></div></button>
     <button class="nav-item" id="nav-sport" onclick="switchTab('sport')"><span class="nav-icon">💪</span><span class="nav-label">Sport</span><div class="nav-dot"></div></button>
+    <button class="nav-item nav-history" id="nav-historique" onclick="switchTab('historique')"><span class="nav-icon">📊</span><span class="nav-label">Historique</span><div class="nav-dot"></div></button>
   </nav>
 </div>
 
 <script>
   // ── STATE ──
-  let events=[], recipes=[], exercises=[], routines=[];
+  let events=[], recipes=[], exercises=[], routines=[], workoutHistory=[];
+  let currentWorkoutRoutineId=null, workoutStartTime=null;
   let currentTags=[], currentGrade=null, currentPhotoData=null;
   let editingEventId=null, editingRecipeId=null, editingExId=null, editingRtId=null;
   let openDetailRecipeId=null, selectedExIds=[], selectedMuscles=[], durSelectedMuscles=[];
@@ -610,12 +625,12 @@
   const CATEGORIES=['Tous','Non classé','Petit-déjeuner','Déjeuner','Dîner','Dessert','Snack','Autre'];
   const MUSCLES=['Chest','Back','Legs','Shoulders','Arms','Core','Cardio','Fullbody'];
   const MUSCLE_LABELS={Chest:'Pectoraux',Back:'Dos',Legs:'Jambes',Shoulders:'Épaules',Arms:'Bras',Core:'Abdos',Cardio:'Cardio',Fullbody:'Full body'};
-  const tabs=['home','planning','recettes','sport','settings'];
+  const tabs=['home','planning','recettes','sport','settings','historique'];
 
   // ── PERSISTENCE (localStorage) ──
   function save() {
     try {
-      localStorage.setItem('flowshit-v1', JSON.stringify({events,recipes,exercises,routines}));
+      localStorage.setItem('flowshit-v1', JSON.stringify({events,recipes,exercises,routines,workoutHistory}));
       const ind=document.getElementById('save-indicator');
       ind.classList.add('show');
       setTimeout(()=>ind.classList.remove('show'),1500);
@@ -629,6 +644,7 @@
         const d=JSON.parse(raw);
         events=d.events||[]; recipes=d.recipes||[];
         exercises=d.exercises||[]; routines=d.routines||[];
+        workoutHistory=d.workoutHistory||[];
       }
     } catch(e) { console.warn('Load failed',e); }
     renderAll();
@@ -636,14 +652,14 @@
 
   function resetAllData() {
     if (!confirm('Effacer toutes les données ?')) return;
-    events=[]; recipes=[]; exercises=[]; routines=[];
+    events=[]; recipes=[]; exercises=[]; routines=[]; workoutHistory=[];
     localStorage.removeItem('flowshit-v1');
     renderAll();
   }
 
   // ── EXPORT / IMPORT ──
   function exportData() {
-    const data=JSON.stringify({events,recipes,exercises,routines,exportedAt:new Date().toISOString()},null,2);
+    const data=JSON.stringify({events,recipes,exercises,routines,workoutHistory,exportedAt:new Date().toISOString()},null,2);
     const blob=new Blob([data],{type:'application/json'});
     const url=URL.createObjectURL(blob);
     const a=document.createElement('a');
@@ -660,6 +676,7 @@
         if (confirm('Importer ces données ? Tes données actuelles seront remplacées.')) {
           events=d.events||[]; recipes=d.recipes||[];
           exercises=d.exercises||[]; routines=d.routines||[];
+          workoutHistory=d.workoutHistory||[];
           save(); renderAll();
           alert('✅ Données importées avec succès !');
         }
@@ -671,7 +688,7 @@
 
   function renderAll() {
     renderEvents(); renderHomeEvents(); renderRecipes(); renderCatFilter();
-    renderExercises(); renderRoutines(); updateCounts();
+    renderExercises(); renderRoutines(); updateCounts(); renderHistory();
   }
 
   function updateCounts() {
@@ -760,7 +777,57 @@
   function renderRoutines(){const list=document.getElementById('routines-list');if(routines.length===0){list.innerHTML='<div class="empty-state"><span class="empty-icon">📋</span><div class="empty-title">Aucune routine</div><div class="empty-text">Crée d\'abord des exercices, puis une routine !</div></div>';return;}list.innerHTML=routines.map(r=>{const exs=r.exerciseIds.map(id=>exercises.find(e=>e.id===id)).filter(Boolean);return`<div class="routine-card"><div class="routine-header"><div><div class="routine-name">${r.name}</div>${r.day?`<div class="routine-day">${r.day}</div>`:''}</div><div style="display:flex;gap:6px"><button class="icon-btn" style="color:#AFA9EC" onclick="openRoutineModal(${r.id})">✏️</button><button class="icon-btn del" style="color:#AFA9EC" onclick="deleteRoutine(${r.id})">✕</button></div></div><div class="routine-body"><div style="font-size:13px;color:var(--color-text-secondary)">${exs.length} exercice${exs.length!==1?'s':''}</div><div style="margin-top:6px;display:flex;flex-direction:column;gap:3px">${exs.slice(0,3).map(e=>`<div style="font-size:12px;color:var(--color-text-primary)">· ${e.name} ${e.type==='duration'?'('+e.duration+' min)':e.reps&&e.sets?'— '+e.reps+' reps × '+e.sets:''}</div>`).join('')}${exs.length>3?`<div style="font-size:12px;color:var(--color-text-secondary)">+ ${exs.length-3} de plus...</div>`:''}</div><button class="start-btn" onclick="startWorkout(${r.id})">▶ Démarrer la séance</button></div></div>`;}).join('');}
 
   // ── WORKOUT ──
-  function startWorkout(rid){const r=routines.find(x=>x.id===rid);if(!r)return;const exs=r.exerciseIds.map(id=>exercises.find(e=>e.id===id)).filter(Boolean);document.getElementById('workout-title').textContent=r.name;document.getElementById('workout-body').innerHTML=exs.map(e=>{if(e.type==='duration')return`<div class="workout-ex-card"><div class="workout-ex-name">${e.name}</div><div style="margin-bottom:10px;display:flex;flex-wrap:wrap;gap:4px">${muscleChips(e.muscles)}</div><div class="duration-info"><div class="duration-value">${e.duration||'—'} min</div><div class="duration-label">${e.weight?e.weight+' kg':'Sans poids'}</div></div></div>`;const sets=parseInt(e.sets)||3;const rows=Array.from({length:sets},(_,i)=>`<div class="sets-row"><div class="set-cell">${i+1}</div><div class="set-cell">${e.reps||'—'}</div><div class="set-cell">${e.weight?e.weight+' kg':'—'}</div><div class="set-cell" id="set-status-${e.id}-${i}">—</div></div>`).join('');return`<div class="workout-ex-card"><div class="workout-ex-name">${e.name}</div><div style="margin-bottom:10px;display:flex;flex-wrap:wrap;gap:4px">${muscleChips(e.muscles)}</div><div class="sets-grid"><div>Série</div><div>Reps</div><div>Poids</div><div>Fait</div></div>${rows}<button class="set-done-btn" onclick="markNextSet(${e.id},${sets},${parseInt(e.rest)||90})">✓ Série suivante</button></div>`;}).join('');Object.keys(exSetCounters).forEach(k=>delete exSetCounters[k]);resetTimer();document.getElementById('workout-overlay').style.display='flex';}
+  function startWorkout(rid){const r=routines.find(x=>x.id===rid);if(!r)return;currentWorkoutRoutineId=rid;workoutStartTime=Date.now();const exs=r.exerciseIds.map(id=>exercises.find(e=>e.id===id)).filter(Boolean);document.getElementById('workout-title').textContent=r.name;document.getElementById('workout-body').innerHTML=exs.map(e=>{if(e.type==='duration')return`<div class="workout-ex-card"><div class="workout-ex-name">${e.name}</div><div style="margin-bottom:10px;display:flex;flex-wrap:wrap;gap:4px">${muscleChips(e.muscles)}</div><div class="duration-info"><div class="duration-value">${e.duration||'—'} min</div><div class="duration-label">${e.weight?e.weight+' kg':'Sans poids'}</div></div></div>`;const sets=parseInt(e.sets)||3;const rows=Array.from({length:sets},(_,i)=>`<div class="sets-row"><div class="set-cell">${i+1}</div><div class="set-cell">${e.reps||'—'}</div><div class="set-cell">${e.weight?e.weight+' kg':'—'}</div><div class="set-cell" id="set-status-${e.id}-${i}">—</div></div>`).join('');return`<div class="workout-ex-card"><div class="workout-ex-name">${e.name}</div><div style="margin-bottom:10px;display:flex;flex-wrap:wrap;gap:4px">${muscleChips(e.muscles)}</div><div class="sets-grid"><div>Série</div><div>Reps</div><div>Poids</div><div>Fait</div></div>${rows}<button class="set-done-btn" onclick="markNextSet(${e.id},${sets},${parseInt(e.rest)||90})">✓ Série suivante</button></div>`;}).join('');Object.keys(exSetCounters).forEach(k=>delete exSetCounters[k]);resetTimer();document.getElementById('workout-overlay').style.display='flex';}
+
+  function finishWorkout(){
+    const r=routines.find(x=>x.id===currentWorkoutRoutineId);
+    if(!r)return;
+    const durationMs=Date.now()-(workoutStartTime||Date.now());
+    const durationMin=Math.round(durationMs/60000);
+    const exs=r.exerciseIds.map(id=>exercises.find(e=>e.id===id)).filter(Boolean);
+    const now=new Date();
+    const entry={
+      id:Date.now(),
+      routineId:r.id,
+      routineName:r.name,
+      date:String(now.getDate()).padStart(2,'0')+'/'+String(now.getMonth()+1).padStart(2,'0')+'/'+now.getFullYear(),
+      time:String(now.getHours()).padStart(2,'0')+':'+String(now.getMinutes()).padStart(2,'0'),
+      durationMin,
+      exerciseNames:exs.map(e=>e.name)
+    };
+    workoutHistory.unshift(entry);
+    save();
+    renderHistory();
+    closeWorkout();
+  }
+
+  function deleteHistoryEntry(id){
+    workoutHistory=workoutHistory.filter(h=>h.id!==id);
+    save(); renderHistory();
+  }
+
+  function renderHistory(){
+    const list=document.getElementById('history-list');
+    if(!list)return;
+    if(workoutHistory.length===0){
+      list.innerHTML='<div class="empty-state"><span class="empty-icon">📊</span><div class="empty-title">Aucune séance enregistrée</div><div class="empty-text">Termine une séance pour la voir apparaître ici !</div></div>';
+      return;
+    }
+    list.innerHTML=workoutHistory.map(h=>`
+      <div class="card" style="margin-bottom:10px">
+        <div class="card-row">
+          <div style="flex:1">
+            <div style="font-size:11px;color:var(--color-text-secondary);font-weight:700;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:4px">${h.date} · ${h.time||''}</div>
+            <div class="card-title">💪 ${h.routineName}</div>
+            ${h.durationMin>0?`<div class="card-meta">⏱ ${h.durationMin} min</div>`:''}
+            <div style="margin-top:8px;display:flex;flex-wrap:wrap;gap:4px">
+              ${(h.exerciseNames||[]).map(n=>`<span style="font-size:11px;padding:2px 8px;border-radius:20px;background:#EEEDFE;color:#534AB7;font-weight:500">${n}</span>`).join('')}
+            </div>
+          </div>
+          <button class="icon-btn del" onclick="deleteHistoryEntry(${h.id})">✕</button>
+        </div>
+      </div>`).join('');
+  }
   function markNextSet(exId,totalSets,restSecs){if(!exSetCounters[exId])exSetCounters[exId]=0;const idx=exSetCounters[exId];if(idx>=totalSets)return;const cell=document.getElementById('set-status-'+exId+'-'+idx);if(cell){cell.textContent='✓';cell.classList.add('done');}exSetCounters[exId]++;if(exSetCounters[exId]<totalSets)startTimer(restSecs);}
   function startTimer(secs){resetTimer();timerSeconds=secs;timerRunning=true;updateTimerDisplay();document.getElementById('timer-toggle-btn').textContent='Pause';document.getElementById('timer-display').className='timer-display running';timerInterval=setInterval(()=>{if(timerSeconds<=0){clearInterval(timerInterval);timerRunning=false;document.getElementById('timer-display').className='timer-display done';document.getElementById('timer-toggle-btn').textContent='Démarrer';return;}timerSeconds--;updateTimerDisplay();},1000);}
   function toggleTimer(){if(timerRunning){clearInterval(timerInterval);timerRunning=false;document.getElementById('timer-toggle-btn').textContent='Reprendre';document.getElementById('timer-display').className='timer-display';}else{if(timerSeconds<=0)timerSeconds=90;timerRunning=true;document.getElementById('timer-toggle-btn').textContent='Pause';document.getElementById('timer-display').className='timer-display running';timerInterval=setInterval(()=>{if(timerSeconds<=0){clearInterval(timerInterval);timerRunning=false;document.getElementById('timer-display').className='timer-display done';document.getElementById('timer-toggle-btn').textContent='Démarrer';return;}timerSeconds--;updateTimerDisplay();},1000);}}
