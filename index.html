@@ -24,7 +24,7 @@
     };
   }
   function getDefaultIconSrc() {
-    return "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23534AB7'/><text y='.9em' font-size='80' x='8'>💪</text></svg>";
+    return "data:image/svg+xml," + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" rx="22" fill="#534AB7"/><path d="M14 47 Q26 33 38 47 Q50 61 62 47 Q74 33 86 47" fill="none" stroke="white" stroke-width="5" stroke-linecap="round"/><path d="M14 58 Q26 44 38 58 Q50 72 62 58 Q74 44 86 58" fill="none" stroke="white" stroke-width="5" stroke-linecap="round" opacity="0.7"/><path d="M14 69 Q26 55 38 69 Q50 83 62 69 Q74 55 86 69" fill="none" stroke="white" stroke-width="5" stroke-linecap="round" opacity="0.4"/></svg>');
   }
   function applyManifest(iconSrc) {
     const old = document.querySelector('link[rel="manifest"]');
@@ -34,7 +34,7 @@
     link.rel = 'manifest'; link.href = URL.createObjectURL(blob);
     document.head.appendChild(link);
   }
-  const savedIcon = localStorage.getItem('flowshit-icon') || getDefaultIconSrc();
+  const savedIcon = getDefaultIconSrc();
   applyManifest(savedIcon);
 </script>
 <style>
@@ -291,6 +291,7 @@
   .save-indicator.show { opacity: 1; }
   .bottom-nav-wrap { position: relative; flex-shrink: 0; }
   .bottom-nav-wrap::after { content: '›'; position: absolute; right: 0; top: 0; bottom: 0; width: 28px; background: linear-gradient(to right, transparent, var(--color-nav-bg) 60%); display: flex; align-items: center; justify-content: center; font-size: 16px; color: #AFA9EC; pointer-events: none; }
+  .bottom-nav-wrap.no-scroll::after { display: none; }
   .dark .icon-btn:hover { background: var(--color-background-secondary); }
   .dark .icon-btn.del:hover { color: #ff6b6b; background: rgba(226,75,74,0.15); }
   .dark .add-btn-outline { color: #AFA9EC; border-color: #AFA9EC; }
@@ -311,11 +312,7 @@
   .export-btn:hover { background: #9FE1CB; }
   .import-btn-settings { width: 100%; padding: 12px; background: #EEEDFE; color: #534AB7; border: 1px solid #534AB7; border-radius: var(--border-radius-md); font-size: 14px; font-weight: 600; cursor: pointer; -webkit-tap-highlight-color: transparent; }
   .import-btn-settings:hover { background: #AFA9EC; color: white; }
-  .icon-picker-grid { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px; }
-  .icon-opt { width: 48px; height: 48px; border-radius: 12px; background: var(--color-background-secondary); border: 2px solid transparent; display: flex; align-items: center; justify-content: center; font-size: 26px; cursor: pointer; transition: all 0.15s; -webkit-tap-highlight-color: transparent; }
-  .icon-opt:hover { border-color: #AFA9EC; }
-  .icon-opt.selected { border-color: #534AB7; background: #EEEDFE; }
-  .icon-opt-upload { font-size: 18px; color: var(--color-text-secondary); }
+
   .widget-item { display: flex; align-items: center; justify-content: space-between; padding: 14px 0; border-bottom: 1px solid var(--color-border-tertiary); }
   .widget-item:last-child { border-bottom: none; }
   .widget-item-left { display: flex; align-items: center; gap: 10px; }
@@ -472,16 +469,7 @@
       <div id="widget-list"></div>
     </div>
 
-    <!-- Icon -->
-    <div style="background:var(--color-background-primary);border:1px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:14px 16px;">
-      <div style="font-size:13px;font-weight:700;color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:4px">Icône de l'app</div>
-      <div style="font-size:12px;color:var(--color-text-secondary);margin-bottom:2px">Choisis un emoji ou importe une image</div>
-      <div class="icon-picker-grid" id="icon-picker-grid"></div>
-      <label class="icon-opt icon-opt-upload" style="margin-top:10px;width:auto;padding:0 14px;gap:6px;display:inline-flex;cursor:pointer;">
-        📁 <span style="font-size:13px;font-weight:600">Importer une image</span>
-        <input type="file" accept="image/*" style="display:none" onchange="handleIconUpload(event)" />
-      </label>
-    </div>
+
 
     <!-- App info -->
     <div style="background:var(--color-background-primary);border:1px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:0 16px;">
@@ -1166,7 +1154,7 @@
     // Show swipe hint only when >4 total visible tabs
     const activeCount = widgetOrder.filter(t => activeWidgets[t]).length;
     const wrap = document.getElementById('bottom-nav-wrap');
-    if (wrap) wrap.classList.toggle('discovered', (1 + activeCount) <= 4);
+    if (wrap) wrap.classList.toggle('no-scroll', (1 + activeCount) <= 4);
   }
 
   function loadWidgets() {
@@ -1184,46 +1172,7 @@
     renderWidgetList();
     applyWidgets();
   }
-  const ICON_EMOJIS = ['💪','🔥','🏃','🥗','⚡','🎯','🏋️','🧘','🚀','💥','🌟','🦁'];
-  let currentIconSrc = localStorage.getItem('flowshit-icon') || getDefaultIconSrc();
-
-  function renderIconPicker() {
-    const grid = document.getElementById('icon-picker-grid');
-    if (!grid) return;
-    grid.innerHTML = ICON_EMOJIS.map(em => {
-      const src = emojiToIconSrc(em);
-      const isSel = currentIconSrc === src;
-      return `<div class="icon-opt${isSel?' selected':''}" onclick="pickIcon('${em}')" title="${em}">${em}</div>`;
-    }).join('');
-    // If current icon is a custom uploaded image (not emoji), show it selected
-    if (currentIconSrc.startsWith('data:image/png') || currentIconSrc.startsWith('data:image/jpeg') || currentIconSrc.startsWith('data:image/webp')) {
-      grid.innerHTML += `<div class="icon-opt selected" style="overflow:hidden;padding:0"><img src="${currentIconSrc}" style="width:100%;height:100%;object-fit:cover;border-radius:10px"/></div>`;
-    }
-  }
-
-  function emojiToIconSrc(em) {
-    return `data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23534AB7'/><text y='.9em' font-size='80' x='8'>${encodeURIComponent(em)}</text></svg>`;
-  }
-
-  function pickIcon(em) {
-    currentIconSrc = emojiToIconSrc(em);
-    localStorage.setItem('flowshit-icon', currentIconSrc);
-    applyManifest(currentIconSrc);
-    renderIconPicker();
-  }
-
-  function handleIconUpload(e) {
-    const f = e.target.files[0]; if (!f) return;
-    const reader = new FileReader();
-    reader.onload = ev => {
-      currentIconSrc = ev.target.result;
-      localStorage.setItem('flowshit-icon', currentIconSrc);
-      applyManifest(currentIconSrc);
-      renderIconPicker();
-    };
-    reader.readAsDataURL(f);
-    e.target.value = '';
-  }
+  let currentIconSrc = getDefaultIconSrc();
 
   // ── WIDGETS ──
   function toggleWidget(tab, toggleEl) {
@@ -1304,7 +1253,7 @@
     renderEvents(); renderHomeEvents(); renderRecipes(); renderCatFilter();
     renderExercises(); renderRoutines(); updateCounts(); renderHistory();
     renderNotes(); renderWeightLog(); renderWeightChart(); renderUrgences(); initConvertisseur();
-    renderIconPicker(); renderWidgetList(); applyWidgets(); applyDarkMode();
+    renderWidgetList(); applyWidgets(); applyDarkMode();
   }
 
   function updateCounts() {
