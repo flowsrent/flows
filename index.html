@@ -16,7 +16,7 @@
       name: "Flow sh*t",
       short_name: "Flow sh*t",
       display: "standalone",
-      start_url: "./",
+      start_url: "/",
       background_color: "#534AB7",
       theme_color: "#534AB7",
       orientation: "portrait-primary",
@@ -57,7 +57,7 @@
     width: 100%;
     flex: 1;
     height: var(--app-height, 100dvh);
-    background: #f5f5f0;
+    background: var(--color-app-shell);
     overflow: hidden;
     display: flex;
     flex-direction: column;
@@ -72,14 +72,32 @@
     --color-text-secondary: #6b6880;
     --color-border-tertiary: rgba(0,0,0,0.08);
     --color-border-secondary: rgba(0,0,0,0.15);
+    --color-app-shell: #f5f5f0;
+    --color-nav-bg: #ffffff;
+    --color-header-bg: #534AB7;
     --border-radius-md: 8px;
     --border-radius-lg: 12px;
     --border-radius-xl: 20px;
     --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   }
 
-  .status-bar { background: #534AB7; color: #EEEDFE; padding: 12px 20px 8px; display: flex; justify-content: center; align-items: center; font-size: 12px; font-weight: 500; flex-shrink: 0; position: relative; }
-  .app-header { background: #534AB7; padding: 2px 20px 16px; text-align: center; flex-shrink: 0; }
+  .dark {
+    --color-background-primary: #1a1728;
+    --color-background-secondary: #231f35;
+    --color-background-tertiary: #2d2845;
+    --color-text-primary: #ede9ff;
+    --color-text-secondary: #9b96c0;
+    --color-border-tertiary: rgba(255,255,255,0.07);
+    --color-border-secondary: rgba(255,255,255,0.13);
+    --color-app-shell: #120f1e;
+    --color-nav-bg: #1a1728;
+    --color-header-bg: #3c3489;
+  }
+
+  * { transition: background-color 0.25s ease, border-color 0.25s ease, color 0.2s ease; }
+
+  .status-bar { background: var(--color-header-bg); color: #EEEDFE; padding: 12px 20px 8px; display: flex; justify-content: center; align-items: center; font-size: 12px; font-weight: 500; flex-shrink: 0; position: relative; }
+  .app-header { background: var(--color-header-bg); padding: 2px 20px 16px; text-align: center; flex-shrink: 0; }
   .app-date { font-size: 13px; color: #AFA9EC; }
   .screen { flex: 1; padding: 20px; display: none; flex-direction: column; gap: 16px; overflow-y: auto; -webkit-overflow-scrolling: touch; }
   .screen.active { display: flex; }
@@ -253,7 +271,7 @@
   .summary-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 10px; }
   .summary-card { background: var(--color-background-primary); border-radius: var(--border-radius-md); padding: 14px 10px; text-align: center; cursor: pointer; border: 1px solid var(--color-border-tertiary); transition: background 0.15s; -webkit-tap-highlight-color: transparent; }
   .summary-card:hover, .summary-card:active { background: var(--color-background-secondary); }
-  .bottom-nav { display: flex; border-top: 1px solid var(--color-border-tertiary); background: var(--color-background-primary); flex-shrink: 0; padding-bottom: env(safe-area-inset-bottom, 0px); overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+  .bottom-nav { display: flex; border-top: 1px solid var(--color-border-tertiary); background: var(--color-nav-bg); flex-shrink: 0; padding-bottom: env(safe-area-inset-bottom, 0px); overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
   .bottom-nav::-webkit-scrollbar { display: none; }
   .nav-item { flex: 0 0 25vw; padding: 12px 8px 14px; display: flex; flex-direction: column; align-items: center; gap: 4px; cursor: pointer; border: none; background: transparent; transition: background 0.15s; -webkit-tap-highlight-color: transparent; }
   .nav-item.nav-history { flex: 0 0 25vw; }
@@ -272,8 +290,24 @@
   .save-indicator { font-size: 11px; color: #AFA9EC; opacity: 0; transition: opacity 0.4s; position: absolute; right: 16px; }
   .save-indicator.show { opacity: 1; }
   .bottom-nav-wrap { position: relative; flex-shrink: 0; }
-  .bottom-nav-wrap::after { content: '›'; position: absolute; right: 0; top: 0; bottom: 0; width: 28px; background: linear-gradient(to right, transparent, rgba(255,255,255,0.92) 60%); display: flex; align-items: center; justify-content: center; font-size: 16px; color: #AFA9EC; pointer-events: none; }
-  .bottom-nav-wrap.discovered::after { display: none; }
+  .bottom-nav-wrap::after { content: '›'; position: absolute; right: 0; top: 0; bottom: 0; width: 28px; background: linear-gradient(to right, transparent, var(--color-nav-bg) 60%); display: flex; align-items: center; justify-content: center; font-size: 16px; color: #AFA9EC; pointer-events: none; }
+  .dark .icon-btn:hover { background: var(--color-background-secondary); }
+  .dark .icon-btn.del:hover { color: #ff6b6b; background: rgba(226,75,74,0.15); }
+  .dark .add-btn-outline { color: #AFA9EC; border-color: #AFA9EC; }
+  .dark .add-btn-outline:hover { background: var(--color-background-secondary); }
+  .dark .modal input, .dark .modal textarea, .dark .modal select { background: var(--color-background-secondary); color: var(--color-text-primary); border-color: var(--color-border-secondary); }
+  .dark .modal input:focus, .dark .modal textarea:focus, .dark .modal select:focus { border-color: #AFA9EC; }
+  .dark .btn-cancel { background: var(--color-background-secondary); color: var(--color-text-primary); border-color: var(--color-border-secondary); }
+  .dark .empty-state { border-color: var(--color-border-secondary); }
+  .dark .routine-header { background: #2d2845; }
+  .dark .workout-header { background: #2d2845; }
+  .dark .detail-header { background: #2d2845; }
+  .dark .ev-detail-header { background: #2d2845; }
+  .dark .type-classic { background: #2d2845; color: #AFA9EC; }
+  .dark .type-duration { background: #1a2d26; color: #4ecba0; }
+  .dark .tag-pill { background: #2d2845; color: #AFA9EC; }
+  .dark .muscle-chip { opacity: 0.85; }
+  .dark .grade-selector .grade-opt { border: 1px solid var(--color-border-secondary); }
   .export-btn:hover { background: #9FE1CB; }
   .import-btn-settings { width: 100%; padding: 12px; background: #EEEDFE; color: #534AB7; border: 1px solid #534AB7; border-radius: var(--border-radius-md); font-size: 14px; font-weight: 600; cursor: pointer; -webkit-tap-highlight-color: transparent; }
   .import-btn-settings:hover { background: #AFA9EC; color: white; }
@@ -285,7 +319,22 @@
   .widget-item { display: flex; align-items: center; justify-content: space-between; padding: 14px 0; border-bottom: 1px solid var(--color-border-tertiary); }
   .widget-item:last-child { border-bottom: none; }
   .widget-item-left { display: flex; align-items: center; gap: 10px; }
-  .widget-drag-handle { font-size: 16px; color: var(--color-text-secondary); cursor: grab; padding: 4px 8px 4px 0; touch-action: none; user-select: none; opacity: 0.5; }
+  .plan-cal-day-name { font-size:11px;color:var(--color-text-secondary);text-align:center;padding:4px 0;font-weight:600; }
+  .plan-cal-cell { min-height:40px;border-radius:8px;display:flex;flex-direction:column;align-items:center;padding:4px 2px;cursor:pointer;position:relative;-webkit-tap-highlight-color:transparent; }
+  .plan-cal-cell:hover { background:var(--color-background-secondary); }
+  .plan-cal-cell.today .plan-cal-num { background:#534AB7;color:white;border-radius:50%;width:24px;height:24px;display:flex;align-items:center;justify-content:center; }
+  .plan-cal-cell.selected { background:#EEEDFE; }
+  .plan-cal-cell.other-month { opacity:0.35; }
+  .plan-cal-num { font-size:13px;font-weight:600;color:var(--color-text-primary);line-height:1;margin-bottom:3px; }
+  .plan-cal-dots { display:flex;gap:2px;flex-wrap:wrap;justify-content:center;max-width:28px; }
+  .plan-cal-dot { width:5px;height:5px;border-radius:50%;background:#534AB7;flex-shrink:0; }
+  .schedule-day-header:first-child { margin-top:0; }
+  .schedule-day-today { color:#534AB7; }
+  .schedule-item { display:flex;gap:12px;align-items:flex-start;padding:10px 14px;background:var(--color-background-primary);border-radius:var(--border-radius-lg);margin-bottom:6px;border:1px solid var(--color-border-tertiary);cursor:pointer;-webkit-tap-highlight-color:transparent; }
+  .schedule-time { font-size:12px;font-weight:700;color:#534AB7;min-width:38px;padding-top:2px; }
+  .schedule-dot { width:8px;height:8px;border-radius:50%;background:#534AB7;margin-top:5px;flex-shrink:0; }
+  .schedule-title { font-size:14px;font-weight:600;color:var(--color-text-primary); }
+  .schedule-meta { font-size:12px;color:var(--color-text-secondary);margin-top:2px; }
   .widget-item.dragging { opacity: 0.4; background: var(--color-background-secondary); border-radius: var(--border-radius-md); }
   .widget-item.drag-over { border-top: 2px solid #534AB7; }
   .widget-label { font-size: 14px; font-weight: 500; color: var(--color-text-primary); }
@@ -338,9 +387,31 @@
 
   <!-- PLANNING -->
   <div class="screen" id="screen-planning">
-    <div><div class="screen-title">Planning</div><div class="screen-subtitle">Tes évènements et rappels</div></div>
+    <div style="display:flex;align-items:center;justify-content:space-between;">
+      <div><div class="screen-title">Planning</div><div class="screen-subtitle">Tes évènements et rappels</div></div>
+      <div style="display:flex;gap:4px;">
+        <button onclick="setPlanningView('list')" id="view-btn-list" style="background:var(--color-background-secondary);border:1px solid var(--color-border-secondary);border-radius:8px;padding:7px 10px;font-size:16px;cursor:pointer;-webkit-tap-highlight-color:transparent;">☰</button>
+        <button onclick="setPlanningView('schedule')" id="view-btn-schedule" style="background:var(--color-background-secondary);border:1px solid var(--color-border-secondary);border-radius:8px;padding:7px 10px;font-size:16px;cursor:pointer;-webkit-tap-highlight-color:transparent;">📋</button>
+        <button onclick="setPlanningView('calendar')" id="view-btn-calendar" style="background:var(--color-background-secondary);border:1px solid var(--color-border-secondary);border-radius:8px;padding:7px 10px;font-size:16px;cursor:pointer;-webkit-tap-highlight-color:transparent;">📆</button>
+      </div>
+    </div>
     <button class="add-btn" onclick="openEventModal()">+ Ajouter un évènement</button>
-    <div class="section-header">Évènements à venir</div>
+    <div class="section-header" id="planning-section-label">Évènements à venir</div>
+    <!-- Calendar view -->
+    <div id="planning-calendar" style="display:none;background:var(--color-background-primary);border:1px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:14px 16px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+        <button onclick="planCalPrev()" style="background:none;border:none;font-size:20px;cursor:pointer;color:var(--color-text-primary);padding:4px 8px;">‹</button>
+        <span id="plan-cal-label" style="font-size:15px;font-weight:700;color:var(--color-text-primary);"></span>
+        <button onclick="planCalNext()" style="background:none;border:none;font-size:20px;cursor:pointer;color:var(--color-text-primary);padding:4px 8px;">›</button>
+      </div>
+      <div id="plan-cal-grid" style="display:grid;grid-template-columns:repeat(7,1fr);gap:2px;"></div>
+    </div>
+    <!-- Selected day events (calendar view) -->
+    <div id="planning-calendar-day" style="display:none;">
+      <div style="font-size:13px;font-weight:700;color:#534AB7;margin-bottom:8px;" id="plan-cal-day-label"></div>
+      <div id="plan-cal-day-events"></div>
+    </div>
+    <!-- List / agenda view -->
     <div id="events-list"></div>
   </div>
 
@@ -348,6 +419,26 @@
   <div class="screen" id="screen-recettes">
     <div><div class="screen-title">Recettes</div><div class="screen-subtitle">Tes recettes favorites</div></div>
     <button class="add-btn" onclick="openRecipeModal(null)">+ Ajouter une recette</button>
+    <!-- Search -->
+    <div style="position:relative;">
+      <span style="position:absolute;left:11px;top:50%;transform:translateY(-50%);font-size:15px;pointer-events:none;">🔍</span>
+      <input type="text" id="recipe-search" placeholder="Rechercher une recette..." oninput="renderRecipes()" style="width:100%;padding:10px 10px 10px 36px;border:1px solid var(--color-border-secondary);border-radius:var(--border-radius-lg);font-size:14px;background:var(--color-background-primary);color:var(--color-text-primary);box-sizing:border-box;outline:none;" />
+    </div>
+    <!-- Sort -->
+    <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+      <select id="recipe-sort-key" onchange="renderRecipes()" style="flex:1;padding:8px 10px;border:1px solid var(--color-border-secondary);border-radius:var(--border-radius-md);font-size:13px;font-weight:600;background:var(--color-background-secondary);color:var(--color-text-primary);outline:none;">
+        <option value="">Trier par...</option>
+        <option value="title">Nom</option>
+        <option value="grade">Note santé</option>
+        <option value="cal">Calories</option>
+        <option value="prot">Protéines</option>
+        <option value="time">Temps</option>
+      </select>
+      <div class="tab-row" style="width:64px;margin:0;flex-shrink:0;">
+        <button class="tab-btn active" id="sort-asc" onclick="setSortDir('asc')">↑</button>
+        <button class="tab-btn" id="sort-desc" onclick="setSortDir('desc')">↓</button>
+      </div>
+    </div>
     <div class="cat-scroll" id="cat-filter"></div>
     <div id="recipes-list"></div>
   </div>
@@ -365,8 +456,7 @@
     </div>
     <div id="sport-exercises-panel" style="display:none">
       <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:4px">
-        <button class="add-btn" id="btn-new-classic">+ Nouvel exercice</button>
-        <button class="add-btn-outline" id="btn-new-duration">+ Nouvel exercice de durée</button>
+        <button class="add-btn" id="btn-new-exercise">+ Nouvel exercice</button>
       </div>
       <div id="exercises-list"></div>
     </div>
@@ -397,6 +487,13 @@
     <div style="background:var(--color-background-primary);border:1px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:0 16px;">
       <div class="settings-screen-row"><span style="font-size:14px;color:var(--color-text-primary);font-weight:500">Nom de l'app</span><span style="font-size:13px;color:var(--color-text-secondary)">Flow sh*t</span></div>
       <div class="settings-screen-row"><span style="font-size:14px;color:var(--color-text-primary);font-weight:500">Langue</span><span style="font-size:13px;color:var(--color-text-secondary)">Français</span></div>
+      <div class="settings-screen-row">
+        <div style="display:flex;align-items:center;gap:8px">
+          <span style="font-size:16px">🌙</span>
+          <span style="font-size:14px;color:var(--color-text-primary);font-weight:500">Mode sombre</span>
+        </div>
+        <div class="toggle" id="dark-mode-toggle" onclick="toggleDarkMode()"><div class="toggle-knob"></div></div>
+      </div>
     </div>
 
     <!-- Data -->
@@ -447,6 +544,35 @@
       </div>
       <div><label>Lieu</label><input type="text" id="ev-location" placeholder="Ex: Paris, Maison..." /></div>
       <div><label>Notes</label><textarea id="ev-notes" style="height:72px" placeholder="Informations complémentaires..."></textarea></div>
+
+      <!-- Récurrence -->
+      <div>
+        <label>Récurrence</label>
+        <select id="ev-recurrence" onchange="toggleRecurrenceOptions()" style="width:100%;padding:10px;border:1px solid var(--color-border-secondary);border-radius:var(--border-radius-md);font-size:14px;background:var(--color-background-secondary);color:var(--color-text-primary);outline:none;">
+          <option value="">Aucune</option>
+          <option value="daily">Tous les jours</option>
+          <option value="weekly">Toutes les semaines</option>
+          <option value="monthly-date">Tous les mois (même date)</option>
+          <option value="monthly-day">Tous les mois (même jour ex: 1er lundi)</option>
+          <option value="yearly">Tous les ans</option>
+        </select>
+      </div>
+      <div id="ev-recurrence-end" style="display:none">
+        <label>Date de fin (optionnel)</label>
+        <div class="date-input-wrap">
+          <input type="text" id="ev-recurrence-enddate" placeholder="jj/mm/aaaa — laisser vide = infini" maxlength="10" oninput="autoFormatDate(this)" />
+          <span class="cal-icon" onmousedown="toggleRecurCal(event)">📅</span>
+        </div>
+        <div id="recur-calendar-popup" class="calendar-popup" style="display:none">
+          <div class="cal-header">
+            <button class="cal-nav" onclick="recurCalPrev()">‹</button>
+            <span class="cal-month-label" id="recur-cal-label"></span>
+            <button class="cal-nav" onclick="recurCalNext()">›</button>
+          </div>
+          <div class="cal-grid" id="recur-cal-grid"></div>
+        </div>
+      </div>
+
       <div class="modal-actions">
         <button class="btn-cancel" onclick="closeEventModal()">Annuler</button>
         <button class="btn-save" onclick="saveEvent()">Enregistrer</button>
@@ -459,9 +585,18 @@
     <div class="ev-detail-header">
       <span class="ev-detail-back" onclick="closeEvDetail()">‹ Retour</span>
       <div class="ev-detail-title" id="ev-detail-title"></div>
+      <span style="width:60px"></span>
+    </div>
+    <div style="display:flex;justify-content:flex-end;gap:4px;padding:12px 16px 0;flex-shrink:0;">
+      <button class="icon-btn" onclick="editEventFromDetail()" title="Modifier">✏️</button>
+      <button class="icon-btn del" onclick="deleteEventFromDetail()" title="Supprimer">🗑️</button>
     </div>
     <div class="ev-detail-body">
       <div class="detail-row"><div class="detail-label">Date & heure</div><div class="detail-value" id="ev-detail-datetime"></div></div>
+      <div class="detail-row" id="ev-detail-recurrence-row" style="display:none">
+        <div class="detail-label">Récurrence</div>
+        <div class="detail-value" id="ev-detail-recurrence"></div>
+      </div>
       <div class="detail-row" id="ev-detail-location-row" style="display:none">
         <div class="detail-label">Lieu</div>
         <div class="detail-value" id="ev-detail-location"></div>
@@ -560,19 +695,35 @@
     </div>
   </div>
 
-  <!-- CLASSIC EXERCISE MODAL -->
+  <!-- EXERCISE MODAL (merged classic + duration) -->
   <div class="modal-overlay" id="exercise-modal" style="display:none">
     <div class="modal">
       <div class="modal-title" id="ex-modal-title">Nouvel exercice</div>
-      <div><label>Nom</label><input type="text" id="ex-name" placeholder="Ex: Développé couché..." /></div>
-      <div><label>Groupes musculaires</label><div class="muscle-grid" id="muscle-grid"></div></div>
-      <div class="modal-row">
-        <div><label>Répétitions</label><input type="number" id="ex-reps" placeholder="10" min="1" /></div>
-        <div><label>Séries</label><input type="number" id="ex-sets" placeholder="4" min="1" /></div>
+      <div><label id="ex-name-label">Nom</label><input type="text" id="ex-name" placeholder="Ex: Développé couché..." oninput="document.getElementById('ex-name-label').style.color=this.value.trim()?'':''" /></div>
+      <div>
+        <label>Groupes musculaires</label>
+        <div class="muscle-grid" id="muscle-grid"></div>
+        <div style="display:flex;gap:6px;margin-top:8px;">
+          <input type="text" id="custom-muscle-input" placeholder="Ajouter un groupe..." style="flex:1;padding:8px 10px;border:1px solid var(--color-border-secondary);border-radius:var(--border-radius-md);font-size:13px;background:var(--color-background-secondary);color:var(--color-text-primary);outline:none;" onkeydown="if(event.key==='Enter')addCustomMuscle()" />
+          <button onclick="addCustomMuscle()" style="padding:8px 14px;background:#534AB7;color:#EEEDFE;border:none;border-radius:var(--border-radius-md);font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;">+ Ajouter</button>
+        </div>
       </div>
-      <div class="modal-row">
-        <div><label>Poids (kg)</label><input type="number" id="ex-weight" placeholder="60" min="0" /></div>
-        <div><label>Repos (secondes)</label><input type="number" id="ex-rest" placeholder="90" min="0" /></div>
+      <!-- Custom sets -->
+      <div>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+          <label style="margin:0;">Séries</label>
+          <button onclick="addExSet()" style="padding:4px 10px;background:#534AB7;color:#EEEDFE;border:none;border-radius:6px;font-size:12px;font-weight:700;cursor:pointer;">+ Série</button>
+        </div>
+        <!-- Column headers -->
+        <div style="display:grid;grid-template-columns:20px 1fr 1fr 1fr 1fr 24px;gap:4px;margin-bottom:4px;padding:0 2px;">
+          <span></span>
+          <span style="font-size:10px;font-weight:700;color:var(--color-text-secondary);text-transform:uppercase;text-align:center;">Reps</span>
+          <span style="font-size:10px;font-weight:700;color:var(--color-text-secondary);text-transform:uppercase;text-align:center;">Durée</span>
+          <span style="font-size:10px;font-weight:700;color:var(--color-text-secondary);text-transform:uppercase;text-align:center;">Poids</span>
+          <span style="font-size:10px;font-weight:700;color:var(--color-text-secondary);text-transform:uppercase;text-align:center;">Repos</span>
+          <span></span>
+        </div>
+        <div id="ex-sets-list" style="display:flex;flex-direction:column;gap:4px;"></div>
       </div>
       <div class="modal-actions">
         <button class="btn-cancel" onclick="closeExerciseModal()">Annuler</button>
@@ -581,28 +732,11 @@
     </div>
   </div>
 
-  <!-- DURATION EXERCISE MODAL -->
-  <div class="modal-overlay" id="duration-modal" style="display:none">
-    <div class="modal">
-      <div class="modal-title" id="dur-modal-title">Nouvel exercice de durée</div>
-      <div><label>Nom</label><input type="text" id="dur-name" placeholder="Ex: Vélo, Course..." /></div>
-      <div><label>Groupes musculaires</label><div class="muscle-grid" id="dur-muscle-grid"></div></div>
-      <div class="modal-row">
-        <div><label>Durée (min)</label><input type="number" id="dur-duration" placeholder="45" min="1" /></div>
-        <div><label>Poids (kg)</label><input type="number" id="dur-weight" placeholder="Optionnel" min="0" /></div>
-      </div>
-      <div class="modal-actions">
-        <button class="btn-cancel" onclick="closeDurationModal()">Annuler</button>
-        <button class="btn-save" onclick="saveDurationExercise()">Enregistrer</button>
-      </div>
-    </div>
-  </div>
-
   <!-- ROUTINE MODAL -->
   <div class="modal-overlay" id="routine-modal" style="display:none">
     <div class="modal">
       <div class="modal-title" id="routine-modal-title">Nouvelle routine</div>
-      <div><label>Nom</label><input type="text" id="rt-name" placeholder="Ex: Push day, Full body..." /></div>
+      <div><label id="rt-name-label">Nom</label><input type="text" id="rt-name" placeholder="Ex: Push day, Full body..." oninput="document.getElementById('rt-name-label').style.color=this.value.trim()?'':'';document.getElementById('rt-name-label').textContent='Nom';this.style.borderColor=this.value.trim()?'':'';" /></div>
       <div><label>Jour</label>
         <select id="rt-day">
           <option value="">— Aucun jour —</option>
@@ -644,11 +778,77 @@
     <div id="history-list"></div>
   </div>
 
+  <!-- EVENT DELETE CONFIRM -->
+  <div id="event-delete-confirm" style="display:none;position:absolute;inset:0;z-index:200;background:rgba(0,0,0,0.45);align-items:flex-end;">
+    <div style="background:var(--color-background-primary);border-radius:24px 24px 0 0;padding:28px 20px 40px;width:100%;box-sizing:border-box;text-align:center;">
+      <div style="font-size:32px;margin-bottom:12px">🗑️</div>
+      <div style="font-size:16px;font-weight:700;color:var(--color-text-primary);margin-bottom:6px">Supprimer cet évènement ?</div>
+      <div style="font-size:13px;color:var(--color-text-secondary);margin-bottom:20px" id="event-delete-confirm-label">Cette action est irréversible.</div>
+      <!-- Recurring options -->
+      <div id="event-delete-recurring-btns" style="display:none;flex-direction:column;gap:10px;margin-bottom:10px;">
+        <button onclick="confirmDeleteEvent('one')" style="width:100%;padding:13px;background:var(--color-background-secondary);border:1px solid var(--color-border-secondary);border-radius:var(--border-radius-md);color:var(--color-text-primary);font-size:14px;font-weight:600;cursor:pointer;">Supprimer uniquement cette occurrence</button>
+        <button onclick="confirmDeleteEvent('all')" style="width:100%;padding:13px;background:#E24B4A;border:none;border-radius:var(--border-radius-md);color:white;font-size:14px;font-weight:600;cursor:pointer;">Supprimer toutes les occurrences</button>
+      </div>
+      <!-- Non-recurring options -->
+      <div id="event-delete-simple-btns" style="display:flex;gap:10px;">
+        <button onclick="cancelDeleteEvent()" class="btn-cancel" style="flex:1;padding:14px;">Annuler</button>
+        <button onclick="confirmDeleteEvent('all')" style="flex:1;padding:14px;background:#E24B4A;border:none;border-radius:var(--border-radius-md);color:white;font-size:14px;font-weight:700;cursor:pointer;">Supprimer</button>
+      </div>
+      <button id="event-delete-cancel-recurring" onclick="cancelDeleteEvent()" style="display:none;width:100%;margin-top:10px;padding:13px;background:transparent;border:none;color:var(--color-text-secondary);font-size:14px;cursor:pointer;">Annuler</button>
+    </div>
+  </div>
+
+  <!-- NOTE DELETE CONFIRM -->
+  <div id="note-delete-confirm" style="display:none;position:absolute;inset:0;z-index:200;background:rgba(0,0,0,0.45);align-items:flex-end;">
+    <div style="background:var(--color-background-primary);border-radius:24px 24px 0 0;padding:28px 20px 40px;width:100%;box-sizing:border-box;text-align:center;">
+      <div style="font-size:32px;margin-bottom:12px">🗑️</div>
+      <div style="font-size:16px;font-weight:700;color:var(--color-text-primary);margin-bottom:6px">Supprimer la note ?</div>
+      <div style="font-size:13px;color:var(--color-text-secondary);margin-bottom:24px">Cette action est irréversible.</div>
+      <div style="display:flex;gap:10px;">
+        <button onclick="cancelDeleteNote()" class="btn-cancel" style="flex:1;padding:14px;">Annuler</button>
+        <button onclick="confirmDeleteNote()" style="flex:1;padding:14px;background:#E24B4A;border:none;border-radius:var(--border-radius-md);color:white;font-size:14px;font-weight:700;cursor:pointer;">Supprimer</button>
+      </div>
+    </div>
+  </div>
+
   <!-- NOTES SCREEN -->
   <div class="screen" id="screen-notes">
     <div><div class="screen-title">Notes</div><div class="screen-subtitle">Tes notes personnelles</div></div>
     <button class="add-btn" onclick="openNoteModal(null)">+ Nouvelle note</button>
     <div id="notes-list" style="margin-top:4px"></div>
+  </div>
+
+  <!-- NOTE LECTURE OVERLAY -->
+  <div class="detail-overlay" id="note-detail" style="display:none">
+    <div class="detail-header">
+      <span class="detail-back" id="nd-back-btn" onclick="closeNoteDetail()">‹ Retour</span>
+      <div class="detail-title" id="nd-title" style="font-size:15px"></div>
+      <div style="display:flex;gap:4px;align-items:center;">
+        <button id="nd-edit-btn" onclick="toggleInlineEdit()" style="background:none;border:none;color:#AFA9EC;font-size:18px;cursor:pointer;padding:4px 6px;border-radius:6px;-webkit-tap-highlight-color:transparent;" title="Modifier">✏️</button>
+        <button onclick="deleteCurrentNote()" style="background:none;border:none;color:#AFA9EC;font-size:18px;cursor:pointer;padding:4px 6px;border-radius:6px;-webkit-tap-highlight-color:transparent;" title="Supprimer">🗑️</button>
+        <button onclick="shareCurrentNote()" style="background:none;border:none;color:#AFA9EC;font-size:18px;cursor:pointer;padding:4px 6px;border-radius:6px;-webkit-tap-highlight-color:transparent;" title="Partager">📤</button>
+      </div>
+    </div>
+    <div style="padding:24px 20px;flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;display:flex;flex-direction:column;gap:12px;">
+      <div style="font-size:11px;color:var(--color-text-secondary);font-weight:600" id="nd-date"></div>
+      <!-- READ MODE -->
+      <div id="nd-read-view">
+        <div id="nd-content" style="font-size:15px;color:var(--color-text-primary);line-height:1.75;white-space:pre-wrap;word-break:break-word;"></div>
+      </div>
+      <!-- EDIT MODE -->
+      <div id="nd-edit-view" style="display:none;flex:1;display:none;flex-direction:column;gap:10px;">
+        <input id="nd-edit-title" type="text" style="width:100%;padding:10px;border:1px solid var(--color-border-secondary);border-radius:var(--border-radius-md);font-size:15px;font-weight:700;color:var(--color-text-primary);background:var(--color-background-secondary);box-sizing:border-box;outline:none;" />
+        <textarea id="nd-edit-content" style="flex:1;width:100%;min-height:300px;padding:12px;border:1px solid var(--color-border-secondary);border-radius:var(--border-radius-md);font-size:15px;color:var(--color-text-primary);background:var(--color-background-secondary);box-sizing:border-box;outline:none;resize:none;line-height:1.75;font-family:var(--font-sans);"></textarea>
+      </div>
+    </div>
+    <!-- READ footer -->
+    <div id="nd-footer-read" style="padding:16px 20px;border-top:1px solid var(--color-border-tertiary);display:flex;gap:10px;">
+    </div>
+    <!-- EDIT footer -->
+    <div id="nd-footer-edit" style="display:none;padding:16px 20px;border-top:1px solid var(--color-border-tertiary);display:none;gap:10px;">
+      <button onclick="cancelInlineEdit()" class="btn-cancel" style="flex:1;padding:12px;">Annuler</button>
+      <button onclick="saveInlineEdit()" class="btn-save" style="flex:2;">✓ Enregistrer</button>
+    </div>
   </div>
 
   <!-- NOTE MODAL -->
@@ -675,6 +875,32 @@
         <button class="tab-btn" id="unit-lbs" onclick="setWeightUnit('lbs')">lbs</button>
       </div>
     </div>
+    <!-- IMC Calculator -->
+    <div style="background:var(--color-background-primary);border:1px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:14px 16px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+        <div style="font-size:12px;font-weight:700;color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:0.06em;">Calcul IMC</div>
+        <div class="tab-row" style="width:80px;margin:0;">
+          <button class="tab-btn active" id="imc-sex-m" onclick="setImcSex('M')">♂ H</button>
+          <button class="tab-btn" id="imc-sex-f" onclick="setImcSex('F')">♀ F</button>
+        </div>
+      </div>
+      <div style="display:flex;gap:10px;align-items:flex-end;margin-bottom:12px;">
+        <div style="flex:1;">
+          <label style="font-size:11px;font-weight:700;color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:0.05em;display:block;margin-bottom:5px;">Taille (cm)</label>
+          <input type="number" id="imc-height" min="50" max="250" placeholder="175" oninput="calcIMC()" style="width:100%;padding:10px;border:1px solid var(--color-border-secondary);border-radius:var(--border-radius-md);font-size:16px;font-weight:700;color:var(--color-text-primary);background:var(--color-background-secondary);box-sizing:border-box;outline:none;" />
+        </div>
+        <div style="flex:1;">
+          <label style="font-size:11px;font-weight:700;color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:0.05em;display:block;margin-bottom:5px;">Poids (kg)</label>
+          <input type="number" id="imc-weight" min="20" max="500" step="0.1" placeholder="70" oninput="calcIMC()" style="width:100%;padding:10px;border:1px solid var(--color-border-secondary);border-radius:var(--border-radius-md);font-size:16px;font-weight:700;color:var(--color-text-primary);background:var(--color-background-secondary);box-sizing:border-box;outline:none;" />
+        </div>
+      </div>
+      <div id="imc-result" style="display:none;border-radius:var(--border-radius-md);padding:14px;text-align:center;">
+        <div id="imc-value" style="font-size:32px;font-weight:800;"></div>
+        <div id="imc-label" style="font-size:13px;font-weight:600;margin-top:4px;"></div>
+        <div id="imc-range" style="font-size:11px;color:var(--color-text-secondary);margin-top:4px;"></div>
+        <div id="imc-ideal" style="font-size:11px;color:var(--color-text-secondary);margin-top:2px;"></div>
+      </div>
+    </div>
     <!-- Add entry -->
     <div style="background:var(--color-background-primary);border:1px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:14px 16px;display:flex;gap:10px;align-items:flex-end">
       <div style="flex:1"><label style="font-size:11px;font-weight:700;color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:0.05em;display:block;margin-bottom:5px">Poids</label>
@@ -695,6 +921,57 @@
     <div id="weight-list"></div>
   </div>
 
+  <!-- URGENCES SCREEN -->
+  <div class="screen" id="screen-urgences">
+    <div><div class="screen-title">Urgences</div><div class="screen-subtitle">Numéros d'urgence nationaux</div></div>
+    <div style="background:#FCEBEB;border:1px solid #E24B4A;border-radius:var(--border-radius-lg);padding:12px 16px;display:flex;align-items:center;gap:10px;">
+      <span style="font-size:20px">⚠️</span>
+      <span style="font-size:12px;color:#A32D2D;font-weight:600;line-height:1.5">En cas d'urgence vitale, appelez le 15, 17 ou 18. Le 112 fonctionne partout en Europe.</span>
+    </div>
+    <div class="section-header">Principales urgences</div>
+    <div id="urgences-main" style="background:var(--color-background-primary);border:1px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);"></div>
+    <div class="section-header">Personnes vulnérables</div>
+    <div id="urgences-vulnerable" style="background:var(--color-background-primary);border:1px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);"></div>
+    <div class="section-header">Autres numéros utiles</div>
+    <div id="urgences-autres" style="background:var(--color-background-primary);border:1px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);"></div>
+    <p style="font-size:11px;color:var(--color-text-secondary);text-align:center;line-height:1.6;padding-bottom:8px;">Numéros gratuits, disponibles 24h/24 depuis tout téléphone.</p>
+  </div>
+
+  <!-- CONVERTISSEUR SCREEN -->
+  <div class="screen" id="screen-convertisseur">
+    <div><div class="screen-title">Convertisseur</div><div class="screen-subtitle">Toutes tes conversions</div></div>
+    <!-- Category tabs -->
+    <div class="cat-scroll" id="conv-cats"></div>
+    <!-- From/To -->
+    <div style="background:var(--color-background-primary);border:1px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:16px;">
+      <div style="display:flex;gap:10px;align-items:center;">
+        <div style="flex:1;">
+          <label style="font-size:11px;font-weight:700;color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:0.05em;display:block;margin-bottom:6px;">De</label>
+          <select id="conv-from" onchange="convert()" style="width:100%;padding:9px 10px;border:1px solid var(--color-border-secondary);border-radius:var(--border-radius-md);font-size:13px;font-weight:600;background:var(--color-background-secondary);color:var(--color-text-primary);outline:none;"></select>
+        </div>
+        <button onclick="swapConvert()" style="margin-top:18px;background:var(--color-background-secondary);border:1px solid var(--color-border-secondary);border-radius:50%;width:36px;height:36px;font-size:18px;cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center;">⇄</button>
+        <div style="flex:1;">
+          <label style="font-size:11px;font-weight:700;color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:0.05em;display:block;margin-bottom:6px;">Vers</label>
+          <select id="conv-to" onchange="convert()" style="width:100%;padding:9px 10px;border:1px solid var(--color-border-secondary);border-radius:var(--border-radius-md);font-size:13px;font-weight:600;background:var(--color-background-secondary);color:var(--color-text-primary);outline:none;"></select>
+        </div>
+      </div>
+      <div style="margin-top:14px;">
+        <input type="number" id="conv-input" placeholder="Entre une valeur..." oninput="convert()" style="width:100%;padding:12px;border:1px solid var(--color-border-secondary);border-radius:var(--border-radius-md);font-size:18px;font-weight:700;background:var(--color-background-secondary);color:var(--color-text-primary);outline:none;box-sizing:border-box;" />
+      </div>
+      <!-- Result -->
+      <div id="conv-result" style="margin-top:14px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:16px;text-align:center;display:none;">
+        <div id="conv-result-value" style="font-size:28px;font-weight:800;color:#534AB7;"></div>
+        <div id="conv-result-label" style="font-size:13px;color:var(--color-text-secondary);margin-top:4px;"></div>
+      </div>
+      <div id="conv-devise-note" style="display:none;margin-top:8px;font-size:11px;color:var(--color-text-secondary);text-align:center;">⚠️ Taux de change indicatifs — actualisés manuellement</div>
+    </div>
+    <!-- Quick reference -->
+    <div id="conv-quick" style="background:var(--color-background-primary);border:1px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:14px 16px;">
+      <div style="font-size:12px;font-weight:700;color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:10px;">Conversions rapides</div>
+      <div id="conv-quick-list" style="display:flex;flex-direction:column;gap:6px;"></div>
+    </div>
+  </div>
+
   <div class="bottom-nav-wrap" id="bottom-nav-wrap">
   <nav class="bottom-nav" id="bottom-nav">
     <button class="nav-item active" id="nav-home" onclick="switchTab('home')"><span class="nav-icon">🏠</span><span class="nav-label">Accueil</span><div class="nav-dot"></div></button>
@@ -704,6 +981,8 @@
     <button class="nav-item" id="nav-historique" onclick="switchTab('historique')"><span class="nav-icon">📊</span><span class="nav-label">Historique</span><div class="nav-dot"></div></button>
     <button class="nav-item" id="nav-notes" onclick="switchTab('notes')" style="display:none"><span class="nav-icon">📝</span><span class="nav-label">Notes</span><div class="nav-dot"></div></button>
     <button class="nav-item" id="nav-poids" onclick="switchTab('poids')" style="display:none"><span class="nav-icon">⚖️</span><span class="nav-label">Poids</span><div class="nav-dot"></div></button>
+    <button class="nav-item" id="nav-urgences" onclick="switchTab('urgences')" style="display:none"><span class="nav-icon">🚨</span><span class="nav-label">Urgences</span><div class="nav-dot"></div></button>
+    <button class="nav-item" id="nav-convertisseur" onclick="switchTab('convertisseur')" style="display:none"><span class="nav-icon">🔀</span><span class="nav-label">Convertir</span><div class="nav-dot"></div></button>
   </nav>
   </div>
 </div>
@@ -715,27 +994,58 @@
   let currentTags=[], currentGrade=null, currentPhotoData=null;
   let editingEventId=null, editingRecipeId=null, editingExId=null, editingRtId=null, editingNoteId=null;
   let openDetailRecipeId=null, selectedExIds=[], selectedMuscles=[], durSelectedMuscles=[];
-  let activeCategory='Tous', calYear, calMonth;
+  let activeCategory='Tous', calYear, calMonth, recipeSortDir='asc';
   let timerInterval=null, timerSeconds=0, timerRunning=false;
   let weightUnit='kg';
   const exSetCounters={};
   const CATEGORIES=['Tous','Non classé','Petit-déjeuner','Déjeuner','Dîner','Dessert','Snack','Autre'];
-  const MUSCLES=['Chest','Back','Legs','Shoulders','Arms','Core','Cardio','Fullbody'];
-  const MUSCLE_LABELS={Chest:'Pectoraux',Back:'Dos',Legs:'Jambes',Shoulders:'Épaules',Arms:'Bras',Core:'Abdos',Cardio:'Cardio',Fullbody:'Full body'};
-  const tabs=['home','planning','recettes','sport','settings','historique','notes','poids'];
+  const DEFAULT_MUSCLES = ['Chest','Back','Legs','Shoulders','Arms','Core','Cardio','Fullbody'];
+  const DEFAULT_MUSCLE_LABELS = {Chest:'Pectoraux',Back:'Dos',Legs:'Jambes',Shoulders:'Épaules',Arms:'Bras',Core:'Abdos',Cardio:'Cardio',Fullbody:'Full body'};
+  let MUSCLES = [...DEFAULT_MUSCLES];
+  let MUSCLE_LABELS = {...DEFAULT_MUSCLE_LABELS};
+
+  function loadMuscles() {
+    try {
+      const saved = localStorage.getItem('flowshit-muscles');
+      if (saved) {
+        const d = JSON.parse(saved);
+        MUSCLES = d.list || [...DEFAULT_MUSCLES];
+        MUSCLE_LABELS = d.labels || {...DEFAULT_MUSCLE_LABELS};
+      }
+    } catch(e) {}
+  }
+  function saveMuscles() {
+    localStorage.setItem('flowshit-muscles', JSON.stringify({list: MUSCLES, labels: MUSCLE_LABELS}));
+  }
+  function addCustomMuscle() {
+    const input = document.getElementById('custom-muscle-input');
+    const val = input.value.trim();
+    if (!val) return;
+    // Use the label as both key and display (slugify for key)
+    const key = val.replace(/\s+/g, '_').replace(/[^a-zA-Z0-9_]/g, '');
+    if (!key || MUSCLES.includes(key)) { input.value = ''; return; }
+    MUSCLES.push(key);
+    MUSCLE_LABELS[key] = val;
+    saveMuscles();
+    input.value = '';
+    renderMuscleGrid('muscle-grid', selectedMuscles);
+  }
+  const tabs=['home','planning','recettes','sport','settings','historique','notes','poids','urgences','convertisseur'];
 
   // ── WIDGETS STATE ──
-  const WIDGET_TABS = ['planning','recettes','sport','historique','notes','poids'];
+  const WIDGET_TABS = ['planning','recettes','sport','historique','notes','poids','urgences','convertisseur'];
   const WIDGET_META = {
-    planning:  { icon:'📅', label:'Planning',   desc:'Évènements & rappels' },
-    recettes:  { icon:'🍽️', label:'Recettes',   desc:'Tes recettes favorites' },
-    sport:     { icon:'💪', label:'Sport',       desc:'Exercices & routines' },
-    historique:{ icon:'📊', label:'Historique', desc:'Séances passées' },
-    notes:     { icon:'📝', label:'Notes',       desc:'Tes notes personnelles' },
-    poids:     { icon:'⚖️', label:'Poids',       desc:'Suivi du poids' },
+    planning:      { icon:'📅', label:'Planning',      desc:'Évènements & rappels' },
+    recettes:      { icon:'🍽️', label:'Recettes',      desc:'Tes recettes favorites' },
+    sport:         { icon:'💪', label:'Sport',          desc:'Exercices & routines' },
+    historique:    { icon:'📊', label:'Historique',    desc:'Séances passées' },
+    notes:         { icon:'📝', label:'Notes',          desc:'Tes notes personnelles' },
+    poids:         { icon:'⚖️', label:'Poids',          desc:'Suivi du poids' },
+    urgences:      { icon:'🚨', label:'Urgences',       desc:'Numéros d\'urgence' },
+    convertisseur: { icon:'🔀', label:'Convertisseur',  desc:'Longueur, poids, temp...' },
   };
-  let activeWidgets = {planning:true, recettes:true, sport:true, historique:true, notes:false, poids:false};
-  let widgetOrder   = ['planning','recettes','sport','historique','notes','poids'];
+  let activeWidgets = {planning:true, recettes:true, sport:true, historique:true, notes:false, poids:false, urgences:false, convertisseur:false};
+  let widgetOrder   = ['planning','recettes','sport','historique','notes','poids','urgences','convertisseur'];
 
   // ── WIDGET RENDER ──
   function renderWidgetList() {
@@ -927,11 +1237,14 @@
   // ── PERSISTENCE (localStorage) ──
   function save() {
     try {
-      localStorage.setItem('flowshit-v1', JSON.stringify({events,recipes,exercises,routines,workoutHistory,notes,weightLog,weightUnit}));
+      const payload = {events,recipes,exercises,routines,workoutHistory,notes,weightLog,weightUnit};
+      localStorage.setItem('flowshit-v1', JSON.stringify(payload));
       const ind=document.getElementById('save-indicator');
-      ind.classList.add('show');
-      setTimeout(()=>ind.classList.remove('show'),1500);
-    } catch(e) { console.warn('Save failed',e); }
+      if(ind){ ind.classList.add('show'); setTimeout(()=>ind.classList.remove('show'),1500); }
+    } catch(err) {
+      console.error('Save failed', err);
+      showToast('❌ Sauvegarde échouée : ' + err.message);
+    }
   }
 
   function load() {
@@ -990,12 +1303,12 @@
   function renderAll() {
     renderEvents(); renderHomeEvents(); renderRecipes(); renderCatFilter();
     renderExercises(); renderRoutines(); updateCounts(); renderHistory();
-    renderNotes(); renderWeightLog(); renderWeightChart();
-    renderIconPicker(); renderWidgetList(); applyWidgets();
+    renderNotes(); renderWeightLog(); renderWeightChart(); renderUrgences(); initConvertisseur();
+    renderIconPicker(); renderWidgetList(); applyWidgets(); applyDarkMode();
   }
 
   function updateCounts() {
-    document.getElementById('home-event-count').textContent=events.length;
+    document.getElementById('home-event-count').textContent=getVisibleEvents().length;
     document.getElementById('home-recipe-count').textContent=recipes.length;
     document.getElementById('home-sport-count').textContent=routines.length;
   }
@@ -1012,6 +1325,7 @@
     const an=document.getElementById('nav-'+tab); if(an)an.classList.add('active');
     if(tab==='home')renderHomeEvents();
     if(tab==='recettes')renderCatFilter();
+    if(tab==='convertisseur')initConvertisseur();
   }
 
   function setSportTab(tab) {
@@ -1031,14 +1345,449 @@
   function renderCal(){const months=['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'];document.getElementById('cal-label').textContent=months[calMonth]+' '+calYear;const grid=document.getElementById('cal-grid');let html=['L','M','M','J','V','S','D'].map(d=>`<div class="cal-day-name">${d}</div>`).join('');const first=new Date(calYear,calMonth,1);let sd=first.getDay();sd=sd===0?6:sd-1;const dim=new Date(calYear,calMonth+1,0).getDate();for(let i=0;i<sd;i++)html+=`<div class="cal-day empty"></div>`;const sv=document.getElementById('ev-date').value;for(let d=1;d<=dim;d++){const dd=String(d).padStart(2,'0'),mm=String(calMonth+1).padStart(2,'0'),val=`${dd}/${mm}/${calYear}`;html+=`<div class="cal-day${sv===val?' selected':''}" onclick="pickDate('${val}')">${d}</div>`;}grid.innerHTML=html;}
   function pickDate(val){document.getElementById('ev-date').value=val;hideCal();}
 
-  function openEventModal(){editingEventId=null;const now=new Date();document.getElementById('ev-date').value=String(now.getDate()).padStart(2,'0')+'/'+String(now.getMonth()+1).padStart(2,'0')+'/'+now.getFullYear();['ev-title','ev-time','ev-location','ev-notes'].forEach(i=>document.getElementById(i).value='');hideCal();document.getElementById('event-modal').style.display='flex';}
-  function closeEventModal(){hideCal();document.getElementById('event-modal').style.display='none';}
-  function saveEvent(){const title=document.getElementById('ev-title').value.trim(),dateStr=document.getElementById('ev-date').value.trim();if(!title||!dateStr)return;const time=document.getElementById('ev-time').value.trim(),p=dateStr.split('/'),sortKey=p.length===3?`${p[2]}${p[1]}${p[0]}`+(time||'0000'):dateStr;const data={id:editingEventId||Date.now(),title,date:dateStr,sortKey,time,location:document.getElementById('ev-location').value.trim(),notes:document.getElementById('ev-notes').value.trim()};if(editingEventId){const idx=events.findIndex(e=>e.id===editingEventId);if(idx!==-1)events[idx]=data;}else events.push(data);events.sort((a,b)=>a.sortKey>b.sortKey?1:-1);closeEventModal();renderEvents();renderHomeEvents();updateCounts();save();}
-  function deleteEvent(id){events=events.filter(e=>e.id!==id);renderEvents();renderHomeEvents();updateCounts();save();}
-  function openEvDetail(id){const e=events.find(x=>x.id===id);if(!e)return;document.getElementById('ev-detail-title').textContent=e.title;document.getElementById('ev-detail-datetime').textContent=e.date+(e.time?' à '+e.time:'');const lr=document.getElementById('ev-detail-location-row');if(e.location){document.getElementById('ev-detail-location').textContent=e.location;const enc=encodeURIComponent(e.location);document.getElementById('gmaps-link').href=`https://www.google.com/maps/search/?api=1&query=${enc}`;document.getElementById('waze-link').href=`https://waze.com/ul?q=${enc}`;lr.style.display='';}else lr.style.display='none';const nr=document.getElementById('ev-detail-notes-row');if(e.notes){document.getElementById('ev-detail-notes').textContent=e.notes;nr.style.display='';}else nr.style.display='none';document.getElementById('ev-detail-overlay').style.display='flex';}
+  // Recurrence end date calendar
+  let recurCalYear, recurCalMonth;
+  function toggleRecurCal(e){if(e)e.preventDefault();const p=document.getElementById('recur-calendar-popup');if(p.style.display==='none'){const now=new Date(),val=document.getElementById('ev-recurrence-enddate').value;if(val.length===10){const pt=val.split('/');recurCalYear=parseInt(pt[2]);recurCalMonth=parseInt(pt[1])-1;}else{recurCalYear=now.getFullYear();recurCalMonth=now.getMonth();}renderRecurCal();p.style.display='block';}else p.style.display='none';}
+  function hideRecurCal(){document.getElementById('recur-calendar-popup').style.display='none';}
+  function recurCalPrev(){recurCalMonth--;if(recurCalMonth<0){recurCalMonth=11;recurCalYear--;}renderRecurCal();}
+  function recurCalNext(){recurCalMonth++;if(recurCalMonth>11){recurCalMonth=0;recurCalYear++;}renderRecurCal();}
+  function renderRecurCal(){const months=['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'];document.getElementById('recur-cal-label').textContent=months[recurCalMonth]+' '+recurCalYear;const grid=document.getElementById('recur-cal-grid');let html=['L','M','M','J','V','S','D'].map(d=>`<div class="cal-day-name">${d}</div>`).join('');const first=new Date(recurCalYear,recurCalMonth,1);let sd=first.getDay();sd=sd===0?6:sd-1;const dim=new Date(recurCalYear,recurCalMonth+1,0).getDate();for(let i=0;i<sd;i++)html+=`<div class="cal-day empty"></div>`;const sv=document.getElementById('ev-recurrence-enddate').value;for(let d=1;d<=dim;d++){const dd=String(d).padStart(2,'0'),mm=String(recurCalMonth+1).padStart(2,'0'),val=`${dd}/${mm}/${recurCalYear}`;html+=`<div class="cal-day${sv===val?' selected':''}" onclick="pickRecurDate('${val}')">${d}</div>`;}grid.innerHTML=html;}
+  function pickRecurDate(val){document.getElementById('ev-recurrence-enddate').value=val;hideRecurCal();}
+
+  function closeEventModal(){hideCal();hideRecurCal();document.getElementById('event-modal').style.display='none';}
   function closeEvDetail(){document.getElementById('ev-detail-overlay').style.display='none';}
-  function renderEvents(){const list=document.getElementById('events-list');if(events.length===0){list.innerHTML='<div class="empty-state"><span class="empty-icon">📭</span><div class="empty-title">Aucun évènement</div><div class="empty-text">Appuie sur le bouton pour en ajouter un</div></div>';return;}list.innerHTML=events.map(e=>`<div class="event-card" onclick="openEvDetail(${e.id})"><div class="event-dot"></div><div style="flex:1"><div class="event-title">${e.title}</div><div class="event-meta">📅 ${e.date}${e.time?' · '+e.time:''}</div>${e.location?'<div class="event-location">📍 '+e.location+'</div>':''}</div><button class="event-delete" onclick="event.stopPropagation();deleteEvent(${e.id})">✕</button></div>`).join('');}
-  function renderHomeEvents(){const list=document.getElementById('home-events-list');if(events.length===0){list.innerHTML='<div class="empty-state"><span class="empty-icon">📭</span><div class="empty-title">Aucun évènement prévu</div></div>';return;}list.innerHTML=events.slice(0,3).map(e=>`<div class="event-card" onclick="switchTab('planning')"><div class="event-dot"></div><div style="flex:1"><div class="event-title">${e.title}</div><div class="event-meta">📅 ${e.date}${e.time?' · '+e.time:''}</div>${e.location?'<div class="event-location">📍 '+e.location+'</div>':''}</div></div>`).join('');}
+  let pendingDeleteEventId = null, pendingDeleteEventDate = null;
+  function deleteEvent(id, date) {
+    const e = events.find(x => x.id === id);
+    pendingDeleteEventId = id;
+    pendingDeleteEventDate = date || null;
+    const label = document.getElementById('event-delete-confirm-label');
+    const recurBtns = document.getElementById('event-delete-recurring-btns');
+    const simpleBtns = document.getElementById('event-delete-simple-btns');
+    const cancelRecur = document.getElementById('event-delete-cancel-recurring');
+    if (e && e.recurrence) {
+      label.textContent = 'Cet évènement est récurrent.';
+      recurBtns.style.display = 'flex';
+      simpleBtns.style.display = 'none';
+      cancelRecur.style.display = '';
+    } else {
+      label.textContent = 'Cette action est irréversible.';
+      recurBtns.style.display = 'none';
+      simpleBtns.style.display = 'flex';
+      cancelRecur.style.display = 'none';
+    }
+    document.getElementById('event-delete-confirm').style.display = 'flex';
+  }
+  function cancelDeleteEvent() {
+    pendingDeleteEventId = null; pendingDeleteEventDate = null;
+    document.getElementById('event-delete-confirm').style.display = 'none';
+  }
+  function confirmDeleteEvent(mode) {
+    if (!pendingDeleteEventId) return;
+    if (mode === 'one' && pendingDeleteEventDate) {
+      // Add this date to the event's exceptions list
+      const e = events.find(x => x.id === pendingDeleteEventId);
+      if (e) { e.exceptions = e.exceptions || []; e.exceptions.push(pendingDeleteEventDate); }
+    } else {
+      // Delete the whole event
+      events = events.filter(e => e.id !== pendingDeleteEventId);
+    }
+    pendingDeleteEventId = null; pendingDeleteEventDate = null;
+    document.getElementById('event-delete-confirm').style.display = 'none';
+    closeEvDetail();
+    renderEvents(); renderHomeEvents(); updateCounts(); save();
+  }
+
+  function toggleRecurrenceOptions() {
+    const val = document.getElementById('ev-recurrence').value;
+    document.getElementById('ev-recurrence-end').style.display = val ? '' : 'none';
+  }
+
+  const RECURRENCE_LABELS = {
+    'daily': 'Tous les jours',
+    'weekly': 'Toutes les semaines',
+    'monthly-date': 'Tous les mois (même date)',
+    'monthly-day': 'Tous les mois (même jour)',
+    'yearly': 'Tous les ans',
+  };
+
+  function recurrenceIcon(r) { return r ? '🔁 ' : ''; }
+
+  function openEventModal() {
+    editingEventId = null;
+    const now = new Date();
+    document.getElementById('ev-date').value = String(now.getDate()).padStart(2,'0')+'/'+String(now.getMonth()+1).padStart(2,'0')+'/'+now.getFullYear();
+    ['ev-title','ev-time','ev-location','ev-notes','ev-recurrence-enddate'].forEach(i => document.getElementById(i).value='');
+    document.getElementById('ev-recurrence').value = '';
+    document.getElementById('ev-recurrence-end').style.display = 'none';
+    hideCal();
+    document.getElementById('event-modal').style.display = 'flex';
+  }
+
+  function saveEvent() {
+    const title = document.getElementById('ev-title').value.trim();
+    const dateStr = document.getElementById('ev-date').value.trim();
+    if (!title || !dateStr) return;
+    const time = document.getElementById('ev-time').value.trim();
+    const p = dateStr.split('/');
+    const sortKey = p.length===3 ? `${p[2]}${p[1]}${p[0]}`+(time||'0000') : dateStr;
+    const recurrence = document.getElementById('ev-recurrence').value;
+    const recurrenceEnd = document.getElementById('ev-recurrence-enddate').value.trim();
+    const data = {
+      id: editingEventId || Date.now(),
+      title, date: dateStr, sortKey, time,
+      location: document.getElementById('ev-location').value.trim(),
+      notes: document.getElementById('ev-notes').value.trim(),
+      recurrence: recurrence || null,
+      recurrenceEnd: recurrence && recurrenceEnd ? recurrenceEnd : null,
+    };
+    if (editingEventId) { const idx = events.findIndex(e => e.id === editingEventId); if (idx !== -1) events[idx] = data; }
+    else events.push(data);
+    events.sort((a,b) => a.sortKey > b.sortKey ? 1 : -1);
+    closeEventModal(); renderEvents(); renderHomeEvents(); updateCounts(); save();
+    // If editing from detail view, reopen it with updated data
+    if (editingEventId) openEvDetail(editingEventId);
+  }
+
+  function openEvDetail(id) {
+    const e = events.find(x => x.id === id); if (!e) return;
+    document.getElementById('ev-detail-title').textContent = e.title;
+    document.getElementById('ev-detail-datetime').textContent = e.date + (e.time ? ' à '+e.time : '');
+    // Recurrence
+    const rr = document.getElementById('ev-detail-recurrence-row');
+    if (e.recurrence) {
+      let label = '🔁 ' + (RECURRENCE_LABELS[e.recurrence] || e.recurrence);
+      if (e.recurrenceEnd) label += ' · jusqu\'au ' + e.recurrenceEnd;
+      else label += ' · sans fin';
+      document.getElementById('ev-detail-recurrence').textContent = label;
+      rr.style.display = '';
+    } else rr.style.display = 'none';
+    // Location
+    const lr = document.getElementById('ev-detail-location-row');
+    if (e.location) {
+      document.getElementById('ev-detail-location').textContent = e.location;
+      const enc = encodeURIComponent(e.location);
+      document.getElementById('gmaps-link').href = `https://www.google.com/maps/search/?api=1&query=${enc}`;
+      document.getElementById('waze-link').href = `https://waze.com/ul?q=${enc}`;
+      lr.style.display = '';
+    } else lr.style.display = 'none';
+    // Notes
+    const nr = document.getElementById('ev-detail-notes-row');
+    if (e.notes) { document.getElementById('ev-detail-notes').textContent = e.notes; nr.style.display = ''; }
+    else nr.style.display = 'none';
+    // Edit button: prefill recurrence when editing
+    document.getElementById('ev-detail-overlay').dataset.editId = id;
+    document.getElementById('ev-detail-overlay').style.display = 'flex';
+  }
+
+  function editEventFromDetail() {
+    const id = parseInt(document.getElementById('ev-detail-overlay').dataset.editId);
+    const e = events.find(x => x.id === id); if (!e) return;
+    editingEventId = id;
+    document.getElementById('ev-title').value = e.title;
+    document.getElementById('ev-date').value = e.date;
+    document.getElementById('ev-time').value = e.time || '';
+    document.getElementById('ev-location').value = e.location || '';
+    document.getElementById('ev-notes').value = e.notes || '';
+    document.getElementById('ev-recurrence').value = e.recurrence || '';
+    document.getElementById('ev-recurrence-enddate').value = e.recurrenceEnd || '';
+    document.getElementById('ev-recurrence-end').style.display = e.recurrence ? '' : 'none';
+    hideCal();
+    document.getElementById('event-modal').style.display = 'flex';
+  }
+
+  function deleteEventFromDetail() {
+    const id = parseInt(document.getElementById("ev-detail-overlay").dataset.editId);
+    const e = events.find(x => x.id === id); if (!e) return;
+    deleteEvent(id, e.date);
+  }
+
+  function editEventFromCard(id) {
+    const e = events.find(x => x.id === id); if (!e) return;
+    editingEventId = id;
+    document.getElementById('ev-title').value = e.title;
+    document.getElementById('ev-date').value = e.date;
+    document.getElementById('ev-time').value = e.time || '';
+    document.getElementById('ev-location').value = e.location || '';
+    document.getElementById('ev-notes').value = e.notes || '';
+    document.getElementById('ev-recurrence').value = e.recurrence || '';
+    document.getElementById('ev-recurrence-enddate').value = e.recurrenceEnd || '';
+    document.getElementById('ev-recurrence-end').style.display = e.recurrence ? '' : 'none';
+    hideCal();
+    document.getElementById('event-modal').style.display = 'flex';
+  }
+
+  let planningView = localStorage.getItem('flowshit-planning-view') || 'list';
+  let planCalYear = new Date().getFullYear();
+  let planCalMonth = new Date().getMonth();
+  let planCalSelectedDate = null;
+
+  const PLAN_VIEW_LABELS = { list: 'Évènements à venir', schedule: 'Vue agenda', calendar: 'Calendrier' };
+
+  function setPlanningView(view) {
+    planningView = view;
+    localStorage.setItem('flowshit-planning-view', planningView);
+    renderEvents();
+  }
+
+  function renderEvents() {
+    const label = document.getElementById('planning-section-label');
+    const calEl = document.getElementById('planning-calendar');
+    const calDay = document.getElementById('planning-calendar-day');
+    const listEl = document.getElementById('events-list');
+
+    if (label) label.textContent = PLAN_VIEW_LABELS[planningView];
+
+    // Highlight active view button
+    ['list','schedule','calendar'].forEach(v => {
+      const btn = document.getElementById('view-btn-'+v);
+      if (!btn) return;
+      const isActive = v === planningView;
+      btn.style.background = 'var(--color-background-secondary)';
+      btn.style.border = isActive ? '2px solid #534AB7' : '1px solid var(--color-border-secondary)';
+      btn.style.padding = isActive ? '6px 9px' : '7px 10px';
+      btn.style.filter = 'none';
+    });
+
+    calEl.style.display = planningView === 'calendar' ? '' : 'none';
+    calDay.style.display = planningView === 'calendar' && planCalSelectedDate ? '' : 'none';
+    listEl.style.display = planningView === 'calendar' ? 'none' : '';
+
+    if (planningView === 'list') renderListView();
+    else if (planningView === 'schedule') renderScheduleView();
+    else renderCalendarView();
+  }
+
+  function renderListView() {
+    const list = document.getElementById('events-list');
+    const allEvents = getVisibleEvents();
+    if (allEvents.length === 0) { list.innerHTML = '<div class="empty-state"><span class="empty-icon">📭</span><div class="empty-title">Aucun évènement</div><div class="empty-text">Appuie sur le bouton pour en ajouter un</div></div>'; return; }
+    list.innerHTML = allEvents.map(e => `
+      <div class="event-card" onclick="openEvDetail(${e.id})">
+        <div class="event-dot" style="${e.recurrence ? 'background:linear-gradient(135deg,#534AB7,#AFA9EC)' : ''}"></div>
+        <div style="flex:1">
+          <div class="event-title">${recurrenceIcon(e.recurrence)}${e.title}</div>
+          <div class="event-meta">📅 ${e.date}${e.time ? ' · '+e.time : ''}</div>
+          ${e.location ? '<div class="event-location">📍 '+e.location+'</div>' : ''}
+          ${e.recurrence ? `<div style="font-size:11px;color:#AFA9EC;margin-top:2px;">${RECURRENCE_LABELS[e.recurrence]}${e.recurrenceEnd?' · fin '+e.recurrenceEnd:' · sans fin'}</div>` : ''}
+        </div>
+        <div style="display:flex;gap:4px;flex-shrink:0;">
+          <button class="event-delete" onclick="event.stopPropagation();editEventFromCard(${e.id})" style="color:var(--color-text-secondary)">✏️</button>
+          <button class="event-delete" onclick="event.stopPropagation();deleteEvent(${e.id},'${e.date}')">✕</button>
+        </div>
+      </div>`).join('');
+  }
+
+  function renderCalendarView() {
+    const months = ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'];
+    document.getElementById('plan-cal-label').textContent = months[planCalMonth] + ' ' + planCalYear;
+
+    const allEvents = getVisibleEvents();
+    // Build a map of date -> events
+    const eventMap = {};
+    allEvents.forEach(e => { if (!eventMap[e.date]) eventMap[e.date] = []; eventMap[e.date].push(e); });
+
+    const today = new Date(); today.setHours(0,0,0,0);
+    const grid = document.getElementById('plan-cal-grid');
+    let html = ['L','M','M','J','V','S','D'].map(d => `<div class="plan-cal-day-name">${d}</div>`).join('');
+
+    const first = new Date(planCalYear, planCalMonth, 1);
+    let startDay = first.getDay(); startDay = startDay === 0 ? 6 : startDay - 1;
+    const daysInMonth = new Date(planCalYear, planCalMonth + 1, 0).getDate();
+    const prevDays = new Date(planCalYear, planCalMonth, 0).getDate();
+
+    // Prev month cells
+    for (let i = startDay - 1; i >= 0; i--) {
+      html += `<div class="plan-cal-cell other-month"><div class="plan-cal-num">${prevDays - i}</div></div>`;
+    }
+    // Current month cells
+    for (let d = 1; d <= daysInMonth; d++) {
+      const dd = String(d).padStart(2,'0');
+      const mm = String(planCalMonth+1).padStart(2,'0');
+      const dateStr = `${dd}/${mm}/${planCalYear}`;
+      const cellDate = new Date(planCalYear, planCalMonth, d);
+      const isToday = cellDate.getTime() === today.getTime();
+      const isSel = dateStr === planCalSelectedDate;
+      const evs = eventMap[dateStr] || [];
+      const dots = evs.slice(0,3).map(() => `<div class="plan-cal-dot"></div>`).join('');
+      html += `<div class="plan-cal-cell${isToday?' today':''}${isSel?' selected':''}" onclick="selectPlanCalDay('${dateStr}')">
+        <div class="plan-cal-num">${d}</div>
+        ${dots ? `<div class="plan-cal-dots">${dots}</div>` : ''}
+      </div>`;
+    }
+    // Next month filler
+    const total = startDay + daysInMonth;
+    const remaining = total % 7 === 0 ? 0 : 7 - (total % 7);
+    for (let i = 1; i <= remaining; i++) {
+      html += `<div class="plan-cal-cell other-month"><div class="plan-cal-num">${i}</div></div>`;
+    }
+    grid.innerHTML = html;
+
+    // Render selected day
+    if (planCalSelectedDate) renderPlanCalDay(planCalSelectedDate, eventMap);
+    else document.getElementById('planning-calendar-day').style.display = 'none';
+  }
+
+  function selectPlanCalDay(dateStr) {
+    planCalSelectedDate = planCalSelectedDate === dateStr ? null : dateStr;
+    const allEvents = getVisibleEvents();
+    const eventMap = {};
+    allEvents.forEach(e => { if (!eventMap[e.date]) eventMap[e.date] = []; eventMap[e.date].push(e); });
+    renderCalendarView();
+    if (planCalSelectedDate) {
+      document.getElementById('planning-calendar-day').style.display = '';
+      renderPlanCalDay(planCalSelectedDate, eventMap);
+    } else {
+      document.getElementById('planning-calendar-day').style.display = 'none';
+    }
+  }
+
+  function renderPlanCalDay(dateStr, eventMap) {
+    const dayNames = ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'];
+    const parts = dateStr.split('/');
+    const d = new Date(+parts[2], +parts[1]-1, +parts[0]);
+    document.getElementById('plan-cal-day-label').textContent = `${dayNames[d.getDay()]} ${parts[0]}/${parts[1]}/${parts[2]}`;
+    const evs = eventMap[dateStr] || [];
+    const container = document.getElementById('plan-cal-day-events');
+    if (evs.length === 0) {
+      container.innerHTML = '<div style="font-size:13px;color:var(--color-text-secondary);padding:8px 0;">Aucun évènement ce jour.</div>';
+      return;
+    }
+    container.innerHTML = evs.map(e => `
+      <div class="event-card" onclick="openEvDetail(${e.id})" style="margin-bottom:8px;">
+        <div class="event-dot" style="${e.recurrence?'background:linear-gradient(135deg,#534AB7,#AFA9EC)':''}"></div>
+        <div style="flex:1">
+          <div class="event-title">${recurrenceIcon(e.recurrence)}${e.title}</div>
+          ${e.time ? `<div class="event-meta">⏰ ${e.time}</div>` : ''}
+          ${e.location ? `<div class="event-location">📍 ${e.location}</div>` : ''}
+        </div>
+        <div style="display:flex;gap:4px;flex-shrink:0;">
+          <button class="event-delete" onclick="event.stopPropagation();editEventFromCard(${e.id})" style="color:var(--color-text-secondary)">✏️</button>
+          <button class="event-delete" onclick="event.stopPropagation();deleteEvent(${e.id},'${e.date}')">✕</button>
+        </div>
+      </div>`).join('');
+  }
+
+  function planCalPrev() {
+    planCalMonth--; if (planCalMonth < 0) { planCalMonth = 11; planCalYear--; }
+    planCalSelectedDate = null;
+    renderCalendarView();
+  }
+  function planCalNext() {
+    planCalMonth++; if (planCalMonth > 11) { planCalMonth = 0; planCalYear++; }
+    planCalSelectedDate = null;
+    renderCalendarView();
+  }
+
+  function renderScheduleView() {
+    const list = document.getElementById('events-list');
+    const allEvents = getVisibleEvents();
+    if (allEvents.length === 0) { list.innerHTML = '<div class="empty-state"><span class="empty-icon">📭</span><div class="empty-title">Aucun évènement</div><div class="empty-text">Appuie sur le bouton pour en ajouter un</div></div>'; return; }
+
+    // Group by date
+    const groups = {};
+    allEvents.forEach(e => { if (!groups[e.date]) groups[e.date] = []; groups[e.date].push(e); });
+
+    const today = new Date(); today.setHours(0,0,0,0);
+    const dayNames = ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'];
+    const monthNames = ['jan','fév','mar','avr','mai','jun','jul','aoû','sep','oct','nov','déc'];
+
+    list.innerHTML = Object.keys(groups).map(dateStr => {
+      const parts = dateStr.split('/');
+      const d = new Date(+parts[2], +parts[1]-1, +parts[0]);
+      const isToday = d.getTime() === today.getTime();
+      const isTomorrow = d.getTime() === today.getTime() + 86400000;
+      let dayLabel = isToday ? '📍 Aujourd\'hui' : isTomorrow ? 'Demain' : `${dayNames[d.getDay()]} ${d.getDate()} ${monthNames[d.getMonth()]}`;
+      if (+parts[2] !== today.getFullYear()) dayLabel += ` ${parts[2]}`;
+
+      const items = groups[dateStr].map(e => `
+        <div class="schedule-item" onclick="openEvDetail(${e.id})">
+          <div class="schedule-time">${e.time || '—'}</div>
+          <div class="schedule-dot" style="${e.recurrence ? 'background:linear-gradient(135deg,#534AB7,#AFA9EC)' : ''}"></div>
+          <div style="flex:1;min-width:0;">
+            <div class="schedule-title">${recurrenceIcon(e.recurrence)}${e.title}</div>
+            ${e.location ? `<div class="schedule-meta">📍 ${e.location}</div>` : ''}
+          </div>
+          <div style="display:flex;gap:4px;flex-shrink:0;">
+            <button class="event-delete" onclick="event.stopPropagation();editEventFromCard(${e.id})" style="color:var(--color-text-secondary)">✏️</button>
+            <button class="event-delete" onclick="event.stopPropagation();deleteEvent(${e.id},'${e.date}')">✕</button>
+          </div>
+        </div>`).join('');
+
+      return `<div class="schedule-day-header${isToday?' schedule-day-today':''}">${dayLabel}</div>${items}`;
+    }).join('');
+  }
+
+  function renderHomeEvents() {
+    const list = document.getElementById('home-events-list');
+    const allEvents = getVisibleEvents();
+    if (allEvents.length === 0) { list.innerHTML = '<div class="empty-state"><span class="empty-icon">📭</span><div class="empty-title">Aucun évènement prévu</div></div>'; return; }
+    list.innerHTML = allEvents.slice(0,3).map(e => `
+      <div class="event-card" onclick="switchTab('planning')">
+        <div class="event-dot" style="${e.recurrence ? 'background:linear-gradient(135deg,#534AB7,#AFA9EC)' : ''}"></div>
+        <div style="flex:1">
+          <div class="event-title">${recurrenceIcon(e.recurrence)}${e.title}</div>
+          <div class="event-meta">📅 ${e.date}${e.time ? ' · '+e.time : ''}</div>
+          ${e.location ? '<div class="event-location">📍 '+e.location+'</div>' : ''}
+        </div>
+      </div>`).join('');
+  }
+
+  // Returns all events + generated recurrence occurrences within next 60 days
+  function getVisibleEvents() {
+    const today = new Date(); today.setHours(0,0,0,0);
+    const horizon = new Date(today); horizon.setDate(today.getDate() + 60);
+    const result = [];
+    const seen = new Set();
+
+    events.forEach(e => {
+      if (!e.recurrence) { result.push(e); return; }
+      // Generate occurrences from event date up to horizon
+      const parts = e.date.split('/');
+      if (parts.length !== 3) { result.push(e); return; }
+      let cur = new Date(+parts[2], +parts[1]-1, +parts[0]);
+      const endDate = e.recurrenceEnd ? (() => { const ep=e.recurrenceEnd.split('/'); return new Date(+ep[2],+ep[1]-1,+ep[0]); })() : null;
+
+      let safety = 0;
+      while (cur <= horizon && safety++ < 500) {
+        if (endDate && cur > endDate) break;
+        if (cur >= today) {
+          const dd = String(cur.getDate()).padStart(2,'0');
+          const mm = String(cur.getMonth()+1).padStart(2,'0');
+          const yyyy = cur.getFullYear();
+          const dateStr = `${dd}/${mm}/${yyyy}`;
+          // Skip if this date was individually deleted
+          if (!(e.exceptions||[]).includes(dateStr)) {
+            const key = e.id + '-' + cur.toISOString().slice(0,10);
+            if (!seen.has(key)) {
+              seen.add(key);
+              const sortKey = `${yyyy}${mm}${dd}`+(e.time||'0000');
+              result.push({...e, date: dateStr, sortKey, _generated: true});
+            }
+          }
+        }
+        // Advance by recurrence
+        const next = new Date(cur);
+        if (e.recurrence === 'daily') next.setDate(cur.getDate()+1);
+        else if (e.recurrence === 'weekly') next.setDate(cur.getDate()+7);
+        else if (e.recurrence === 'monthly-date') next.setMonth(cur.getMonth()+1);
+        else if (e.recurrence === 'monthly-day') {
+          // Same weekday of same week-in-month
+          const weekInMonth = Math.ceil(cur.getDate()/7);
+          const dow = cur.getDay();
+          next.setMonth(cur.getMonth()+1, 1);
+          let count = 0;
+          while (next.getDay() !== dow) next.setDate(next.getDate()+1);
+          for (let w=1; w<weekInMonth; w++) next.setDate(next.getDate()+7);
+        }
+        else if (e.recurrence === 'yearly') next.setFullYear(cur.getFullYear()+1);
+        cur = next;
+      }
+    });
+
+    result.sort((a,b) => a.sortKey > b.sortKey ? 1 : -1);
+    return result;
+  }
 
   // ── RECIPES ──
   function selectGrade(g){currentGrade=currentGrade===g?null:g;document.querySelectorAll('.grade-opt').forEach(el=>el.classList.toggle('selected',el.textContent.trim()===currentGrade));}
@@ -1051,38 +1800,243 @@
   function closeRecipeModal(){document.getElementById('recipe-modal').style.display='none';}
   function saveRecipe(){const title=document.getElementById('r-title').value.trim();if(!title)return;const photo=currentPhotoData||document.getElementById('r-photo').value.trim()||'';const data={id:editingRecipeId||Date.now(),title,category:document.getElementById('r-cat').value,time:document.getElementById('r-time').value,photo,ingredients:document.getElementById('r-ingredients').value.trim().split('\n').filter(Boolean),steps:document.getElementById('r-steps').value.trim().split('\n').filter(Boolean),cal:document.getElementById('r-cal').value,prot:document.getElementById('r-prot').value,carb:document.getElementById('r-carb').value,fat:document.getElementById('r-fat').value,sugar:document.getElementById('r-sugar').value,grade:currentGrade,tags:[...currentTags]};if(editingRecipeId){const idx=recipes.findIndex(r=>r.id===editingRecipeId);if(idx!==-1)recipes[idx]=data;}else recipes.push(data);updateCounts();closeRecipeModal();renderRecipes();if(editingRecipeId&&openDetailRecipeId===editingRecipeId)openRecipeDetail(editingRecipeId);save();}
   function deleteRecipe(id){recipes=recipes.filter(r=>r.id!==id);updateCounts();renderRecipes();save();}
+  function setSortDir(dir) {
+    recipeSortDir = dir;
+    document.getElementById('sort-asc').classList.toggle('active', dir === 'asc');
+    document.getElementById('sort-desc').classList.toggle('active', dir === 'desc');
+    renderRecipes();
+  }
+
   function renderCatFilter(){document.getElementById('cat-filter').innerHTML=CATEGORIES.map(c=>`<div class="cat-chip${c===activeCategory?' active':''}" onclick="setCategory('${c}')">${c}</div>`).join('');}
   function setCategory(c){activeCategory=c;renderCatFilter();renderRecipes();}
-  function renderRecipes(){const list=document.getElementById('recipes-list');const filtered=activeCategory==='Tous'?recipes:recipes.filter(r=>r.category===activeCategory);if(filtered.length===0){list.innerHTML='<div class="empty-state"><span class="empty-icon">🍽️</span><div class="empty-title">Aucune recette ici</div><div class="empty-text">Ajoute ta première recette !</div></div>';return;}list.innerHTML=filtered.map(r=>`<div class="recipe-card" onclick="openRecipeDetail(${r.id})"><div class="recipe-img">${r.photo?`<img src="${r.photo}" onerror="this.parentElement.innerHTML='🍽️'">`:'🍽️'}</div><div class="recipe-body"><div style="display:flex;align-items:flex-start;justify-content:space-between;gap:8px"><div class="recipe-title">${r.title}</div><div style="display:flex;gap:4px"><button class="icon-btn" onclick="event.stopPropagation();openRecipeModal(${r.id})">✏️</button><button class="icon-btn del" onclick="event.stopPropagation();deleteRecipe(${r.id})">✕</button></div></div><div class="recipe-meta">${r.time?`<span style="font-size:12px;color:var(--color-text-secondary)">⏱ ${r.time} min</span>`:''}${r.grade?`<div class="grade-badge grade-${r.grade}">${r.grade}</div>`:''}${(r.tags||[]).slice(0,2).map(t=>`<span class="tag-pill">${t}</span>`).join('')}</div></div></div>`).join('');}
+  function renderRecipes(){
+    const list=document.getElementById('recipes-list');
+    const searchEl=document.getElementById('recipe-search');
+    const sortKey=document.getElementById('recipe-sort-key')?.value||'';
+    const query=(searchEl?.value||'').toLowerCase().trim();
+    const GRADE_ORDER={A:1,B:2,C:3,D:4,E:5,F:6};
+    let filtered=activeCategory==='Tous'?[...recipes]:recipes.filter(r=>r.category===activeCategory);
+    if(query) filtered=filtered.filter(r=>r.title.toLowerCase().includes(query)||(r.tags||[]).some(t=>t.toLowerCase().includes(query)));
+    if(sortKey){
+      filtered.sort((a,b)=>{
+        let va,vb;
+        if(sortKey==='title'){va=a.title.toLowerCase();vb=b.title.toLowerCase();return recipeSortDir==='asc'?va.localeCompare(vb):vb.localeCompare(va);}
+        if(sortKey==='grade'){va=GRADE_ORDER[a.grade]||99;vb=GRADE_ORDER[b.grade]||99;}
+        else{va=parseFloat(a[sortKey])||0;vb=parseFloat(b[sortKey])||0;}
+        return recipeSortDir==='asc'?va-vb:vb-va;
+      });
+    }
+    if(filtered.length===0){list.innerHTML='<div class="empty-state"><span class="empty-icon">🍽️</span><div class="empty-title">Aucune recette ici</div><div class="empty-text">Ajoute ta première recette !</div></div>';return;}list.innerHTML=filtered.map(r=>`<div class="recipe-card" onclick="openRecipeDetail(${r.id})"><div class="recipe-img">${r.photo?`<img src="${r.photo}" onerror="this.parentElement.innerHTML='🍽️'">`:'🍽️'}</div><div class="recipe-body"><div style="display:flex;align-items:flex-start;justify-content:space-between;gap:8px"><div class="recipe-title">${r.title}</div><div style="display:flex;gap:4px"><button class="icon-btn" onclick="event.stopPropagation();openRecipeModal(${r.id})">✏️</button><button class="icon-btn del" onclick="event.stopPropagation();deleteRecipe(${r.id})">✕</button></div></div><div class="recipe-meta">${r.time?`<span style="font-size:12px;color:var(--color-text-secondary)">⏱ ${r.time} min</span>`:''}${r.grade?`<div class="grade-badge grade-${r.grade}">${r.grade}</div>`:''}${(r.tags||[]).slice(0,2).map(t=>`<span class="tag-pill">${t}</span>`).join('')}</div></div></div>`).join('');}
   function openRecipeDetail(id){const r=recipes.find(x=>x.id===id);if(!r)return;openDetailRecipeId=id;const iw=document.getElementById('detail-img-wrap');iw.innerHTML=r.photo?`<img src="${r.photo}" onerror="this.parentElement.innerHTML='🍽️'" style="width:100%;height:100%;object-fit:cover">`:'🍽️';document.getElementById('rd-title').textContent=r.title;document.getElementById('rd-time').textContent=r.time?'⏱ '+r.time+' min':'';document.getElementById('rd-cat').textContent=r.category;document.getElementById('rd-grade-wrap').innerHTML=r.grade?`<div class="grade-badge grade-${r.grade}" style="width:26px;height:26px;font-size:13px">${r.grade}</div>`:'';document.getElementById('rd-tags').innerHTML=(r.tags||[]).map(t=>`<span class="tag-pill">${t}</span>`).join('');const hn=r.cal||r.prot||r.carb||r.fat||r.sugar;const ns=document.getElementById('rd-nutri-section');if(hn){ns.style.display='';document.getElementById('rd-nutri').innerHTML=[['Calories','kcal',r.cal],['Protéines','g',r.prot],['Glucides','g',r.carb],['Lipides','g',r.fat],['Sucres','g',r.sugar]].filter(n=>n[2]).map(n=>`<div class="nutri-card"><div class="nutri-val">${n[2]}<span style="font-size:10px"> ${n[1]}</span></div><div class="nutri-label">${n[0]}</div></div>`).join('');}else ns.style.display='none';const is_=document.getElementById('rd-ingredients-section');if((r.ingredients||[]).length){is_.style.display='';document.getElementById('rd-ingredients').innerHTML=r.ingredients.map(i=>`<div class="ingredient-item">• ${i}</div>`).join('');}else is_.style.display='none';const ss=document.getElementById('rd-steps-section');if((r.steps||[]).length){ss.style.display='';document.getElementById('rd-steps').innerHTML=r.steps.map((s,i)=>`<div class="step-item"><div class="step-num">${i+1}</div><div class="step-text">${s}</div></div>`).join('');}else ss.style.display='none';document.getElementById('recipe-detail').style.display='flex';}
   function closeRecipeDetail(){document.getElementById('recipe-detail').style.display='none';openDetailRecipeId=null;}
   function editCurrentRecipe(){if(!openDetailRecipeId)return;const id=openDetailRecipeId;document.getElementById('recipe-detail').style.display='none';openRecipeModal(id);}
 
   // ── EXERCISES ──
   function muscleChips(muscles){return(muscles||[]).map(m=>`<span class="muscle-chip m-${m}">${MUSCLE_LABELS[m]||m}</span>`).join('');}
-  function renderMuscleGrid(gid,arr){document.getElementById(gid).innerHTML=MUSCLES.map(m=>`<div class="muscle-toggle${arr.includes(m)?' selected':''}" onclick="toggleMuscleIn('${gid}','${m}')">${MUSCLE_LABELS[m]}</div>`).join('');}
+  function renderMuscleGrid(gid, arr) {
+    document.getElementById(gid).innerHTML = MUSCLES.map(m => {
+      const isCustom = !DEFAULT_MUSCLES.includes(m);
+      const delBtn = isCustom ? `<span onclick="event.stopPropagation();removeCustomMuscle('${m}')" style="margin-left:4px;opacity:0.5;font-size:10px;line-height:1;">✕</span>` : '';
+      return `<div class="muscle-toggle${arr.includes(m)?' selected':''}" onclick="toggleMuscleIn('${gid}','${m}')">${MUSCLE_LABELS[m]}${delBtn}</div>`;
+    }).join('');
+  }
+  function removeCustomMuscle(key) {
+    MUSCLES = MUSCLES.filter(m => m !== key);
+    delete MUSCLE_LABELS[key];
+    saveMuscles();
+    renderMuscleGrid('muscle-grid', selectedMuscles);
+  }
   function toggleMuscleIn(gid,m){const arr=gid==='muscle-grid'?selectedMuscles:durSelectedMuscles;const idx=arr.indexOf(m);if(idx!==-1)arr.splice(idx,1);else arr.push(m);renderMuscleGrid(gid,arr);}
-  function openExerciseModal(id){editingExId=id;selectedMuscles=[];if(id!==null){const e=exercises.find(x=>x.id===id);if(!e)return;document.getElementById('ex-modal-title').textContent='Modifier l\'exercice';document.getElementById('ex-name').value=e.name;document.getElementById('ex-reps').value=e.reps||'';document.getElementById('ex-sets').value=e.sets||'';document.getElementById('ex-weight').value=e.weight||'';document.getElementById('ex-rest').value=e.rest||'';selectedMuscles=[...(e.muscles||[])];}else{document.getElementById('ex-modal-title').textContent='Nouvel exercice';['ex-name','ex-reps','ex-sets','ex-weight','ex-rest'].forEach(i=>document.getElementById(i).value='');}renderMuscleGrid('muscle-grid',selectedMuscles);document.getElementById('exercise-modal').style.display='flex';}
-  function closeExerciseModal(){document.getElementById('exercise-modal').style.display='none';}
-  function saveExercise(){const name=document.getElementById('ex-name').value.trim();if(!name)return;const data={id:editingExId||Date.now(),type:'classic',name,muscles:[...selectedMuscles],reps:document.getElementById('ex-reps').value,sets:document.getElementById('ex-sets').value,weight:document.getElementById('ex-weight').value,rest:document.getElementById('ex-rest').value};if(editingExId){const idx=exercises.findIndex(e=>e.id===editingExId);if(idx!==-1)exercises[idx]=data;}else exercises.push(data);closeExerciseModal();renderExercises();save();}
-  function openDurationModal(id){editingExId=id;durSelectedMuscles=[];if(id!==null){const e=exercises.find(x=>x.id===id);if(!e)return;document.getElementById('dur-modal-title').textContent='Modifier l\'exercice de durée';document.getElementById('dur-name').value=e.name;document.getElementById('dur-duration').value=e.duration||'';document.getElementById('dur-weight').value=e.weight||'';durSelectedMuscles=[...(e.muscles||[])];}else{document.getElementById('dur-modal-title').textContent='Nouvel exercice de durée';['dur-name','dur-duration','dur-weight'].forEach(i=>document.getElementById(i).value='');}renderMuscleGrid('dur-muscle-grid',durSelectedMuscles);document.getElementById('duration-modal').style.display='flex';}
-  function closeDurationModal(){document.getElementById('duration-modal').style.display='none';}
-  function saveDurationExercise(){const name=document.getElementById('dur-name').value.trim();if(!name)return;const data={id:editingExId||Date.now(),type:'duration',name,muscles:[...durSelectedMuscles],duration:document.getElementById('dur-duration').value,weight:document.getElementById('dur-weight').value};if(editingExId){const idx=exercises.findIndex(e=>e.id===editingExId);if(idx!==-1)exercises[idx]=data;}else exercises.push(data);closeDurationModal();renderExercises();save();}
-  function editExercise(id){const e=exercises.find(x=>x.id===id);if(!e)return;if(e.type==='duration')openDurationModal(id);else openExerciseModal(id);}
+  function clampTime(el, max) {
+    let v = parseInt(el.value);
+    if (isNaN(v) || v < 0) el.value = '';
+    else if (v > max) el.value = max;
+  }
+
+  function fmtTime(totalSec) {
+    if (!totalSec) return '';
+    const h = Math.floor(totalSec / 3600);
+    const m = Math.floor((totalSec % 3600) / 60);
+    const s = totalSec % 60;
+    if (h) return `${h}h ${m ? m+'m' : ''} ${s ? s+'s' : ''}`.trim();
+    if (m) return `${m}m ${s ? s+'s' : ''}`.trim();
+    return `${s}s`;
+  }
+
+  // ── CUSTOM SETS ──
+  let exSets = []; // [{reps, duration, weight, rest}]
+
+  function timeToSec(h,m,s) { return (parseInt(h)||0)*3600+(parseInt(m)||0)*60+(parseInt(s)||0)||0; }
+  function secToHMS(t) { return [Math.floor(t/3600),Math.floor((t%3600)/60),t%60]; }
+
+  function addExSet(preset) {
+    const s = preset || {reps:'',duration:0,weight:'',rest:0};
+    exSets.push(s);
+    renderExSets();
+  }
+
+  function removeExSet(i) { exSets.splice(i,1); renderExSets(); }
+
+  function readExSet(i) {
+    exSets[i] = {
+      reps: document.getElementById('set-reps-'+i).value,
+      duration: timeToSec(document.getElementById('set-dur-h-'+i).value, document.getElementById('set-dur-m-'+i).value, document.getElementById('set-dur-s-'+i).value),
+      weight: document.getElementById('set-weight-'+i).value,
+      rest: timeToSec(document.getElementById('set-rest-h-'+i).value, document.getElementById('set-rest-m-'+i).value, document.getElementById('set-rest-s-'+i).value),
+    };
+  }
+
+  function renderExSets() {
+    const list = document.getElementById('ex-sets-list'); if(!list) return;
+    list.innerHTML = exSets.map((s,i) => {
+      const [dh,dm,ds] = secToHMS(s.duration||0);
+      const [rh,rm,rs] = secToHMS(s.rest||0);
+      return `<div style="display:grid;grid-template-columns:20px 1fr 1fr 1fr 1fr 24px;gap:4px;align-items:center;">
+        <span style="font-size:11px;font-weight:700;color:var(--color-text-secondary);text-align:center;">${i+1}</span>
+        <input type="number" id="set-reps-${i}" value="${s.reps||''}" placeholder="—" min="0" oninput="readExSet(${i})" style="padding:5px 3px;border:1px solid var(--color-border-secondary);border-radius:6px;font-size:12px;font-weight:600;text-align:center;background:var(--color-background-secondary);color:var(--color-text-primary);outline:none;width:100%;box-sizing:border-box;" />
+        <div style="display:flex;align-items:center;background:var(--color-background-secondary);border:1px solid var(--color-border-secondary);border-radius:6px;overflow:hidden;">
+          <input type="number" id="set-dur-h-${i}" value="${dh||''}" placeholder="00" min="0" max="23" oninput="clampTime(this,23);readExSet(${i})" style="padding:5px 2px;border:none;font-size:11px;font-weight:700;text-align:center;background:transparent;color:var(--color-text-primary);outline:none;-moz-appearance:textfield;width:100%;" />
+          <span style="font-size:11px;font-weight:700;color:var(--color-text-secondary);">:</span>
+          <input type="number" id="set-dur-m-${i}" value="${dm||''}" placeholder="00" min="0" max="59" oninput="clampTime(this,59);readExSet(${i})" style="padding:5px 2px;border:none;font-size:11px;font-weight:700;text-align:center;background:transparent;color:var(--color-text-primary);outline:none;-moz-appearance:textfield;width:100%;" />
+          <span style="font-size:11px;font-weight:700;color:var(--color-text-secondary);">:</span>
+          <input type="number" id="set-dur-s-${i}" value="${ds||''}" placeholder="00" min="0" max="59" oninput="clampTime(this,59);readExSet(${i})" style="padding:5px 2px;border:none;font-size:11px;font-weight:700;text-align:center;background:transparent;color:var(--color-text-primary);outline:none;-moz-appearance:textfield;width:100%;" />
+        </div>
+        <input type="number" id="set-weight-${i}" value="${s.weight||''}" placeholder="—" min="0" step="0.5" oninput="readExSet(${i})" style="padding:5px 3px;border:1px solid var(--color-border-secondary);border-radius:6px;font-size:12px;font-weight:600;text-align:center;background:var(--color-background-secondary);color:var(--color-text-primary);outline:none;width:100%;box-sizing:border-box;" />
+        <div style="display:flex;align-items:center;background:var(--color-background-secondary);border:1px solid var(--color-border-secondary);border-radius:6px;overflow:hidden;">
+          <input type="number" id="set-rest-h-${i}" value="${rh||''}" placeholder="00" min="0" max="23" oninput="clampTime(this,23);readExSet(${i})" style="padding:5px 2px;border:none;font-size:11px;font-weight:700;text-align:center;background:transparent;color:var(--color-text-primary);outline:none;-moz-appearance:textfield;width:100%;" />
+          <span style="font-size:11px;font-weight:700;color:var(--color-text-secondary);">:</span>
+          <input type="number" id="set-rest-m-${i}" value="${rm||''}" placeholder="00" min="0" max="59" oninput="clampTime(this,59);readExSet(${i})" style="padding:5px 2px;border:none;font-size:11px;font-weight:700;text-align:center;background:transparent;color:var(--color-text-primary);outline:none;-moz-appearance:textfield;width:100%;" />
+          <span style="font-size:11px;font-weight:700;color:var(--color-text-secondary);">:</span>
+          <input type="number" id="set-rest-s-${i}" value="${rs||''}" placeholder="00" min="0" max="59" oninput="clampTime(this,59);readExSet(${i})" style="padding:5px 2px;border:none;font-size:11px;font-weight:700;text-align:center;background:transparent;color:var(--color-text-primary);outline:none;-moz-appearance:textfield;width:100%;" />
+        </div>
+        <button onclick="removeExSet(${i})" style="background:none;border:none;color:#E24B4A;font-size:14px;cursor:pointer;padding:0;line-height:1;">✕</button>
+      </div>`;
+    }).join('');
+  }
+
+  function openExerciseModal(id) {
+    editingExId = id;
+    selectedMuscles = [];
+    exSets = [];
+    if (id !== null) {
+      const e = exercises.find(x => x.id === id); if (!e) return;
+      document.getElementById('ex-modal-title').textContent = "Modifier l'exercice";
+      document.getElementById('ex-name').value = e.name;
+      selectedMuscles = [...(e.muscles || [])];
+      exSets = (e.sets && Array.isArray(e.sets)) ? JSON.parse(JSON.stringify(e.sets)) : [];
+      if (exSets.length === 0) addExSet();
+    } else {
+      document.getElementById('ex-modal-title').textContent = 'Nouvel exercice';
+      document.getElementById('ex-name').value = '';
+      addExSet();
+    }
+    renderMuscleGrid('muscle-grid', selectedMuscles);
+    renderExSets();
+    document.getElementById('exercise-modal').style.display = 'flex';
+  }
+
+  function closeExerciseModal() { document.getElementById('exercise-modal').style.display = 'none'; }
+
+  function saveExercise() {
+    const name = document.getElementById('ex-name').value.trim();
+    if (!name) {
+      const lbl = document.getElementById('ex-name-label');
+      lbl.style.color = '#E24B4A';
+      lbl.textContent = 'Nom — obligatoire';
+      document.getElementById('ex-name').style.borderColor = '#E24B4A';
+      document.getElementById('ex-name').focus();
+      return;
+    }
+    document.getElementById('ex-name-label').style.color = '';
+    document.getElementById('ex-name-label').textContent = 'Nom';
+    document.getElementById('ex-name').style.borderColor = '';
+    // Sync all set inputs to exSets before saving
+    exSets.forEach((_,i) => { try { readExSet(i); } catch(e) {} });
+    const data = {
+      id: editingExId || Date.now(),
+      name, muscles: [...selectedMuscles],
+      sets: JSON.parse(JSON.stringify(exSets)),
+    };
+    if (editingExId) { const idx = exercises.findIndex(e => e.id === editingExId); if (idx !== -1) exercises[idx] = data; }
+    else exercises.push(data);
+    closeExerciseModal(); renderExercises(); save();
+  }
+
+  function editExercise(id) { const e = exercises.find(x => x.id === id); if (!e) return; openExerciseModal(id); }
   function deleteExercise(id){exercises=exercises.filter(e=>e.id!==id);routines.forEach(r=>{r.exerciseIds=r.exerciseIds.filter(eid=>eid!==id);});renderExercises();renderRoutines();save();}
-  function renderExercises(){const list=document.getElementById('exercises-list');if(exercises.length===0){list.innerHTML='<div class="empty-state"><span class="empty-icon">🏋️</span><div class="empty-title">Aucun exercice</div><div class="empty-text">Crée ton premier exercice !</div></div>';return;}list.innerHTML=exercises.map(e=>{const isD=e.type==='duration';const meta=isD?`${e.duration?e.duration+' min':''}${e.weight?' · '+e.weight+' kg':''}`:`${e.reps?e.reps+' reps':''}${e.sets?' × '+e.sets+' séries':''}${e.weight?' · '+e.weight+' kg':''}${e.rest?' · repos '+e.rest+'s':''}`;return`<div class="card"><div class="card-row"><div style="flex:1"><div style="margin-bottom:4px"><span class="type-badge ${isD?'type-duration':'type-classic'}">${isD?'Durée':'Classique'}</span></div><div class="card-title">${e.name}</div><div style="margin-top:5px;display:flex;flex-wrap:wrap;gap:3px">${muscleChips(e.muscles)}</div><div class="card-meta">${meta}</div></div><div class="card-actions"><button class="icon-btn" onclick="editExercise(${e.id})">✏️</button><button class="icon-btn del" onclick="deleteExercise(${e.id})">✕</button></div></div></div>`;}).join('');}
+  function renderExercises(){
+    const list=document.getElementById('exercises-list');
+    if(exercises.length===0){list.innerHTML='<div class="empty-state"><span class="empty-icon">🏋️</span><div class="empty-title">Aucun exercice</div><div class="empty-text">Crée ton premier exercice !</div></div>';return;}
+    list.innerHTML=exercises.map(e=>{
+      const sets = Array.isArray(e.sets) ? e.sets : [];
+      const setsHtml = sets.length ? sets.map((s,i) => {
+        const parts = [];
+        if(s.reps) parts.push(s.reps+' reps');
+        if(s.duration) parts.push('⏱ '+fmtTime(s.duration));
+        if(s.weight) parts.push(s.weight+' kg');
+        if(s.rest) parts.push('repos '+fmtTime(s.rest));
+        return `<div style="font-size:11px;color:var(--color-text-secondary);padding:2px 0;border-bottom:1px solid var(--color-border-tertiary);">
+          <span style="font-weight:700;color:#534AB7;margin-right:6px;">S${i+1}</span>${parts.join(' · ')||'—'}
+        </div>`;
+      }).join('') : '';
+      return`<div class="card"><div class="card-row"><div style="flex:1">
+        <div class="card-title">${e.name}</div>
+        <div style="margin-top:5px;display:flex;flex-wrap:wrap;gap:3px">${muscleChips(e.muscles)}</div>
+        ${sets.length?`<div style="margin-top:8px;">${setsHtml}<div style="font-size:11px;color:var(--color-text-secondary);margin-top:3px;font-weight:600;">${sets.length} série${sets.length>1?'s':''}</div></div>`:''}
+      </div><div class="card-actions"><button class="icon-btn" onclick="editExercise(${e.id})">✏️</button><button class="icon-btn del" onclick="deleteExercise(${e.id})">✕</button></div></div></div>`;
+    }).join('');
+  }
 
   // ── ROUTINES ──
   function openRoutineModal(id){editingRtId=id;selectedExIds=[];if(id!==null){const r=routines.find(x=>x.id===id);if(!r)return;document.getElementById('routine-modal-title').textContent='Modifier la routine';document.getElementById('rt-name').value=r.name;document.getElementById('rt-day').value=r.day||'';selectedExIds=[...r.exerciseIds];}else{document.getElementById('routine-modal-title').textContent='Nouvelle routine';document.getElementById('rt-name').value='';document.getElementById('rt-day').value='';}renderExPicker();document.getElementById('routine-modal').style.display='flex';}
   function closeRoutineModal(){document.getElementById('routine-modal').style.display='none';}
   function renderExPicker(){const picker=document.getElementById('ex-picker');if(exercises.length===0){picker.innerHTML='<div style="font-size:13px;color:var(--color-text-secondary);padding:8px">Aucun exercice créé. Va dans l\'onglet Exercices d\'abord.</div>';return;}picker.innerHTML=exercises.map(e=>{const sel=selectedExIds.includes(e.id);const isD=e.type==='duration';return`<div class="ex-pick-item${sel?' selected':''}" onclick="toggleExPick(${e.id})"><div class="ex-pick-check">${sel?'✓':''}</div><div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap"><span style="font-weight:600">${e.name}</span><span style="font-size:10px;padding:1px 6px;border-radius:10px;${isD?'background:#E1F5EE;color:#0F6E56':'background:#EEEDFE;color:#534AB7'}">${isD?'Durée':'Classique'}</span></div></div>`;}).join('');}
   function toggleExPick(id){if(selectedExIds.includes(id))selectedExIds=selectedExIds.filter(x=>x!==id);else selectedExIds.push(id);renderExPicker();}
-  function saveRoutine(){const name=document.getElementById('rt-name').value.trim();if(!name)return;const data={id:editingRtId||Date.now(),name,day:document.getElementById('rt-day').value,exerciseIds:[...selectedExIds]};if(editingRtId){const idx=routines.findIndex(r=>r.id===editingRtId);if(idx!==-1)routines[idx]=data;}else routines.push(data);updateCounts();closeRoutineModal();renderRoutines();save();}
+  function saveRoutine(){
+    const name=document.getElementById('rt-name').value.trim();
+    if(!name){
+      const lbl=document.getElementById('rt-name-label');
+      lbl.style.color='#E24B4A'; lbl.textContent='Nom — obligatoire';
+      document.getElementById('rt-name').style.borderColor='#E24B4A';
+      document.getElementById('rt-name').focus();
+      return;
+    }
+    document.getElementById('rt-name-label').style.color=''; document.getElementById('rt-name-label').textContent='Nom';
+    document.getElementById('rt-name').style.borderColor='';const data={id:editingRtId||Date.now(),name,day:document.getElementById('rt-day').value,exerciseIds:[...selectedExIds]};if(editingRtId){const idx=routines.findIndex(r=>r.id===editingRtId);if(idx!==-1)routines[idx]=data;}else routines.push(data);updateCounts();closeRoutineModal();renderRoutines();save();}
   function deleteRoutine(id){routines=routines.filter(r=>r.id!==id);updateCounts();renderRoutines();save();}
-  function renderRoutines(){const list=document.getElementById('routines-list');if(routines.length===0){list.innerHTML='<div class="empty-state"><span class="empty-icon">📋</span><div class="empty-title">Aucune routine</div><div class="empty-text">Crée d\'abord des exercices, puis une routine !</div></div>';return;}list.innerHTML=routines.map(r=>{const exs=r.exerciseIds.map(id=>exercises.find(e=>e.id===id)).filter(Boolean);return`<div class="routine-card"><div class="routine-header"><div><div class="routine-name">${r.name}</div>${r.day?`<div class="routine-day">${r.day}</div>`:''}</div><div style="display:flex;gap:6px"><button class="icon-btn" style="color:#AFA9EC" onclick="openRoutineModal(${r.id})">✏️</button><button class="icon-btn del" style="color:#AFA9EC" onclick="deleteRoutine(${r.id})">✕</button></div></div><div class="routine-body"><div style="font-size:13px;color:var(--color-text-secondary)">${exs.length} exercice${exs.length!==1?'s':''}</div><div style="margin-top:6px;display:flex;flex-direction:column;gap:3px">${exs.slice(0,3).map(e=>`<div style="font-size:12px;color:var(--color-text-primary)">· ${e.name} ${e.type==='duration'?'('+e.duration+' min)':e.reps&&e.sets?'— '+e.reps+' reps × '+e.sets:''}</div>`).join('')}${exs.length>3?`<div style="font-size:12px;color:var(--color-text-secondary)">+ ${exs.length-3} de plus...</div>`:''}</div><button class="start-btn" onclick="startWorkout(${r.id})">▶ Démarrer la séance</button></div></div>`;}).join('');}
+  function renderRoutines(){const list=document.getElementById('routines-list');if(routines.length===0){list.innerHTML='<div class="empty-state"><span class="empty-icon">📋</span><div class="empty-title">Aucune routine</div><div class="empty-text">Crée d\'abord des exercices, puis une routine !</div></div>';return;}list.innerHTML=routines.map(r=>{const exs=r.exerciseIds.map(id=>exercises.find(e=>e.id===id)).filter(Boolean);return`<div class="routine-card"><div class="routine-header"><div><div class="routine-name">${r.name}</div>${r.day?`<div class="routine-day">${r.day}</div>`:''}</div><div style="display:flex;gap:6px"><button class="icon-btn" style="color:#AFA9EC" onclick="openRoutineModal(${r.id})">✏️</button><button class="icon-btn del" style="color:#AFA9EC" onclick="deleteRoutine(${r.id})">✕</button></div></div><div class="routine-body"><div style="font-size:13px;color:var(--color-text-secondary)">${exs.length} exercice${exs.length!==1?'s':''}</div><div style="margin-top:6px;display:flex;flex-direction:column;gap:3px">${exs.slice(0,3).map(e=>{const sets=Array.isArray(e.sets)?e.sets:[];return`<div style="font-size:12px;color:var(--color-text-primary)">· ${e.name}${sets.length?' — '+sets.length+' série'+(sets.length>1?'s':''):''}</div>`;}).join('')}${exs.length>3?`<div style="font-size:12px;color:var(--color-text-secondary)">+ ${exs.length-3} de plus...</div>`:''}</div><button class="start-btn" onclick="startWorkout(${r.id})">▶ Démarrer la séance</button></div></div>`;}).join('');}
 
   // ── WORKOUT ──
-  function startWorkout(rid){const r=routines.find(x=>x.id===rid);if(!r)return;currentWorkoutRoutineId=rid;workoutStartTime=Date.now();const exs=r.exerciseIds.map(id=>exercises.find(e=>e.id===id)).filter(Boolean);document.getElementById('workout-title').textContent=r.name;document.getElementById('workout-body').innerHTML=exs.map(e=>{if(e.type==='duration')return`<div class="workout-ex-card"><div class="workout-ex-name">${e.name}</div><div style="margin-bottom:10px;display:flex;flex-wrap:wrap;gap:4px">${muscleChips(e.muscles)}</div><div class="duration-info"><div class="duration-value">${e.duration||'—'} min</div><div class="duration-label">${e.weight?e.weight+' kg':'Sans poids'}</div></div></div>`;const sets=parseInt(e.sets)||3;const rows=Array.from({length:sets},(_,i)=>`<div class="sets-row"><div class="set-cell">${i+1}</div><div class="set-cell">${e.reps||'—'}</div><div class="set-cell">${e.weight?e.weight+' kg':'—'}</div><div class="set-cell" id="set-status-${e.id}-${i}">—</div></div>`).join('');return`<div class="workout-ex-card"><div class="workout-ex-name">${e.name}</div><div style="margin-bottom:10px;display:flex;flex-wrap:wrap;gap:4px">${muscleChips(e.muscles)}</div><div class="sets-grid"><div>Série</div><div>Reps</div><div>Poids</div><div>Fait</div></div>${rows}<button class="set-done-btn" onclick="markNextSet(${e.id},${sets},${parseInt(e.rest)||90})">✓ Série suivante</button></div>`;}).join('');Object.keys(exSetCounters).forEach(k=>delete exSetCounters[k]);resetTimer();document.getElementById('workout-overlay').style.display='flex';}
+  function startWorkout(rid){
+    const r=routines.find(x=>x.id===rid);if(!r)return;
+    currentWorkoutRoutineId=rid;workoutStartTime=Date.now();
+    const exs=r.exerciseIds.map(id=>exercises.find(e=>e.id===id)).filter(Boolean);
+    document.getElementById('workout-title').textContent=r.name;
+    document.getElementById('workout-body').innerHTML=exs.map(e=>{
+      const sets=Array.isArray(e.sets)&&e.sets.length?e.sets:[{reps:'',duration:0,weight:'',rest:0}];
+      const rows=sets.map((s,i)=>{
+        const restSec=s.rest||0;
+        return`<div class="sets-row">
+          <div class="set-cell">${i+1}</div>
+          <div class="set-cell">${s.reps||'—'}</div>
+          <div class="set-cell">${s.duration?fmtTime(s.duration):'—'}</div>
+          <div class="set-cell">${s.weight?s.weight+' kg':'—'}</div>
+          <div class="set-cell" id="set-status-${e.id}-${i}">—</div>
+        </div>`;
+      }).join('');
+      const firstRest=sets[0]?sets[0].rest||90:90;
+      return`<div class="workout-ex-card">
+        <div class="workout-ex-name">${e.name}</div>
+        <div style="margin-bottom:10px;display:flex;flex-wrap:wrap;gap:4px">${muscleChips(e.muscles)}</div>
+        <div class="sets-grid"><div>Série</div><div>Reps</div><div>Durée</div><div>Poids</div><div>Fait</div></div>
+        ${rows}
+        <button class="set-done-btn" onclick="markNextSet(${e.id},${sets.length},${firstRest})">✓ Série suivante</button>
+      </div>`;
+    }).join('');
+    Object.keys(exSetCounters).forEach(k=>delete exSetCounters[k]);
+    resetTimer();
+    document.getElementById('workout-overlay').style.display='flex';
+  }
 
   function finishWorkout(){
     const r=routines.find(x=>x.id===currentWorkoutRoutineId);
@@ -1140,7 +2094,24 @@
   function updateTimerDisplay(){const m=Math.floor(timerSeconds/60),s=timerSeconds%60;document.getElementById('timer-display').textContent=String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');}
   function closeWorkout(){clearInterval(timerInterval);timerRunning=false;Object.keys(exSetCounters).forEach(k=>delete exSetCounters[k]);document.getElementById('workout-overlay').style.display='none';}
 
+  // ── DARK MODE ──
+  let darkMode = localStorage.getItem('flowshit-dark') === 'true';
+
+  function applyDarkMode() {
+    document.getElementById('app').classList.toggle('dark', darkMode);
+    const tog = document.getElementById('dark-mode-toggle');
+    if (tog) tog.classList.toggle('on', darkMode);
+  }
+
+  function toggleDarkMode() {
+    darkMode = !darkMode;
+    localStorage.setItem('flowshit-dark', darkMode);
+    applyDarkMode();
+  }
+
   // ── NOTES ──
+  let openDetailNoteId = null, pendingDeleteNoteId = null;
+
   function openNoteModal(id) {
     editingNoteId = id;
     if (id !== null) {
@@ -1156,6 +2127,89 @@
     document.getElementById('note-modal').style.display = 'flex';
   }
   function closeNoteModal() { document.getElementById('note-modal').style.display = 'none'; }
+
+  function openNoteDetail(id) {
+    const n = notes.find(x => x.id === id); if (!n) return;
+    openDetailNoteId = id;
+    document.getElementById('nd-title').textContent = n.title;
+    document.getElementById('nd-date').textContent = n.date;
+    document.getElementById('nd-content').textContent = n.content || '';
+    document.getElementById('note-detail').style.display = 'flex';
+  }
+  function closeNoteDetail() { document.getElementById('note-detail').style.display = 'none'; openDetailNoteId = null; cancelInlineEdit(); }
+  function editCurrentNote() {
+    const id = openDetailNoteId;
+    closeNoteDetail();
+    openNoteModal(id);
+  }
+  function deleteCurrentNote() { if (!openDetailNoteId) return; deleteNote(openDetailNoteId); }
+  function toggleInlineEdit() {
+    const n = notes.find(x => x.id === openDetailNoteId); if (!n) return;
+    document.getElementById('nd-edit-title').value = n.title;
+    document.getElementById('nd-edit-content').value = n.content;
+    document.getElementById('nd-read-view').style.display = 'none';
+    document.getElementById('nd-edit-view').style.display = 'flex';
+    document.getElementById('nd-footer-read').style.display = 'none';
+    document.getElementById('nd-footer-edit').style.display = 'flex';
+    document.getElementById('nd-edit-btn').textContent = '👁️';
+    document.getElementById('nd-back-btn').style.pointerEvents = 'none';
+    document.getElementById('nd-back-btn').style.opacity = '0.4';
+    document.getElementById('nd-edit-content').focus();
+  }
+  function cancelInlineEdit() {
+    document.getElementById('nd-read-view').style.display = '';
+    document.getElementById('nd-edit-view').style.display = 'none';
+    document.getElementById('nd-footer-read').style.display = 'flex';
+    document.getElementById('nd-footer-edit').style.display = 'none';
+    const btn = document.getElementById('nd-edit-btn'); if (btn) btn.textContent = '✏️';
+    const back = document.getElementById('nd-back-btn'); if (back) { back.style.pointerEvents = ''; back.style.opacity = ''; }
+  }
+  function saveInlineEdit() {
+    if (!openDetailNoteId) return;
+    const title = document.getElementById('nd-edit-title').value.trim() || 'Sans titre';
+    const content = document.getElementById('nd-edit-content').value.trim();
+    const idx = notes.findIndex(n => n.id === openDetailNoteId);
+    if (idx !== -1) { notes[idx].title = title; notes[idx].content = content; }
+    // Refresh read view
+    document.getElementById('nd-title').textContent = title;
+    document.getElementById('nd-content').textContent = content;
+    cancelInlineEdit();
+    renderNotes(); save();
+    showToast('✅ Note enregistrée !');
+  }
+
+  function shareCurrentNote() {
+    if (!openDetailNoteId) return;
+    const n = notes.find(x => x.id === openDetailNoteId); if (!n) return;
+    const text = n.title + '\n\n' + n.content;
+    if (navigator.share) {
+      navigator.share({ title: n.title, text: text }).catch(() => copyNoteToClipboard(text));
+    } else {
+      copyNoteToClipboard(text);
+    }
+  }
+  function copyNoteToClipboard(text) {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(() => showToast('✅ Copié dans le presse-papiers !')).catch(() => fallbackCopy(text));
+    } else {
+      fallbackCopy(text);
+    }
+  }
+  function fallbackCopy(text) {
+    const ta = document.createElement('textarea');
+    ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta); ta.focus(); ta.select();
+    try { document.execCommand('copy'); showToast('✅ Copié dans le presse-papiers !'); }
+    catch { showToast('❌ Impossible de copier'); }
+    document.body.removeChild(ta);
+  }
+  function showToast(msg) {
+    let t = document.getElementById('share-toast');
+    if (!t) { t = document.createElement('div'); t.id = 'share-toast'; t.style.cssText='position:fixed;bottom:100px;left:50%;transform:translateX(-50%);background:#1a1728;color:white;padding:10px 20px;border-radius:20px;font-size:13px;font-weight:600;z-index:9999;transition:opacity 0.3s;'; document.body.appendChild(t); }
+    t.textContent = msg; t.style.opacity = '1';
+    setTimeout(() => t.style.opacity = '0', 2500);
+  }
+
   function saveNote() {
     const title = document.getElementById('note-title-input').value.trim() || 'Sans titre';
     const content = document.getElementById('note-content-input').value.trim();
@@ -1166,19 +2220,29 @@
     else notes.unshift(data);
     closeNoteModal(); renderNotes(); save();
   }
-  function deleteNote(id) { notes = notes.filter(n => n.id !== id); renderNotes(); save(); }
+  function deleteNote(id) { pendingDeleteNoteId = id; document.getElementById('note-delete-confirm').style.display = 'flex'; }
+  function cancelDeleteNote() { pendingDeleteNoteId = null; document.getElementById('note-delete-confirm').style.display = 'none'; }
+  function confirmDeleteNote() {
+    if (!pendingDeleteNoteId) return;
+    notes = notes.filter(n => n.id !== pendingDeleteNoteId);
+    pendingDeleteNoteId = null;
+    document.getElementById('note-delete-confirm').style.display = 'none';
+    closeNoteDetail();
+    renderNotes(); save();
+  }
+
   function renderNotes() {
     const list = document.getElementById('notes-list'); if (!list) return;
     if (notes.length === 0) { list.innerHTML = '<div class="empty-state"><span class="empty-icon">📝</span><div class="empty-title">Aucune note</div><div class="empty-text">Crée ta première note !</div></div>'; return; }
     list.innerHTML = notes.map(n => `
-      <div class="card" style="margin-bottom:10px">
+      <div class="card" style="margin-bottom:10px;cursor:pointer;" onclick="openNoteDetail(${n.id})">
         <div class="card-row">
           <div style="flex:1;min-width:0">
             <div style="font-size:10px;color:var(--color-text-secondary);margin-bottom:4px">${n.date}</div>
             <div class="card-title" style="margin-bottom:6px">${n.title}</div>
             ${n.content ? `<div style="font-size:13px;color:var(--color-text-secondary);line-height:1.5;white-space:pre-wrap;overflow:hidden;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;">${n.content}</div>` : ''}
           </div>
-          <div class="card-actions">
+          <div class="card-actions" onclick="event.stopPropagation()">
             <button class="icon-btn" onclick="openNoteModal(${n.id})">✏️</button>
             <button class="icon-btn del" onclick="deleteNote(${n.id})">✕</button>
           </div>
@@ -1212,6 +2276,57 @@
     if (fromUnit === toUnit) return val;
     return fromUnit === 'kg' ? +(val * 2.20462).toFixed(1) : +(val / 2.20462).toFixed(1);
   }
+  let imcSex = 'M';
+
+  function setImcSex(sex) {
+    imcSex = sex;
+    document.getElementById('imc-sex-m').classList.toggle('active', sex === 'M');
+    document.getElementById('imc-sex-f').classList.toggle('active', sex === 'F');
+    calcIMC();
+  }
+
+  function calcIMC() {
+    const h = parseFloat(document.getElementById('imc-height').value);
+    const w = parseFloat(document.getElementById('imc-weight').value);
+    const res = document.getElementById('imc-result');
+    if (!h || !w || h < 50 || w < 10) { res.style.display = 'none'; return; }
+    const imc = w / ((h / 100) ** 2);
+    const val = imc.toFixed(1);
+    let label, color, bg, range;
+
+    // WHO thresholds are same M/F, but normal range upper limit differs slightly
+    // F: normal up to 24, M: normal up to 25 (French HAS guidelines)
+    const normalTop = imcSex === 'F' ? 24 : 25;
+
+    if (imc < 16.5)             { label='Dénutrition';       color='#A32D2D'; bg='#FCEBEB'; range='< 16.5'; }
+    else if (imc < 18.5)        { label='Maigreur';          color='#D85A30'; bg='#FAEEDA'; range='16.5 – 18.5'; }
+    else if (imc < normalTop)   { label='Poids normal ✓';   color='#3B6D11'; bg='#EAF3DE'; range=`18.5 – ${normalTop}`; }
+    else if (imc < 30)          { label='Surpoids';          color='#BA7517'; bg='#FFF3DC'; range=`${normalTop} – 30`; }
+    else if (imc < 35)          { label='Obésité modérée';   color='#D85A30'; bg='#FAEEDA'; range='30 – 35'; }
+    else if (imc < 40)          { label='Obésité sévère';    color='#A32D2D'; bg='#FCEBEB'; range='35 – 40'; }
+    else                        { label='Obésité morbide';   color='#501313'; bg='#FCEBEB'; range='> 40'; }
+
+    // Ideal weight range (Lorentz formula, sex-adjusted)
+    const hm = h / 100;
+    let idealMin, idealMax;
+    if (imcSex === 'M') {
+      idealMin = (18.5 * hm * hm).toFixed(1);
+      idealMax = (25   * hm * hm).toFixed(1);
+    } else {
+      idealMin = (18.5 * hm * hm).toFixed(1);
+      idealMax = (24   * hm * hm).toFixed(1);
+    }
+
+    document.getElementById('imc-value').textContent = val;
+    document.getElementById('imc-value').style.color = color;
+    document.getElementById('imc-label').textContent = label;
+    document.getElementById('imc-label').style.color = color;
+    document.getElementById('imc-range').textContent = 'Plage IMC : ' + range;
+    document.getElementById('imc-ideal').textContent = `Poids idéal : ${idealMin} – ${idealMax} kg`;
+    res.style.background = bg;
+    res.style.display = '';
+  }
+
   function renderWeightLog() {
     const list = document.getElementById('weight-list'); if (!list) return;
     if (weightLog.length === 0) { list.innerHTML = '<div class="empty-state"><span class="empty-icon">⚖️</span><div class="empty-title">Aucune entrée</div><div class="empty-text">Ajoute ton premier pesée !</div></div>'; return; }
@@ -1288,12 +2403,274 @@
     });
   }
 
+  // ── URGENCES ──
+  const URGENCES_DATA = {
+    main: [
+      {num:'15',  label:'SAMU / SMUR',          desc:'Urgences médicales',              icon:'🚑', color:'#E24B4A', bg:'#FCEBEB'},
+      {num:'17',  label:'Police / Gendarmerie',  desc:'Urgences sécurité',              icon:'👮', color:'#185FA5', bg:'#E6F1FB'},
+      {num:'18',  label:'Pompiers',              desc:'Incendie & accidents',            icon:'🚒', color:'#D85A30', bg:'#FAEEDA'},
+      {num:'112', label:'Numéro européen',       desc:'Toutes urgences en Europe',       icon:'🌍', color:'#534AB7', bg:'#EEEDFE'},
+      {num:'114', label:'Urgences sourds/muets', desc:'SMS & visio pour malentendants',  icon:'🦻', color:'#534AB7', bg:'#EEEDFE'},
+    ],
+    vulnerable: [
+      {num:'3114',  label:'Prévention suicide',          desc:'Gratuit, 24h/24, 7j/7',            icon:'💚', color:'#0F6E56', bg:'#E1F5EE'},
+      {num:'119',   label:'Enfance en danger',           desc:'Signalement maltraitance',          icon:'👶', color:'#854F0B', bg:'#FAEEDA'},
+      {num:'3133',  label:'Maltraitance personnes âgées / handicapées', desc:'Gratuit, 7j/7 de 9h à 20h', icon:'👴', color:'#993556', bg:'#FBEAF0'},
+      {num:'3919',  label:'Violences conjugales',        desc:'Femmes victimes de violences',      icon:'🤝', color:'#993556', bg:'#FBEAF0'},
+      {num:'0800 23 13 13', label:'Drogues info service', desc:'Gratuit, 7j/7 de 8h à 2h', icon:'🆘', color:'#639922', bg:'#EAF3DE'},
+    ],
+    autres: [
+      {num:'196 / Canal 16',  label:'Secours en mer',        desc:'CROSS Maritime / Radio VHF',    icon:'⛵', color:'#185FA5', bg:'#E6F1FB'},
+      {num:'197',              label:'Alerte attentat',       desc:'Signalement menace terroriste', icon:'🚨', color:'#E24B4A', bg:'#FCEBEB'},
+      {num:'191',              label:'Secours aéronautique',  desc:'Urgences aériennes',            icon:'✈️', color:'#185FA5', bg:'#E6F1FB'},
+      {num:'15',               label:'Médecin de garde',      desc:'Hors heures ouvrables',         icon:'👨‍⚕️', color:'#E24B4A', bg:'#FCEBEB'},
+      {num:'01 45 42 59 59',   label:'Centre Antipoison',     desc:'Intoxications',                 icon:'☠️', color:'#0F6E56', bg:'#E1F5EE'},
+      {num:'112 / 18 / 114',   label:'Numéro national forêts',desc:'Signalement incendie forêt',   icon:'🌲', color:'#3B6D11', bg:'#EAF3DE'},
+    ],
+  };
+
+  function urgenceRow(e, isFirst, isLast) {
+    const radius = isFirst && isLast ? '12px' : isFirst ? '12px 12px 0 0' : isLast ? '0 0 12px 12px' : '0';
+    return `<a href="tel:${e.num.replace(/\s/g,'')}" style="display:flex;align-items:center;gap:12px;padding:14px 16px;${isLast ? '' : 'border-bottom:1px solid var(--color-border-tertiary);'}text-decoration:none;-webkit-tap-highlight-color:transparent;transition:background 0.15s;border-radius:${radius};" onmouseover="this.style.background='var(--color-background-secondary)'" onmouseout="this.style.background=''">
+      <div style="width:42px;height:42px;border-radius:12px;background:${e.bg};display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;">${e.icon}</div>
+      <div style="flex:1;min-width:0;">
+        <div style="font-size:14px;font-weight:600;color:var(--color-text-primary);">${e.label}</div>
+        <div style="font-size:12px;color:var(--color-text-secondary);margin-top:2px;">${e.desc}</div>
+      </div>
+      <div style="font-size:20px;font-weight:800;color:${e.color};letter-spacing:-0.5px;flex-shrink:0;">${e.num}</div>
+    </a>`;
+  }
+
+  function renderUrgences() {
+    ['main','vulnerable','autres'].forEach(key => {
+      const el = document.getElementById('urgences-'+key); if (!el) return;
+      const data = URGENCES_DATA[key];
+      el.innerHTML = data.map((e, i) => urgenceRow(e, i === 0, i === data.length - 1)).join('');
+    });
+  }
+
+  // ── CONVERTISSEUR ──
+  const CONV_CATS = [
+    { id:'longueur', label:'📏 Longueur', units:[
+      {id:'km',    label:'Kilomètre (km)',   toBase:1000},
+      {id:'m',     label:'Mètre (m)',        toBase:1},
+      {id:'cm',    label:'Centimètre (cm)',  toBase:0.01},
+      {id:'mm',    label:'Millimètre (mm)',  toBase:0.001},
+      {id:'mi',    label:'Mile (mi)',        toBase:1609.344},
+      {id:'yd',    label:'Yard (yd)',        toBase:0.9144},
+      {id:'ft',    label:'Pied (ft)',        toBase:0.3048},
+      {id:'in',    label:'Pouce (in)',       toBase:0.0254},
+      {id:'nm',    label:'Mille marin (nm)', toBase:1852},
+    ]},
+    { id:'poids', label:'⚖️ Poids', units:[
+      {id:'kg',  label:'Kilogramme (kg)', toBase:1},
+      {id:'g',   label:'Gramme (g)',      toBase:0.001},
+      {id:'mg',  label:'Milligramme (mg)',toBase:0.000001},
+      {id:'t',   label:'Tonne (t)',       toBase:1000},
+      {id:'lb',  label:'Livre (lb)',      toBase:0.453592},
+      {id:'oz',  label:'Once (oz)',       toBase:0.0283495},
+    ]},
+    { id:'temperature', label:'🌡️ Température', units:[
+      {id:'C', label:'Celsius (°C)'},
+      {id:'F', label:'Fahrenheit (°F)'},
+      {id:'K', label:'Kelvin (K)'},
+    ]},
+    { id:'volume', label:'🧪 Volume', units:[
+      {id:'L',    label:'Litre (L)',           toBase:1},
+      {id:'mL',   label:'Millilitre (mL)',      toBase:0.001},
+      {id:'cL',   label:'Centilitre (cL)',      toBase:0.01},
+      {id:'m3',   label:'Mètre cube (m³)',      toBase:1000},
+      {id:'gal',  label:'Gallon US (gal)',      toBase:3.78541},
+      {id:'gal_uk',label:'Gallon UK (gal)',     toBase:4.54609},
+      {id:'fl_oz',label:'Fl. once US (fl oz)',  toBase:0.0295735},
+      {id:'pt',   label:'Pinte US (pt)',        toBase:0.473176},
+    ]},
+    { id:'devises', label:'💰 Devises', units:[
+      {id:'EUR', label:'Euro (€)',           toBase:1},
+      {id:'USD', label:'Dollar US ($)',      toBase:0.92},
+      {id:'GBP', label:'Livre sterling (£)', toBase:1.17},
+      {id:'CHF', label:'Franc suisse (CHF)', toBase:1.04},
+      {id:'JPY', label:'Yen (¥)',            toBase:0.0061},
+      {id:'CAD', label:'Dollar CA (CAD)',    toBase:0.68},
+      {id:'AUD', label:'Dollar AU (AUD)',    toBase:0.59},
+      {id:'CNY', label:'Yuan (¥)',           toBase:0.13},
+      {id:'MAD', label:'Dirham (MAD)',       toBase:0.092},
+    ]},
+  ];
+
+  let convCatId = 'longueur';
+  let liveRates = null; // {rates:{USD:...,GBP:...}, fetchedAt: timestamp}
+
+  // ── LIVE RATES (frankfurter.app, ECB data) ──
+  const DEVISE_IDS = ['USD','GBP','CHF','JPY','CAD','AUD','CNY','MAD'];
+
+  async function fetchLiveRates() {
+    // Check cache (24h)
+    try {
+      const cached = localStorage.getItem('flowshit-rates');
+      if (cached) {
+        const parsed = JSON.parse(cached);
+        if (Date.now() - parsed.fetchedAt < 24 * 60 * 60 * 1000) {
+          liveRates = parsed;
+          applyLiveRates();
+          updateDeviseNote();
+          return;
+        }
+      }
+    } catch(e) {}
+
+    try {
+      updateDeviseNote('⏳ Chargement des taux...');
+      const res = await fetch(`https://api.frankfurter.app/latest?base=EUR&symbols=${DEVISE_IDS.join(',')}`);
+      const data = await res.json();
+      liveRates = { rates: data.rates, fetchedAt: Date.now(), date: data.date };
+      localStorage.setItem('flowshit-rates', JSON.stringify(liveRates));
+      applyLiveRates();
+      updateDeviseNote();
+      convert(); // refresh result if visible
+    } catch(e) {
+      updateDeviseNote('⚠️ Hors ligne — taux indicatifs utilisés');
+    }
+  }
+
+  function applyLiveRates() {
+    if (!liveRates) return;
+    const cat = CONV_CATS.find(c => c.id === 'devises');
+    cat.units.forEach(u => {
+      if (u.id === 'EUR') { u.toBase = 1; return; }
+      if (liveRates.rates[u.id]) u.toBase = 1 / liveRates.rates[u.id];
+    });
+  }
+
+  function updateDeviseNote(msg) {
+    const el = document.getElementById('conv-devise-note'); if (!el) return;
+    const isWeekend = [0,6].includes(new Date().getDay());
+    if (msg) { el.textContent = msg; el.style.display = ''; return; }
+    if (liveRates) {
+      const date = liveRates.date || '';
+      const weekendNote = isWeekend ? ' · Weekend : taux du vendredi' : '';
+      el.textContent = `✅ Taux BCE en direct · ${date}${weekendNote}`;
+      el.style.color = isWeekend ? '#854F0B' : '#0F6E56';
+    } else {
+      el.textContent = isWeekend
+        ? '⚠️ Weekend : marchés fermés — taux du vendredi dernier'
+        : '⚠️ Taux indicatifs — connexion requise pour les taux en direct';
+    }
+    el.style.display = '';
+  }
+
+  function convTemp(val, from, to) {
+    let c;
+    if (from==='C') c=val;
+    else if (from==='F') c=(val-32)*5/9;
+    else c=val-273.15;
+    if (to==='C') return c;
+    if (to==='F') return c*9/5+32;
+    return c+273.15;
+  }
+
+  function renderConvCats() {
+    const el = document.getElementById('conv-cats'); if (!el) return;
+    el.innerHTML = CONV_CATS.map(c =>
+      `<div class="cat-chip${c.id===convCatId?' active':''}" onclick="setConvCat('${c.id}')">${c.label}</div>`
+    ).join('');
+  }
+
+  function setConvCat(id) {
+    convCatId = id;
+    renderConvCats();
+    renderConvUnits();
+    document.getElementById('conv-input').value = '';
+    document.getElementById('conv-result').style.display = 'none';
+    const noteEl = document.getElementById('conv-devise-note');
+    if (id === 'devises') {
+      noteEl.style.display = '';
+      fetchLiveRates();
+    } else {
+      noteEl.style.display = 'none';
+    }
+    renderConvQuick();
+  }
+
+  function renderConvUnits() {
+    const cat = CONV_CATS.find(c => c.id === convCatId); if (!cat) return;
+    const fromEl = document.getElementById('conv-from');
+    const toEl = document.getElementById('conv-to');
+    const opts = cat.units.map(u => `<option value="${u.id}">${u.label}</option>`).join('');
+    fromEl.innerHTML = opts; toEl.innerHTML = opts;
+    // Default to second unit for "to"
+    if (cat.units.length > 1) toEl.value = cat.units[1].id;
+  }
+
+  function swapConvert() {
+    const f = document.getElementById('conv-from').value;
+    const t = document.getElementById('conv-to').value;
+    document.getElementById('conv-from').value = t;
+    document.getElementById('conv-to').value = f;
+    convert();
+  }
+
+  function convert() {
+    const val = parseFloat(document.getElementById('conv-input').value);
+    const from = document.getElementById('conv-from').value;
+    const to = document.getElementById('conv-to').value;
+    const resEl = document.getElementById('conv-result');
+    if (isNaN(val)) { resEl.style.display = 'none'; return; }
+    const cat = CONV_CATS.find(c => c.id === convCatId);
+    let result;
+    if (convCatId === 'temperature') {
+      result = convTemp(val, from, to);
+    } else {
+      const fromUnit = cat.units.find(u => u.id === from);
+      const toUnit   = cat.units.find(u => u.id === to);
+      result = (val * fromUnit.toBase) / toUnit.toBase;
+    }
+    const formatted = Math.abs(result) < 0.001 ? result.toExponential(4) : parseFloat(result.toFixed(6)).toString();
+    document.getElementById('conv-result-value').textContent = formatted + ' ' + to;
+    document.getElementById('conv-result-label').textContent = val + ' ' + from + ' = ' + formatted + ' ' + to;
+    resEl.style.display = '';
+  }
+
+  function renderConvQuick() {
+    const cat = CONV_CATS.find(c => c.id === convCatId); if (!cat) return;
+    const list = document.getElementById('conv-quick-list'); if (!list) return;
+    const quickMap = {
+      longueur:    [{f:'km',v:1,t:'mi'},{f:'m',v:1,t:'ft'},{f:'cm',v:1,t:'in'},{f:'mi',v:1,t:'km'},{f:'ft',v:1,t:'m'}],
+      poids:       [{f:'kg',v:1,t:'lb'},{f:'lb',v:1,t:'kg'},{f:'kg',v:100,t:'lb'},{f:'oz',v:1,t:'g'},{f:'t',v:1,t:'kg'}],
+      temperature: [{f:'C',v:0,t:'F'},{f:'C',v:100,t:'F'},{f:'F',v:32,t:'C'},{f:'C',v:37,t:'F'},{f:'K',v:273.15,t:'C'}],
+      volume:      [{f:'L',v:1,t:'gal'},{f:'gal',v:1,t:'L'},{f:'mL',v:250,t:'fl_oz'},{f:'L',v:1,t:'fl_oz'},{f:'cL',v:33,t:'mL'}],
+      devises:     [{f:'EUR',v:1,t:'USD'},{f:'USD',v:1,t:'EUR'},{f:'EUR',v:1,t:'GBP'},{f:'EUR',v:100,t:'USD'},{f:'GBP',v:1,t:'EUR'}],
+    };
+    const items = quickMap[convCatId] || [];
+    list.innerHTML = items.map(q => {
+      let res;
+      if (convCatId === 'temperature') {
+        res = convTemp(q.v, q.f, q.t);
+      } else {
+        const fromU = cat.units.find(u => u.id === q.f);
+        const toU   = cat.units.find(u => u.id === q.t);
+        res = (q.v * fromU.toBase) / toU.toBase;
+      }
+      const fmt = Math.abs(res) < 0.001 ? res.toExponential(3) : parseFloat(res.toFixed(4)).toString();
+      return `<div style="display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid var(--color-border-tertiary);">
+        <span style="font-size:13px;color:var(--color-text-secondary);">${q.v} ${q.f}</span>
+        <span style="font-size:13px;color:var(--color-text-secondary);">→</span>
+        <span style="font-size:13px;font-weight:700;color:var(--color-text-primary);">${fmt} ${q.t}</span>
+      </div>`;
+    }).join('');
+  }
+
+  function initConvertisseur() {
+    renderConvCats();
+    renderConvUnits();
+    renderConvQuick();
+  }
+
   // ── DATETIME ──
   function updateDateTime(){const now=new Date();const days=['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'];const months=['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'];document.getElementById('date-display').textContent=days[now.getDay()]+' '+now.getDate()+' '+months[now.getMonth()]+' '+now.getFullYear();}
 
   // ── INIT ──
-  document.getElementById('btn-new-classic').addEventListener('click',()=>openExerciseModal(null));
-  document.getElementById('btn-new-duration').addEventListener('click',()=>openDurationModal(null));
+  document.getElementById('btn-new-exercise').addEventListener('click',()=>openExerciseModal(null));
 
   function fixHeight() {
     document.documentElement.style.setProperty('--app-height', window.innerHeight + 'px');
@@ -1304,9 +2681,10 @@
 
   updateDateTime();
   setInterval(updateDateTime,30000);
+  applyDarkMode();
+  loadMuscles();
   load();
   loadWidgets();
-  // Sync weight unit toggle after DOM ready
   setTimeout(()=>setWeightUnit(weightUnit),0);
 </script>
 </body>
