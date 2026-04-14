@@ -2,6 +2,9 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
@@ -50,7 +53,7 @@
   body {
     display: flex;
     flex-direction: column;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
   }
 
   .app-shell {
@@ -66,109 +69,207 @@
 
   :root {
     --color-background-primary: #ffffff;
-    --color-background-secondary: #f0eff8;
+    --color-background-secondary: #f2f1fa;
     --color-background-tertiary: #e8e7f5;
-    --color-text-primary: #1a1a2e;
+    --color-text-primary: #12102a;
     --color-text-secondary: #6b6880;
-    --color-border-tertiary: rgba(0,0,0,0.08);
-    --color-border-secondary: rgba(0,0,0,0.15);
-    --color-app-shell: #f5f5f0;
-    --color-nav-bg: #ffffff;
+    --color-border-tertiary: rgba(83,74,183,0.09);
+    --color-border-secondary: rgba(83,74,183,0.18);
+    --color-app-shell: #f5f4fc;
+    --color-nav-bg: rgba(255,255,255,0.96);
     --color-header-bg: #534AB7;
-    --border-radius-md: 8px;
-    --border-radius-lg: 12px;
-    --border-radius-xl: 20px;
-    --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --color-accent: #534AB7;
+    --color-accent-light: #EEEDFE;
+    --color-accent-dim: #AFA9EC;
+    --border-radius-sm: 6px;
+    --border-radius-md: 10px;
+    --border-radius-lg: 16px;
+    --border-radius-xl: 22px;
+    --border-radius-pill: 100px;
+    --font-sans: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-display: 'Syne', 'DM Sans', sans-serif;
+    --shadow-card: 0 1px 3px rgba(83,74,183,0.07), 0 4px 12px rgba(83,74,183,0.05);
+    --shadow-modal: 0 -4px 32px rgba(18,16,42,0.14);
+    --shadow-nav: 0 -1px 0 rgba(83,74,183,0.08), 0 -4px 16px rgba(18,16,42,0.06);
   }
 
   .dark {
-    --color-background-primary: #1a1728;
-    --color-background-secondary: #231f35;
-    --color-background-tertiary: #2d2845;
+    --color-background-primary: #1c1830;
+    --color-background-secondary: #251f3d;
+    --color-background-tertiary: #2f2850;
     --color-text-primary: #ede9ff;
     --color-text-secondary: #9b96c0;
-    --color-border-tertiary: rgba(255,255,255,0.07);
-    --color-border-secondary: rgba(255,255,255,0.13);
-    --color-app-shell: #120f1e;
-    --color-nav-bg: #1a1728;
-    --color-header-bg: #3c3489;
+    --color-border-tertiary: rgba(255,255,255,0.06);
+    --color-border-secondary: rgba(255,255,255,0.12);
+    --color-app-shell: #130f24;
+    --color-nav-bg: rgba(28,24,48,0.97);
+    --color-header-bg: #3a3290;
+    --color-accent-light: #2a2550;
+    --shadow-card: 0 1px 4px rgba(0,0,0,0.25), 0 4px 16px rgba(0,0,0,0.2);
+    --shadow-nav: 0 -1px 0 rgba(255,255,255,0.06), 0 -4px 16px rgba(0,0,0,0.3);
   }
 
   * { transition: background-color 0.25s ease, border-color 0.25s ease, color 0.2s ease; }
 
-  .status-bar { background: var(--color-header-bg); color: #EEEDFE; padding: 12px 20px 8px; display: flex; justify-content: center; align-items: center; font-size: 12px; font-weight: 500; flex-shrink: 0; position: relative; }
-  .app-header { background: var(--color-header-bg); padding: 2px 20px 16px; text-align: center; flex-shrink: 0; }
-  .app-date { font-size: 13px; color: #AFA9EC; }
-  .screen { flex: 1; padding: 20px; display: none; flex-direction: column; gap: 16px; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+  .status-bar {
+    background: var(--color-header-bg);
+    color: rgba(238,237,254,0.85);
+    padding: 14px 20px 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    flex-shrink: 0;
+    position: relative;
+  }
+  .app-header {
+    background: var(--color-header-bg);
+    padding: 0px 20px 20px;
+    text-align: center;
+    flex-shrink: 0;
+    position: relative;
+  }
+  .app-header::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0; right: 0;
+    height: 1px;
+    background: rgba(255,255,255,0.08);
+  }
+  .app-date {
+    font-family: var(--font-display);
+    font-size: 14px;
+    color: rgba(238,237,254,0.65);
+    font-weight: 600;
+    letter-spacing: 0.01em;
+  }
+  .screen { flex: 1; padding: 18px 16px; display: none; flex-direction: column; gap: 14px; overflow-y: auto; -webkit-overflow-scrolling: touch; }
   .screen.active { display: flex; }
-  .screen-title { font-size: 18px; font-weight: 600; color: var(--color-text-primary); }
-  .screen-subtitle { font-size: 14px; color: var(--color-text-secondary); margin-top: 2px; }
-  .section-header { font-size: 12px; font-weight: 600; color: var(--color-text-secondary); text-transform: uppercase; letter-spacing: 0.07em; }
-  .add-btn { width: 100%; padding: 13px; background: #534AB7; color: #EEEDFE; border: none; border-radius: var(--border-radius-lg); font-size: 14px; font-weight: 600; cursor: pointer; transition: background 0.15s; -webkit-tap-highlight-color: transparent; }
-  .add-btn:hover, .add-btn:active { background: #3C3489; }
-  .add-btn-outline { width: 100%; padding: 12px; background: transparent; color: #534AB7; border: 1.5px solid #534AB7; border-radius: var(--border-radius-lg); font-size: 14px; font-weight: 600; cursor: pointer; transition: background 0.15s; -webkit-tap-highlight-color: transparent; }
-  .add-btn-outline:hover, .add-btn-outline:active { background: #EEEDFE; }
-  .tab-row { display: flex; border: 1px solid var(--color-border-secondary); border-radius: var(--border-radius-md); overflow: hidden; flex-shrink: 0; }
-  .tab-btn { flex: 1; padding: 9px; font-size: 13px; font-weight: 600; cursor: pointer; border: none; background: var(--color-background-secondary); color: var(--color-text-secondary); transition: all 0.15s; -webkit-tap-highlight-color: transparent; }
-  .tab-btn.active { background: #534AB7; color: #EEEDFE; }
-  .card { background: var(--color-background-primary); border: 1px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 14px 16px; margin-bottom: 10px; }
+  .screen-title { font-family: var(--font-display); font-size: 22px; font-weight: 800; color: var(--color-text-primary); letter-spacing: -0.02em; line-height: 1.1; }
+  .screen-subtitle { font-size: 13px; color: var(--color-text-secondary); margin-top: 3px; font-weight: 400; }
+  .section-header { font-size: 11px; font-weight: 700; color: var(--color-text-secondary); text-transform: uppercase; letter-spacing: 0.1em; padding-left: 2px; }
+  .add-btn { width: 100%; padding: 14px; background: var(--color-accent); color: #EEEDFE; border: none; border-radius: var(--border-radius-lg); font-size: 14px; font-weight: 700; cursor: pointer; transition: all 0.15s; -webkit-tap-highlight-color: transparent; letter-spacing: 0.01em; box-shadow: 0 2px 8px rgba(83,74,183,0.3); font-family: var(--font-sans); }
+  .add-btn:hover, .add-btn:active { background: #3C3489; box-shadow: 0 1px 4px rgba(83,74,183,0.2); transform: translateY(1px); }
+  .add-btn-outline { width: 100%; padding: 13px; background: transparent; color: var(--color-accent); border: 1.5px solid var(--color-accent); border-radius: var(--border-radius-lg); font-size: 14px; font-weight: 700; cursor: pointer; transition: background 0.15s; -webkit-tap-highlight-color: transparent; font-family: var(--font-sans); }
+  .add-btn-outline:hover, .add-btn-outline:active { background: var(--color-accent-light); }
+  .tab-row { display: flex; background: var(--color-background-secondary); border-radius: var(--border-radius-md); padding: 3px; gap: 3px; flex-shrink: 0; }
+  .tab-btn { flex: 1; padding: 8px; font-size: 13px; font-weight: 600; cursor: pointer; border: none; background: transparent; color: var(--color-text-secondary); transition: all 0.18s; -webkit-tap-highlight-color: transparent; border-radius: 7px; font-family: var(--font-sans); }
+  .tab-btn.active { background: #ffffff; color: var(--color-accent); box-shadow: 0 1px 4px rgba(83,74,183,0.15); }
+  .dark .tab-btn.active { background: var(--color-background-tertiary); }
+  .card { background: var(--color-background-primary); border: 1px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 14px 16px; margin-bottom: 10px; box-shadow: var(--shadow-card); }
   .card-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
-  .card-title { font-size: 14px; font-weight: 600; color: var(--color-text-primary); }
+  .card-title { font-size: 14px; font-weight: 700; color: var(--color-text-primary); }
   .card-meta { font-size: 12px; color: var(--color-text-secondary); margin-top: 6px; }
-  .card-actions { display: flex; gap: 4px; flex-shrink: 0; }
-  .icon-btn { background: none; border: none; font-size: 15px; color: var(--color-text-secondary); cursor: pointer; padding: 4px 6px; border-radius: 6px; -webkit-tap-highlight-color: transparent; }
-  .icon-btn:hover { color: #534AB7; background: var(--color-background-secondary); }
+  .card-actions { display: flex; gap: 2px; flex-shrink: 0; }
+  .icon-btn { background: none; border: none; font-size: 15px; color: var(--color-text-secondary); cursor: pointer; padding: 6px 7px; border-radius: var(--border-radius-sm); -webkit-tap-highlight-color: transparent; transition: all 0.12s; }
+  .icon-btn:hover { color: var(--color-accent); background: var(--color-accent-light); }
   .icon-btn.del:hover { color: #E24B4A; background: #FCEBEB; }
-  .type-badge { display: inline-block; padding: 2px 8px; border-radius: 20px; font-size: 10px; font-weight: 600; margin-bottom: 4px; }
-  .type-classic { background: #EEEDFE; color: #534AB7; }
+  .type-badge { display: inline-block; padding: 3px 9px; border-radius: var(--border-radius-pill); font-size: 10px; font-weight: 700; margin-bottom: 4px; letter-spacing: 0.04em; text-transform: uppercase; }
+  .type-classic { background: var(--color-accent-light); color: var(--color-accent); }
   .type-duration { background: #E1F5EE; color: #0F6E56; }
-  .event-card { background: var(--color-background-primary); border: 1px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 14px 16px; display: flex; gap: 14px; align-items: flex-start; cursor: pointer; transition: background 0.15s; margin-bottom: 10px; -webkit-tap-highlight-color: transparent; }
-  .event-card:hover, .event-card:active { background: var(--color-background-secondary); }
-  .event-dot { width: 10px; height: 10px; border-radius: 50%; background: #534AB7; margin-top: 4px; flex-shrink: 0; }
-  .event-title { font-size: 14px; font-weight: 600; color: var(--color-text-primary); }
+  .event-card { background: var(--color-background-primary); border: 1px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 14px 16px; display: flex; gap: 14px; align-items: flex-start; cursor: pointer; transition: all 0.15s; margin-bottom: 8px; -webkit-tap-highlight-color: transparent; box-shadow: var(--shadow-card); }
+  .event-card:hover, .event-card:active { background: var(--color-background-secondary); transform: translateY(-1px); }
+  .event-card.important { border-left: 3px solid #E24B4A; background: #fff8f8; }
+  .dark .event-card.important { background: #2a1a1a; }
+  .event-card.important .event-title { color: #C0392B; font-weight: 700; }
+  .event-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--color-accent); margin-top: 5px; flex-shrink: 0; }
+  .event-dot.important { background: #E24B4A; }
+  .event-title { font-size: 14px; font-weight: 700; color: var(--color-text-primary); }
   .event-meta { font-size: 12px; color: var(--color-text-secondary); margin-top: 3px; }
-  .event-location { font-size: 12px; color: #7F77DD; margin-top: 2px; }
+  .event-location { font-size: 12px; color: #7F77DD; margin-top: 2px; font-weight: 500; }
   .event-delete { margin-left: auto; background: none; border: none; font-size: 16px; color: var(--color-text-secondary); cursor: pointer; padding: 0 0 0 8px; flex-shrink: 0; -webkit-tap-highlight-color: transparent; }
   .event-delete:hover { color: #E24B4A; }
-  .cat-scroll { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px; flex-shrink: 0; }
+  .cat-scroll { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 4px; flex-shrink: 0; }
   .cat-scroll::-webkit-scrollbar { display: none; }
-  .cat-chip { padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 600; cursor: pointer; white-space: nowrap; border: 1px solid var(--color-border-secondary); background: var(--color-background-secondary); color: var(--color-text-secondary); transition: all 0.15s; -webkit-tap-highlight-color: transparent; }
-  .cat-chip.active { background: #534AB7; color: #EEEDFE; border-color: #534AB7; }
-  .recipe-card { background: var(--color-background-primary); border: 1px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); overflow: hidden; cursor: pointer; transition: background 0.15s; margin-bottom: 10px; -webkit-tap-highlight-color: transparent; }
-  .recipe-card:hover { background: var(--color-background-secondary); }
+  .cat-chip { padding: 6px 14px; border-radius: var(--border-radius-pill); font-size: 12px; font-weight: 700; cursor: pointer; white-space: nowrap; border: 1.5px solid var(--color-border-secondary); background: var(--color-background-secondary); color: var(--color-text-secondary); transition: all 0.15s; -webkit-tap-highlight-color: transparent; letter-spacing: 0.01em; }
+  .cat-chip.active { background: var(--color-accent); color: #EEEDFE; border-color: var(--color-accent); box-shadow: 0 2px 8px rgba(83,74,183,0.25); }
+  .notif-chip { padding: 6px 14px; border-radius: var(--border-radius-pill); font-size: 12px; font-weight: 700; cursor: pointer; white-space: nowrap; border: 1.5px solid var(--color-border-secondary); background: var(--color-background-secondary); color: var(--color-text-secondary); transition: all 0.15s; -webkit-tap-highlight-color: transparent; }
+  .notif-chip.active { background: var(--color-accent); color: #EEEDFE; border-color: var(--color-accent); }
+  .notif-chip-custom { border-style: dashed; }
+  .recipe-card { background: var(--color-background-primary); border: 1px solid var(--color-border-tertiary); border-radius: var(--border-radius-xl); overflow: hidden; cursor: pointer; transition: all 0.15s; margin-bottom: 10px; -webkit-tap-highlight-color: transparent; box-shadow: var(--shadow-card); }
+  .recipe-card:hover { background: var(--color-background-secondary); transform: translateY(-1px); }
   .recipe-img { width: 100%; height: 120px; background: var(--color-background-secondary); display: flex; align-items: center; justify-content: center; font-size: 32px; overflow: hidden; }
   .recipe-img img { width: 100%; height: 100%; object-fit: cover; }
-  .recipe-body { padding: 12px 14px; }
-  .recipe-title { font-size: 14px; font-weight: 600; color: var(--color-text-primary); }
+  .recipe-body { padding: 14px 16px; }
+  .recipe-title { font-size: 14px; font-weight: 700; color: var(--color-text-primary); }
   .recipe-meta { display: flex; align-items: center; gap: 8px; margin-top: 6px; flex-wrap: wrap; }
-  .grade-badge { width: 22px; height: 22px; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; color: white; flex-shrink: 0; }
+  .grade-badge { width: 22px; height: 22px; border-radius: 5px; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 800; color: white; flex-shrink: 0; }
   .grade-A { background: #3B6D11; } .grade-B { background: #639922; } .grade-C { background: #BA7517; } .grade-D { background: #D85A30; } .grade-E { background: #A32D2D; } .grade-F { background: #501313; }
-  .tag-pill { padding: 2px 8px; border-radius: 20px; font-size: 11px; background: #EEEDFE; color: #534AB7; font-weight: 500; }
-  .routine-card { background: var(--color-background-primary); border: 1px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); overflow: hidden; margin-bottom: 10px; }
-  .routine-header { background: #534AB7; padding: 12px 16px; display: flex; align-items: center; justify-content: space-between; }
-  .routine-name { font-size: 14px; font-weight: 600; color: #EEEDFE; }
-  .routine-day { font-size: 12px; color: #AFA9EC; margin-top: 2px; }
+  .tag-pill { padding: 3px 9px; border-radius: var(--border-radius-pill); font-size: 11px; background: var(--color-accent-light); color: var(--color-accent); font-weight: 600; }
+  .routine-card { background: var(--color-background-primary); border: 1px solid var(--color-border-tertiary); border-radius: var(--border-radius-xl); overflow: hidden; margin-bottom: 10px; box-shadow: var(--shadow-card); }
+  .routine-header { background: var(--color-accent); padding: 14px 16px; display: flex; align-items: center; justify-content: space-between; }
+  .goal-card { background: var(--color-background-primary); border: 1px solid var(--color-border-tertiary); border-radius: var(--border-radius-xl); overflow: hidden; margin-bottom: 12px; box-shadow: var(--shadow-card); }
+  .inv-item { background: var(--color-background-primary); border: 1px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 13px 16px; display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 8px; box-shadow: var(--shadow-card); }
+  .chantier-card { background: var(--color-background-primary); border: 1px solid var(--color-border-tertiary); border-radius: var(--border-radius-xl); padding: 14px 16px; margin-bottom: 10px; cursor: pointer; -webkit-tap-highlight-color: transparent; box-shadow: var(--shadow-card); transition: all 0.15s; }
+  .chantier-card:active { background: var(--color-background-secondary); transform: translateY(1px); }
+  .chantier-status-badge { display: inline-block; padding: 3px 10px; border-radius: var(--border-radius-pill); font-size: 11px; font-weight: 700; white-space: nowrap; letter-spacing: 0.02em; }
+  .status-en-cours      { background: #EEF2FF; color: #3730A3; }
+  .status-devis-faire   { background: #FFF7ED; color: #C2410C; }
+  .status-devis-envoyer { background: #FFFBEB; color: #B45309; }
+  .status-recontacter   { background: #FDF2F8; color: #9D174D; }
+  .status-facture       { background: #F0FDF4; color: #166534; }
+  .status-fini          { background: #ECFDF5; color: #065F46; }
+  .status-termine       { background: #F0FDF4; color: #14532D; }
+  .status-custom        { background: var(--color-background-tertiary); color: var(--color-text-secondary); }
+  .dark .status-en-cours      { background: #1e1b4b; color: #a5b4fc; }
+  .dark .status-devis-faire   { background: #2c1a0e; color: #fb923c; }
+  .dark .status-devis-envoyer { background: #2c240e; color: #fbbf24; }
+  .dark .status-recontacter   { background: #2d1b2e; color: #f9a8d4; }
+  .dark .status-facture       { background: #052e16; color: #86efac; }
+  .dark .status-fini          { background: #022c22; color: #6ee7b7; }
+  .dark .status-termine       { background: #052e16; color: #4ade80; }
+  .chantier-photo-thumb { width: 72px; height: 72px; object-fit: cover; border-radius: var(--border-radius-md); border: 1px solid var(--color-border-tertiary); cursor: pointer; }
+  .inv-item.low-stock { border-left: 3px solid #E24B4A; }
+  .inv-item-name { font-size: 14px; font-weight: 600; color: var(--color-text-primary); }
+  .inv-item-cat { font-size: 11px; color: var(--color-text-secondary); margin-top: 1px; }
+  .inv-qty-wrap { display: flex; align-items: center; gap: 6px; }
+  .inv-qty-input { width: 64px; padding: 6px 8px; border: 1px solid var(--color-border-secondary); border-radius: var(--border-radius-md); font-size: 14px; font-weight: 700; text-align: center; background: var(--color-background-secondary); color: var(--color-text-primary); outline: none; }
+  .inv-qty-input.low { color: #E24B4A; border-color: #E24B4A; }
+  .inv-unit-label { font-size: 12px; color: var(--color-text-secondary); min-width: 28px; }
+  .inv-low-badge { font-size: 10px; font-weight: 700; color: #E24B4A; background: #FCEBEB; border-radius: 4px; padding: 2px 5px; white-space: nowrap; }
+  .goal-header { padding: 14px 16px 10px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--color-border-tertiary); }
+  .goal-title { font-size: 16px; font-weight: 700; color: var(--color-text-primary); display: flex; align-items: center; gap: 8px; }
+  .goal-body { padding: 10px 16px 14px; display: flex; flex-direction: column; gap: 10px; }
+  .target-item { display: flex; flex-direction: column; gap: 5px; }
+  .target-label { font-size: 13px; font-weight: 600; color: var(--color-text-primary); display: flex; justify-content: space-between; align-items: center; }
+  .target-deadline { font-size: 11px; color: var(--color-text-secondary); }
+  .target-deadline.overdue { color: #E24B4A; font-weight: 600; }
+  .progress-bar-wrap { height: 8px; background: var(--color-background-tertiary); border-radius: 4px; overflow: hidden; }
+  .progress-bar-fill { height: 100%; border-radius: 4px; background: var(--color-accent); transition: width 0.4s ease; }
+  .progress-bar-fill.done { background: #27ae60; }
+  .target-controls { display: flex; align-items: center; gap: 8px; margin-top: 2px; }
+  .target-count-btn { width: 28px; height: 28px; border-radius: 50%; border: 1px solid var(--color-border-secondary); background: var(--color-background-secondary); color: var(--color-text-primary); font-size: 16px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; -webkit-tap-highlight-color: transparent; }
+  .target-progress-text { font-size: 13px; font-weight: 700; color: var(--color-accent); min-width: 60px; text-align: center; }
+  .target-progress-text.done { color: #27ae60; }
+  .routine-name { font-size: 14px; font-weight: 700; color: #EEEDFE; }
+  .routine-day { font-size: 12px; color: var(--color-accent-dim); margin-top: 2px; }
   .routine-body { padding: 12px 16px; }
-  .start-btn { margin-top: 10px; width: 100%; padding: 10px; background: #534AB7; color: #EEEDFE; border: none; border-radius: var(--border-radius-md); font-size: 13px; font-weight: 600; cursor: pointer; -webkit-tap-highlight-color: transparent; }
-  .start-btn:hover, .start-btn:active { background: #3C3489; }
-  .empty-state { background: var(--color-background-secondary); border-radius: var(--border-radius-lg); padding: 32px 20px; text-align: center; border: 1.5px dashed var(--color-border-secondary); }
-  .empty-icon { font-size: 28px; margin-bottom: 10px; display: block; }
-  .empty-title { font-size: 15px; font-weight: 600; color: var(--color-text-primary); margin-bottom: 4px; }
+  .start-btn { margin-top: 10px; width: 100%; padding: 11px; background: var(--color-accent); color: #EEEDFE; border: none; border-radius: var(--border-radius-md); font-size: 13px; font-weight: 700; cursor: pointer; -webkit-tap-highlight-color: transparent; font-family: var(--font-sans); box-shadow: 0 2px 8px rgba(83,74,183,0.25); }
+  .start-btn:hover, .start-btn:active { background: #3C3489; box-shadow: none; }
+  .empty-state { background: var(--color-background-secondary); border-radius: var(--border-radius-xl); padding: 36px 20px; text-align: center; border: 1.5px dashed var(--color-border-secondary); }
+  .empty-icon { font-size: 30px; margin-bottom: 12px; display: block; }
+  .empty-title { font-size: 15px; font-weight: 700; color: var(--color-text-primary); margin-bottom: 5px; font-family: var(--font-display); }
   .empty-text { font-size: 13px; color: var(--color-text-secondary); }
-  .modal-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.45); display: flex; align-items: flex-end; z-index: 100; border-radius: inherit; overflow: hidden; }
-  .modal { background: var(--color-background-primary); border-radius: 24px 24px 0 0; padding: 24px 16px 36px; width: 100%; box-sizing: border-box; display: flex; flex-direction: column; gap: 14px; max-height: 88%; overflow-y: auto; overflow-x: hidden; -webkit-overflow-scrolling: touch; }
-  .modal-title { font-size: 16px; font-weight: 700; color: var(--color-text-primary); }
-  .modal label { font-size: 11px; color: var(--color-text-secondary); display: block; margin-bottom: 5px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
-  .modal input, .modal textarea, .modal select { width: 100%; min-width: 0; max-width: 100%; padding: 10px 10px; border: 1px solid var(--color-border-secondary); border-radius: var(--border-radius-md); font-size: 14px; background: var(--color-background-secondary); color: var(--color-text-primary); font-family: var(--font-sans); outline: none; box-sizing: border-box; }
-  .modal input:focus, .modal textarea:focus, .modal select:focus { border-color: #534AB7; }
+  .modal-overlay { position: absolute; inset: 0; background: rgba(12,10,30,0.55); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); display: flex; align-items: flex-end; z-index: 100; border-radius: inherit; overflow: hidden; }
+  .modal { background: var(--color-background-primary); border-radius: 28px 28px 0 0; padding: 8px 18px 38px; width: 100%; box-sizing: border-box; display: flex; flex-direction: column; gap: 14px; max-height: 90%; overflow-y: auto; overflow-x: hidden; -webkit-overflow-scrolling: touch; box-shadow: var(--shadow-modal); }
+  .modal::before { content: ''; display: block; width: 36px; height: 4px; background: var(--color-border-secondary); border-radius: 2px; margin: 10px auto 4px; flex-shrink: 0; }
+  .modal-title { font-family: var(--font-display); font-size: 18px; font-weight: 800; color: var(--color-text-primary); letter-spacing: -0.01em; }
+  .modal label { font-size: 11px; color: var(--color-text-secondary); display: block; margin-bottom: 5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; }
+  .modal input, .modal textarea, .modal select { width: 100%; min-width: 0; max-width: 100%; padding: 11px 12px; border: 1.5px solid var(--color-border-secondary); border-radius: var(--border-radius-md); font-size: 14px; background: var(--color-background-secondary); color: var(--color-text-primary); font-family: var(--font-sans); outline: none; box-sizing: border-box; transition: border-color 0.15s; }
+  .modal input:focus, .modal textarea:focus, .modal select:focus { border-color: var(--color-accent); background: var(--color-background-primary); }
   .modal textarea { resize: none; }
   .modal-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; min-width: 0; }
   .modal-row3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; min-width: 0; }
   .modal-row > div, .modal-row3 > div { min-width: 0; overflow: hidden; }
   .modal-actions { display: flex; gap: 10px; margin-top: 4px; }
-  .btn-cancel { flex: 1; padding: 13px; background: var(--color-background-secondary); border: 1px solid var(--color-border-secondary); border-radius: var(--border-radius-md); font-size: 14px; cursor: pointer; color: var(--color-text-primary); font-weight: 600; -webkit-tap-highlight-color: transparent; }
-  .btn-save { flex: 2; padding: 13px; background: #534AB7; border: none; border-radius: var(--border-radius-md); font-size: 14px; font-weight: 700; cursor: pointer; color: #EEEDFE; -webkit-tap-highlight-color: transparent; }
-  .btn-save:hover, .btn-save:active { background: #3C3489; }
+  .btn-cancel { flex: 1; padding: 14px; background: var(--color-background-secondary); border: 1.5px solid var(--color-border-secondary); border-radius: var(--border-radius-md); font-size: 14px; cursor: pointer; color: var(--color-text-primary); font-weight: 700; -webkit-tap-highlight-color: transparent; font-family: var(--font-sans); transition: background 0.12s; }
+  .btn-cancel:hover { background: var(--color-background-tertiary); }
+  .btn-save { flex: 2; padding: 14px; background: var(--color-accent); border: none; border-radius: var(--border-radius-md); font-size: 14px; font-weight: 800; cursor: pointer; color: #EEEDFE; -webkit-tap-highlight-color: transparent; font-family: var(--font-sans); box-shadow: 0 2px 8px rgba(83,74,183,0.3); transition: all 0.12s; letter-spacing: 0.01em; }
+  .btn-save:hover, .btn-save:active { background: #3C3489; box-shadow: none; }
   .date-input-wrap { position: relative; }
   .date-input-wrap input { padding-right: 38px; }
   .cal-icon { position: absolute; right: 11px; top: 50%; transform: translateY(-50%); font-size: 16px; cursor: pointer; user-select: none; }
@@ -179,8 +280,8 @@
   .cal-grid { display: grid; grid-template-columns: repeat(7,1fr); gap: 2px; }
   .cal-day-name { font-size: 11px; color: var(--color-text-secondary); text-align: center; padding: 4px 0; font-weight: 600; }
   .cal-day { font-size: 13px; text-align: center; padding: 6px 2px; border-radius: 6px; cursor: pointer; color: var(--color-text-primary); -webkit-tap-highlight-color: transparent; }
-  .cal-day:hover, .cal-day:active { background: #EEEDFE; color: #534AB7; }
-  .cal-day.selected { background: #534AB7; color: #EEEDFE; }
+  .cal-day:hover, .cal-day:active { background: var(--color-accent-light); color: var(--color-accent); }
+  .cal-day.selected { background: var(--color-accent); color: #EEEDFE; }
   .cal-day.empty { cursor: default; }
   .grade-selector { display: flex; gap: 6px; }
   .grade-opt { width: 38px; height: 38px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 15px; font-weight: 700; color: white; cursor: pointer; opacity: 0.3; transition: opacity 0.15s, transform 0.1s; border: none; -webkit-tap-highlight-color: transparent; }
@@ -188,16 +289,16 @@
   .grade-opt:hover { opacity: 0.75; }
   .tag-input-row { display: flex; gap: 6px; }
   .tag-input-row input { flex: 1; }
-  .tag-add-btn { padding: 11px 14px; background: #534AB7; color: #EEEDFE; border: none; border-radius: var(--border-radius-md); font-size: 13px; cursor: pointer; font-weight: 600; -webkit-tap-highlight-color: transparent; }
+  .tag-add-btn { padding: 11px 14px; background: var(--color-accent); color: #EEEDFE; border: none; border-radius: var(--border-radius-md); font-size: 13px; cursor: pointer; font-weight: 700; -webkit-tap-highlight-color: transparent; font-family: var(--font-sans); }
   .tags-preview { display: flex; flex-wrap: wrap; gap: 6px; }
-  .tag-item { padding: 4px 10px; border-radius: 20px; font-size: 12px; background: #EEEDFE; color: #534AB7; cursor: pointer; display: flex; align-items: center; gap: 4px; font-weight: 500; }
+  .tag-item { padding: 4px 10px; border-radius: var(--border-radius-pill); font-size: 12px; background: var(--color-accent-light); color: var(--color-accent); cursor: pointer; display: flex; align-items: center; gap: 4px; font-weight: 600; }
   .photo-row { display: flex; gap: 8px; }
   .photo-row input { flex: 1; }
   .photo-upload-btn { padding: 11px 12px; background: var(--color-background-secondary); border: 1px solid var(--color-border-secondary); border-radius: var(--border-radius-md); font-size: 13px; cursor: pointer; color: var(--color-text-primary); display: flex; align-items: center; white-space: nowrap; -webkit-tap-highlight-color: transparent; }
   .photo-preview-img { width: 100%; height: 100px; border-radius: var(--border-radius-md); object-fit: cover; margin-top: 6px; }
   .muscle-grid { display: flex; flex-wrap: wrap; gap: 8px; }
-  .muscle-toggle { padding: 7px 13px; border-radius: 20px; font-size: 12px; font-weight: 600; cursor: pointer; border: 1px solid var(--color-border-secondary); background: var(--color-background-secondary); color: var(--color-text-secondary); transition: all 0.15s; user-select: none; -webkit-tap-highlight-color: transparent; }
-  .muscle-toggle.selected { border-color: #534AB7; background: #EEEDFE; color: #534AB7; }
+  .muscle-toggle { padding: 7px 13px; border-radius: var(--border-radius-pill); font-size: 12px; font-weight: 700; cursor: pointer; border: 1.5px solid var(--color-border-secondary); background: var(--color-background-secondary); color: var(--color-text-secondary); transition: all 0.15s; user-select: none; -webkit-tap-highlight-color: transparent; }
+  .muscle-toggle.selected { border-color: var(--color-accent); background: var(--color-accent-light); color: var(--color-accent); }
   .muscle-chip { display: inline-block; padding: 2px 8px; border-radius: 20px; font-size: 11px; font-weight: 600; margin-right: 4px; margin-top: 2px; }
   .m-Chest{background:#FAECE7;color:#993C1D} .m-Back{background:#E6F1FB;color:#185FA5} .m-Legs{background:#EAF3DE;color:#3B6D11}
   .m-Shoulders{background:#FAEEDA;color:#854F0B} .m-Arms{background:#FBEAF0;color:#993556} .m-Core{background:#EEEDFE;color:#534AB7}
@@ -205,161 +306,271 @@
   .ex-picker { display: flex; flex-direction: column; gap: 6px; max-height: 200px; overflow-y: auto; border: 1px solid var(--color-border-secondary); border-radius: var(--border-radius-md); padding: 8px; background: var(--color-background-secondary); }
   .ex-pick-item { display: flex; align-items: center; gap: 10px; padding: 8px; border-radius: var(--border-radius-md); cursor: pointer; font-size: 13px; color: var(--color-text-primary); transition: background 0.1s; -webkit-tap-highlight-color: transparent; }
   .ex-pick-item:hover, .ex-pick-item:active { background: var(--color-background-primary); }
-  .ex-pick-item.selected { background: #EEEDFE; color: #534AB7; }
+  .ex-pick-item.selected { background: var(--color-accent-light); color: var(--color-accent); }
   .ex-pick-check { width: 18px; height: 18px; border-radius: 4px; border: 1.5px solid var(--color-border-secondary); flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 11px; }
-  .ex-pick-item.selected .ex-pick-check { background: #534AB7; border-color: #534AB7; color: white; }
+  .ex-pick-item.selected .ex-pick-check { background: var(--color-accent); border-color: var(--color-accent); color: white; }
   .detail-overlay { position: absolute; inset: 0; background: var(--color-background-primary); z-index: 99; border-radius: inherit; display: flex; flex-direction: column; overflow-y: auto; -webkit-overflow-scrolling: touch; }
   .detail-img { width: 100%; height: 180px; background: var(--color-background-secondary); display: flex; align-items: center; justify-content: center; font-size: 48px; flex-shrink: 0; overflow: hidden; }
   .detail-img img { width: 100%; height: 100%; object-fit: cover; }
-  .detail-header { background: #534AB7; padding: 14px 20px; color: #EEEDFE; display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
-  .detail-back { font-size: 13px; color: #AFA9EC; cursor: pointer; flex-shrink: 0; -webkit-tap-highlight-color: transparent; }
+  .detail-header { background: var(--color-accent); padding: 14px 20px; color: #EEEDFE; display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
+  .detail-back { font-size: 13px; color: var(--color-accent-dim); cursor: pointer; flex-shrink: 0; -webkit-tap-highlight-color: transparent; font-weight: 600; }
   .detail-back:hover { color: #EEEDFE; }
-  .detail-title { font-size: 17px; font-weight: 700; flex: 1; text-align: center; }
-  .detail-edit-btn { font-size: 13px; color: #AFA9EC; cursor: pointer; flex-shrink: 0; -webkit-tap-highlight-color: transparent; }
+  .detail-title { font-family: var(--font-display); font-size: 16px; font-weight: 700; flex: 1; text-align: center; }
+  .detail-edit-btn { font-size: 13px; color: var(--color-accent-dim); cursor: pointer; flex-shrink: 0; -webkit-tap-highlight-color: transparent; font-weight: 600; }
   .detail-edit-btn:hover { color: #EEEDFE; }
   .detail-body { padding: 20px; display: flex; flex-direction: column; gap: 18px; }
-  .detail-section-title { font-size: 12px; font-weight: 700; color: var(--color-text-secondary); text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 8px; }
+  .detail-section-title { font-size: 11px; font-weight: 700; color: var(--color-text-secondary); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 8px; }
   .nutri-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 8px; }
   .nutri-card { background: var(--color-background-secondary); border-radius: var(--border-radius-md); padding: 10px; text-align: center; }
-  .nutri-val { font-size: 16px; font-weight: 700; color: var(--color-text-primary); }
+  .nutri-val { font-size: 16px; font-weight: 800; color: var(--color-text-primary); }
   .nutri-label { font-size: 11px; color: var(--color-text-secondary); margin-top: 2px; }
   .ingredient-item { font-size: 14px; color: var(--color-text-primary); padding: 7px 0; border-bottom: 1px solid var(--color-border-tertiary); }
   .ingredient-item:last-child { border-bottom: none; }
   .step-item { display: flex; gap: 12px; padding: 8px 0; }
-  .step-num { width: 26px; height: 26px; border-radius: 50%; background: #534AB7; color: #EEEDFE; font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+  .step-num { width: 26px; height: 26px; border-radius: 50%; background: var(--color-accent); color: #EEEDFE; font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
   .step-text { font-size: 14px; color: var(--color-text-primary); line-height: 1.55; }
   .map-btn-row { display: flex; gap: 8px; margin-top: 6px; }
-  .map-btn { display: flex; align-items: center; gap: 6px; padding: 9px 14px; border-radius: var(--border-radius-md); font-size: 13px; font-weight: 600; cursor: pointer; text-decoration: none; transition: background 0.15s; -webkit-tap-highlight-color: transparent; }
+  .map-btn { display: flex; align-items: center; gap: 6px; padding: 9px 14px; border-radius: var(--border-radius-md); font-size: 13px; font-weight: 700; cursor: pointer; text-decoration: none; transition: background 0.15s; -webkit-tap-highlight-color: transparent; }
   .map-btn-gmaps { border: 1px solid #1D9E75; color: #0F6E56; background: #E1F5EE; }
   .map-btn-gmaps:hover { background: #9FE1CB; }
   .map-btn-waze { border: 1px solid #BA7517; color: #854F0B; background: #FAEEDA; }
   .map-btn-waze:hover { background: #FAC775; }
   .ev-detail-overlay { position: absolute; inset: 0; background: var(--color-background-primary); z-index: 99; border-radius: inherit; display: flex; flex-direction: column; }
-  .ev-detail-header { background: #534AB7; padding: 20px; color: #EEEDFE; text-align: center; position: relative; flex-shrink: 0; }
-  .ev-detail-back { font-size: 13px; color: #AFA9EC; cursor: pointer; position: absolute; left: 20px; top: 20px; -webkit-tap-highlight-color: transparent; }
-  .ev-detail-title { font-size: 20px; font-weight: 700; }
+  .ev-detail-header { background: var(--color-accent); padding: 22px 20px 18px; color: #EEEDFE; text-align: center; position: relative; flex-shrink: 0; }
+  .ev-detail-back { font-size: 13px; color: var(--color-accent-dim); cursor: pointer; position: absolute; left: 20px; top: 22px; -webkit-tap-highlight-color: transparent; font-weight: 600; }
+  .ev-detail-back:hover { color: #EEEDFE; }
+  .ev-detail-title { font-family: var(--font-display); font-size: 20px; font-weight: 800; letter-spacing: -0.01em; }
   .ev-detail-body { padding: 20px; display: flex; flex-direction: column; gap: 16px; flex: 1; overflow-y: auto; }
   .detail-row { display: flex; flex-direction: column; gap: 4px; }
-  .detail-label { font-size: 11px; font-weight: 700; color: var(--color-text-secondary); text-transform: uppercase; letter-spacing: 0.07em; }
+  .detail-label { font-size: 11px; font-weight: 700; color: var(--color-text-secondary); text-transform: uppercase; letter-spacing: 0.09em; }
   .detail-value { font-size: 14px; color: var(--color-text-primary); }
   .workout-overlay { position: absolute; inset: 0; background: var(--color-background-primary); z-index: 110; border-radius: inherit; display: flex; flex-direction: column; }
-  .workout-header { background: #534AB7; padding: 16px 20px; color: #EEEDFE; display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
-  .workout-back { font-size: 13px; color: #AFA9EC; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+  .workout-header { background: var(--color-accent); padding: 16px 20px; color: #EEEDFE; display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
+  .workout-back { font-size: 13px; color: var(--color-accent-dim); cursor: pointer; -webkit-tap-highlight-color: transparent; font-weight: 600; }
   .workout-body { flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 14px; -webkit-overflow-scrolling: touch; }
-  .workout-ex-card { background: var(--color-background-primary); border: 1px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 14px 16px; }
+  .workout-ex-card { background: var(--color-background-primary); border: 1px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 14px 16px; box-shadow: var(--shadow-card); }
   .workout-ex-name { font-size: 15px; font-weight: 700; color: var(--color-text-primary); margin-bottom: 8px; }
-  .sets-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 6px; margin-bottom: 6px; font-size: 12px; color: var(--color-text-secondary); text-align: center; font-weight: 600; }
+  .sets-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 6px; margin-bottom: 6px; font-size: 12px; color: var(--color-text-secondary); text-align: center; font-weight: 700; }
   .sets-row { display: grid; grid-template-columns: repeat(4,1fr); gap: 6px; margin-bottom: 4px; }
-  .set-cell { background: var(--color-background-secondary); border-radius: 6px; padding: 7px 4px; font-size: 13px; text-align: center; color: var(--color-text-primary); }
+  .set-cell { background: var(--color-background-secondary); border-radius: 8px; padding: 7px 4px; font-size: 13px; text-align: center; color: var(--color-text-primary); }
   .set-cell.done { background: #EAF3DE; color: #3B6D11; font-weight: 700; }
-  .set-done-btn { width: 100%; margin-top: 8px; padding: 9px; background: var(--color-background-secondary); border: 1px solid var(--color-border-secondary); border-radius: var(--border-radius-md); font-size: 13px; cursor: pointer; color: var(--color-text-primary); font-weight: 600; -webkit-tap-highlight-color: transparent; }
+  .set-done-btn { width: 100%; margin-top: 8px; padding: 10px; background: var(--color-background-secondary); border: 1px solid var(--color-border-secondary); border-radius: var(--border-radius-md); font-size: 13px; cursor: pointer; color: var(--color-text-primary); font-weight: 600; -webkit-tap-highlight-color: transparent; font-family: var(--font-sans); }
   .set-done-btn:hover, .set-done-btn:active { background: #EAF3DE; color: #3B6D11; }
   .duration-info { background: #E1F5EE; border-radius: var(--border-radius-md); padding: 14px; }
-  .duration-value { font-size: 24px; font-weight: 700; color: #0F6E56; }
+  .duration-value { font-size: 24px; font-weight: 800; color: #0F6E56; }
   .duration-label { font-size: 13px; color: #1D9E75; margin-top: 3px; }
   .timer-bar { background: var(--color-background-secondary); border-top: 1px solid var(--color-border-tertiary); padding: 14px 20px; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
-  .timer-display { font-size: 30px; font-weight: 700; color: var(--color-text-primary); font-variant-numeric: tabular-nums; }
-  .timer-display.running { color: #534AB7; }
+  .timer-display { font-family: var(--font-display); font-size: 30px; font-weight: 700; color: var(--color-text-primary); font-variant-numeric: tabular-nums; }
+  .timer-display.running { color: var(--color-accent); }
   .timer-display.done { color: #3B6D11; }
   .timer-controls { display: flex; gap: 8px; }
-  .timer-btn { padding: 9px 16px; border-radius: var(--border-radius-md); font-size: 13px; font-weight: 600; cursor: pointer; border: 1px solid var(--color-border-secondary); background: var(--color-background-primary); color: var(--color-text-primary); -webkit-tap-highlight-color: transparent; }
-  .timer-btn.primary { background: #534AB7; color: #EEEDFE; border-color: #534AB7; }
+  .timer-btn { padding: 9px 16px; border-radius: var(--border-radius-md); font-size: 13px; font-weight: 700; cursor: pointer; border: 1.5px solid var(--color-border-secondary); background: var(--color-background-primary); color: var(--color-text-primary); -webkit-tap-highlight-color: transparent; font-family: var(--font-sans); }
+  .timer-btn.primary { background: var(--color-accent); color: #EEEDFE; border-color: var(--color-accent); box-shadow: 0 2px 8px rgba(83,74,183,0.25); }
   .timer-btn:hover { background: var(--color-background-secondary); }
-  .timer-btn.primary:hover { background: #3C3489; }
-  .settings-btn { display: flex; align-items: center; gap: 10px; background: var(--color-background-secondary); border: 1px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 14px 16px; cursor: pointer; width: 100%; transition: background 0.15s; -webkit-tap-highlight-color: transparent; }
-  .settings-btn:hover, .settings-btn:active { background: var(--color-background-tertiary); }
+  .timer-btn.primary:hover { background: #3C3489; box-shadow: none; }
+  .settings-btn { display: flex; align-items: center; gap: 12px; background: var(--color-background-primary); border: 1px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 15px 16px; cursor: pointer; width: 100%; transition: all 0.15s; -webkit-tap-highlight-color: transparent; box-shadow: var(--shadow-card); }
+  .settings-btn:hover, .settings-btn:active { background: var(--color-background-secondary); }
   .summary-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 10px; }
-  .summary-card { background: var(--color-background-primary); border-radius: var(--border-radius-md); padding: 14px 10px; text-align: center; cursor: pointer; border: 1px solid var(--color-border-tertiary); transition: background 0.15s; -webkit-tap-highlight-color: transparent; }
-  .summary-card:hover, .summary-card:active { background: var(--color-background-secondary); }
-  .bottom-nav { display: flex; border-top: 1px solid var(--color-border-tertiary); background: var(--color-nav-bg); flex-shrink: 0; padding-bottom: env(safe-area-inset-bottom, 0px); overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+  .summary-card { background: var(--color-background-primary); border-radius: var(--border-radius-lg); padding: 16px 10px; text-align: center; cursor: pointer; border: 1px solid var(--color-border-tertiary); transition: all 0.15s; -webkit-tap-highlight-color: transparent; box-shadow: var(--shadow-card); }
+  .summary-card:hover, .summary-card:active { background: var(--color-accent-light); transform: translateY(-1px); }
+  .bottom-nav { display: flex; background: var(--color-nav-bg); flex-shrink: 0; padding-bottom: env(safe-area-inset-bottom, 0px); overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
   .bottom-nav::-webkit-scrollbar { display: none; }
-  .nav-item { flex: 0 0 25vw; padding: 12px 8px 14px; display: flex; flex-direction: column; align-items: center; gap: 4px; cursor: pointer; border: none; background: transparent; transition: background 0.15s; -webkit-tap-highlight-color: transparent; }
+  .nav-item { flex: 0 0 25vw; padding: 10px 8px 12px; display: flex; flex-direction: column; align-items: center; gap: 3px; cursor: pointer; border: none; background: transparent; transition: all 0.15s; -webkit-tap-highlight-color: transparent; }
   .nav-item.nav-history { flex: 0 0 25vw; }
   .nav-item:hover, .nav-item:active { background: var(--color-background-secondary); }
-  .nav-icon { font-size: 20px; line-height: 1; }
-  .nav-label { font-size: 10px; color: var(--color-text-secondary); font-weight: 600; }
-  .nav-item.active .nav-label { color: #534AB7; }
-  .nav-dot { width: 4px; height: 4px; border-radius: 50%; margin-top: 2px; }
-  .nav-item.active .nav-dot { background: #534AB7; }
-  .toggle { width: 42px; height: 24px; background: #C4C2D4; border-radius: 12px; position: relative; cursor: pointer; transition: background 0.2s; -webkit-tap-highlight-color: transparent; }
-  .toggle.on { background: #534AB7; }
-  .toggle-knob { width: 20px; height: 20px; background: white; border-radius: 50%; position: absolute; top: 2px; left: 2px; transition: left 0.2s; box-shadow: 0 1px 3px rgba(0,0,0,0.2); }
+  .nav-icon { font-size: 20px; line-height: 1; transition: transform 0.15s; }
+  .nav-item.active .nav-icon { transform: scale(1.1); }
+  .nav-label { font-size: 10px; color: var(--color-text-secondary); font-weight: 700; letter-spacing: 0.02em; }
+  .nav-item.active .nav-label { color: var(--color-accent); }
+  .nav-dot { width: 4px; height: 4px; border-radius: 50%; margin-top: 1px; }
+  .nav-item.active .nav-dot { background: var(--color-accent); }
+  .toggle { width: 44px; height: 26px; background: var(--color-border-secondary); border-radius: 13px; position: relative; cursor: pointer; transition: background 0.2s; -webkit-tap-highlight-color: transparent; flex-shrink: 0; }
+  .toggle.on { background: var(--color-accent); }
+  .toggle-knob { width: 22px; height: 22px; background: white; border-radius: 50%; position: absolute; top: 2px; left: 2px; transition: left 0.2s; box-shadow: 0 1px 4px rgba(0,0,0,0.25); }
   .toggle.on .toggle-knob { left: 20px; }
-  .settings-screen-row { display: flex; align-items: center; justify-content: space-between; padding: 14px 0; border-bottom: 1px solid var(--color-border-tertiary); }
+  .settings-screen-row { display: flex; align-items: center; justify-content: space-between; padding: 15px 0; border-bottom: 1px solid var(--color-border-tertiary); }
   .settings-screen-row:last-child { border-bottom: none; }
-  .save-indicator { font-size: 11px; color: #AFA9EC; opacity: 0; transition: opacity 0.4s; position: absolute; right: 16px; }
+  .save-indicator { font-size: 11px; color: var(--color-accent-dim); opacity: 0; transition: opacity 0.4s; position: absolute; right: 16px; }
   .save-indicator.show { opacity: 1; }
-  .bottom-nav-wrap { position: relative; flex-shrink: 0; }
-  .bottom-nav-wrap::after { content: '›'; position: absolute; right: 0; top: 0; bottom: 0; width: 28px; background: linear-gradient(to right, transparent, var(--color-nav-bg) 60%); display: flex; align-items: center; justify-content: center; font-size: 16px; color: #AFA9EC; pointer-events: none; }
+  .bottom-nav-wrap { position: relative; flex-shrink: 0; box-shadow: var(--shadow-nav); }
+  .bottom-nav-wrap::after { content: '›'; position: absolute; right: 0; top: 0; bottom: 0; width: 32px; background: linear-gradient(to right, transparent, var(--color-nav-bg) 55%); display: flex; align-items: center; justify-content: center; font-size: 16px; color: var(--color-text-secondary); pointer-events: none; }
   .bottom-nav-wrap.no-scroll::after { display: none; }
   .dark .icon-btn:hover { background: var(--color-background-secondary); }
   .dark .icon-btn.del:hover { color: #ff6b6b; background: rgba(226,75,74,0.15); }
-  .dark .add-btn-outline { color: #AFA9EC; border-color: #AFA9EC; }
+  .dark .add-btn-outline { color: var(--color-accent-dim); border-color: var(--color-accent-dim); }
   .dark .add-btn-outline:hover { background: var(--color-background-secondary); }
   .dark .modal input, .dark .modal textarea, .dark .modal select { background: var(--color-background-secondary); color: var(--color-text-primary); border-color: var(--color-border-secondary); }
-  .dark .modal input:focus, .dark .modal textarea:focus, .dark .modal select:focus { border-color: #AFA9EC; }
+  .dark .modal input:focus, .dark .modal textarea:focus, .dark .modal select:focus { border-color: var(--color-accent-dim); }
   .dark .btn-cancel { background: var(--color-background-secondary); color: var(--color-text-primary); border-color: var(--color-border-secondary); }
   .dark .empty-state { border-color: var(--color-border-secondary); }
-  .dark .routine-header { background: #2d2845; }
-  .dark .workout-header { background: #2d2845; }
-  .dark .detail-header { background: #2d2845; }
-  .dark .ev-detail-header { background: #2d2845; }
-  .dark .type-classic { background: #2d2845; color: #AFA9EC; }
+  .dark .routine-header { background: #2a2450; }
+  .dark .workout-header { background: #2a2450; }
+  .dark .detail-header { background: #2a2450; }
+  .dark .ev-detail-header { background: #2a2450; }
+  .dark .type-classic { background: var(--color-background-tertiary); color: var(--color-accent-dim); }
   .dark .type-duration { background: #1a2d26; color: #4ecba0; }
-  .dark .tag-pill { background: #2d2845; color: #AFA9EC; }
+  .dark .tag-pill { background: var(--color-background-tertiary); color: var(--color-accent-dim); }
   .dark .muscle-chip { opacity: 0.85; }
   .dark .grade-selector .grade-opt { border: 1px solid var(--color-border-secondary); }
+  .dark .tab-btn.active { background: var(--color-background-tertiary); color: var(--color-accent-dim); box-shadow: none; }
   .export-btn:hover { background: #9FE1CB; }
-  .import-btn-settings { width: 100%; padding: 12px; background: #EEEDFE; color: #534AB7; border: 1px solid #534AB7; border-radius: var(--border-radius-md); font-size: 14px; font-weight: 600; cursor: pointer; -webkit-tap-highlight-color: transparent; }
-  .import-btn-settings:hover { background: #AFA9EC; color: white; }
+  .import-btn-settings { width: 100%; padding: 13px; background: var(--color-accent-light); color: var(--color-accent); border: 1.5px solid var(--color-accent); border-radius: var(--border-radius-md); font-size: 14px; font-weight: 700; cursor: pointer; -webkit-tap-highlight-color: transparent; font-family: var(--font-sans); }
+  .import-btn-settings:hover { background: var(--color-accent-dim); color: white; }
 
   .widget-item { display: flex; align-items: center; justify-content: space-between; padding: 14px 0; border-bottom: 1px solid var(--color-border-tertiary); }
   .widget-item:last-child { border-bottom: none; }
   .widget-item-left { display: flex; align-items: center; gap: 10px; }
-  .plan-cal-day-name { font-size:11px;color:var(--color-text-secondary);text-align:center;padding:4px 0;font-weight:600; }
-  .plan-cal-cell { min-height:40px;border-radius:8px;display:flex;flex-direction:column;align-items:center;padding:4px 2px;cursor:pointer;position:relative;-webkit-tap-highlight-color:transparent; }
+  .plan-cal-day-name { font-size:11px;color:var(--color-text-secondary);text-align:center;padding:4px 0;font-weight:700;letter-spacing:0.05em; }
+  .plan-cal-cell { min-height:40px;border-radius:10px;display:flex;flex-direction:column;align-items:center;padding:4px 2px;cursor:pointer;position:relative;-webkit-tap-highlight-color:transparent;transition:background 0.12s; }
   .plan-cal-cell:hover { background:var(--color-background-secondary); }
-  .plan-cal-cell.today .plan-cal-num { background:#534AB7;color:white;border-radius:50%;width:24px;height:24px;display:flex;align-items:center;justify-content:center; }
-  .plan-cal-cell.selected { background:#EEEDFE; }
-  .plan-cal-cell.other-month { opacity:0.35; }
+  .plan-cal-cell.today .plan-cal-num { background:var(--color-accent);color:white;border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;font-weight:800; }
+  .plan-cal-cell.selected { background:var(--color-accent-light); }
+  .dark .plan-cal-cell.selected { background:var(--color-background-tertiary); }
+  .plan-cal-cell.other-month { opacity:0.3; }
   .plan-cal-num { font-size:13px;font-weight:600;color:var(--color-text-primary);line-height:1;margin-bottom:3px; }
   .plan-cal-dots { display:flex;gap:2px;flex-wrap:wrap;justify-content:center;max-width:28px; }
-  .plan-cal-dot { width:5px;height:5px;border-radius:50%;background:#534AB7;flex-shrink:0; }
+  .plan-cal-dot { width:5px;height:5px;border-radius:50%;background:var(--color-accent);flex-shrink:0; }
   .schedule-day-header:first-child { margin-top:0; }
-  .schedule-day-today { color:#534AB7; }
-  .schedule-item { display:flex;gap:12px;align-items:flex-start;padding:10px 14px;background:var(--color-background-primary);border-radius:var(--border-radius-lg);margin-bottom:6px;border:1px solid var(--color-border-tertiary);cursor:pointer;-webkit-tap-highlight-color:transparent; }
-  .schedule-time { font-size:12px;font-weight:700;color:#534AB7;min-width:38px;padding-top:2px; }
-  .schedule-dot { width:8px;height:8px;border-radius:50%;background:#534AB7;margin-top:5px;flex-shrink:0; }
-  .schedule-title { font-size:14px;font-weight:600;color:var(--color-text-primary); }
+  .schedule-day-today { color:var(--color-accent);font-weight:800; }
+  .schedule-item { display:flex;gap:12px;align-items:flex-start;padding:11px 14px;background:var(--color-background-primary);border-radius:var(--border-radius-lg);margin-bottom:6px;border:1px solid var(--color-border-tertiary);cursor:pointer;-webkit-tap-highlight-color:transparent;box-shadow:var(--shadow-card);transition:all 0.13s; }
+  .schedule-item:hover { transform:translateY(-1px); }
+  .schedule-item.important { border-left:3px solid #E24B4A;background:#fff8f8; }
+  .dark .schedule-item.important { background:#2a1a1a; }
+  .schedule-time { font-size:12px;font-weight:700;color:var(--color-accent);min-width:38px;padding-top:2px; }
+  .schedule-dot { width:8px;height:8px;border-radius:50%;background:var(--color-accent);margin-top:5px;flex-shrink:0; }
+  .schedule-title { font-size:14px;font-weight:700;color:var(--color-text-primary); }
+  .schedule-title.important { color:#C0392B;font-weight:700; }
   .schedule-meta { font-size:12px;color:var(--color-text-secondary);margin-top:2px; }
   .widget-item.dragging { opacity: 0.4; background: var(--color-background-secondary); border-radius: var(--border-radius-md); }
-  .widget-item.drag-over { border-top: 2px solid #534AB7; }
-  .widget-label { font-size: 14px; font-weight: 500; color: var(--color-text-primary); }
+  .widget-item.drag-over { border-top: 2px solid var(--color-accent); }
+  .widget-label { font-size: 14px; font-weight: 600; color: var(--color-text-primary); }
   .widget-desc { font-size: 12px; color: var(--color-text-secondary); margin-top: 1px; }
+
+  /* ── MODE BUREAU ── */
+  @keyframes wobble {
+    0%,100% { transform: rotate(0deg); }
+    25%      { transform: rotate(-2.5deg); }
+    75%      { transform: rotate(2.5deg); }
+  }
+  .launcher-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px 8px;
+    padding: 8px 4px;
+  }
+  .launcher-icon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    padding: 4px;
+    border-radius: var(--border-radius-lg);
+    transition: opacity 0.15s;
+    position: relative;
+    user-select: none;
+  }
+  .launcher-icon:active { opacity: 0.7; }
+  .launcher-icon.wobbling .launcher-icon-wrap {
+    animation: wobble 0.5s ease-in-out infinite;
+  }
+  .launcher-icon.dragging-icon { opacity: 0.3; }
+  .launcher-icon.drag-over-icon .launcher-icon-wrap {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+  .launcher-icon-wrap {
+    width: 60px;
+    height: 60px;
+    border-radius: 16px;
+    background: var(--color-background-primary);
+    border: 1px solid var(--color-border-tertiary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    box-shadow: var(--shadow-card);
+    transition: transform 0.15s;
+  }
+  .launcher-icon-label {
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--color-text-primary);
+    text-align: center;
+    line-height: 1.2;
+    max-width: 64px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .launcher-edit-bar {
+    display: none;
+    justify-content: center;
+    padding: 8px 16px 4px;
+    flex-shrink: 0;
+  }
+  .launcher-edit-bar button {
+    background: rgba(83,74,183,0.12);
+    border: 1.5px solid var(--color-accent);
+    border-radius: var(--border-radius-pill);
+    padding: 7px 20px;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--color-accent);
+    cursor: pointer;
+    font-family: var(--font-sans);
+    -webkit-tap-highlight-color: transparent;
+  }
+  body.launcher-editing .launcher-edit-bar { display: flex; }
+  body.launcher-editing .launcher-icon:active { opacity: 1; }
+  .launcher-back {
+    display: none;
+    padding: 8px 16px 4px;
+    flex-shrink: 0;
+  }
+  .launcher-back button {
+    background: none;
+    border: none;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--color-accent-dim);
+    cursor: pointer;
+    padding: 6px 0;
+    -webkit-tap-highlight-color: transparent;
+    font-family: var(--font-sans);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .launcher-back button:hover { color: #EEEDFE; }
+  body.mode-bureau .bottom-nav-wrap { display: none; }
+  body.mode-bureau #screen-home .section-header,
+  body.mode-bureau #screen-home #home-events-list,
+  body.mode-bureau #screen-home .summary-grid { display: none; }
 </style>
 </head>
 <body>
 <div class="app-shell" id="app">
 
-  <div class="status-bar">
-    <span style="width:32px"></span>
-    <span>Flow sh*t</span>
-    <span style="width:32px"></span>
+  <div class="status-bar" style="justify-content:space-between; align-items:center; padding: 12px 20px;">
+    <div class="app-date" id="date-display"></div>
+    <button onclick="toggleSettings()" style="background:none;border:none;cursor:pointer;font-size:18px;padding:0;-webkit-tap-highlight-color:transparent;">⚙️</button>
   </div>
-  <div class="app-header"><div class="app-date" id="date-display"></div></div>
+  <div class="launcher-back" id="launcher-back">
+    <button onclick="launcherBack()">‹ Accueil</button>
+  </div>
+  <div class="launcher-edit-bar" id="launcher-edit-bar">
+    <button onclick="exitLauncherEdit()">✓ Terminé</button>
+  </div>
 
   <!-- HOME -->
   <div class="screen active" id="screen-home">
-    <button class="settings-btn" onclick="switchTab('settings')">
-      <span style="font-size:18px">⚙️</span>
-      <span style="font-size:14px;font-weight:600;color:var(--color-text-primary)">Paramètres</span>
-      <span style="margin-left:auto;font-size:16px;color:var(--color-text-secondary)">›</span>
-    </button>
-    <button class="settings-btn" onclick="location.reload()">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6b6880" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
-      <span style="font-size:14px;font-weight:600;color:var(--color-text-primary)">Mettre à jour l'app</span>
-      <span class="save-indicator" id="save-indicator" style="margin-left:auto;position:static">✓ Sauvegardé</span>
-    </button>
+    <span class="save-indicator" id="save-indicator">✓ Sauvegardé</span>
+    <!-- Launcher grid (mode bureau) -->
+    <div id="launcher-grid-container" style="display:none;" onclick="if(event.target===this||event.target.id==='launcher-grid')exitLauncherEdit()">
+      <div class="launcher-grid" id="launcher-grid"></div>
+    </div>
     <div class="section-header">Aperçu rapide</div>
     <div class="summary-grid">
       <div class="summary-card" onclick="switchTab('planning')">
@@ -405,7 +616,7 @@
     </div>
     <!-- Selected day events (calendar view) -->
     <div id="planning-calendar-day" style="display:none;">
-      <div style="font-size:13px;font-weight:700;color:#534AB7;margin-bottom:8px;" id="plan-cal-day-label"></div>
+      <div style="font-size:13px;font-weight:700;color:var(--color-accent);margin-bottom:8px;" id="plan-cal-day-label"></div>
       <div id="plan-cal-day-events"></div>
     </div>
     <!-- List / agenda view -->
@@ -461,7 +672,21 @@
 
   <!-- SETTINGS -->
   <div class="screen" id="screen-settings">
-    <div><div class="screen-title">Paramètres</div><div class="screen-subtitle">Personnalise ton application</div></div>
+    <div style="display:flex;align-items:center;justify-content:space-between;">
+      <div><div class="screen-title">Paramètres</div><div class="screen-subtitle">Personnalise ton application</div></div>
+      <button id="settings-home-btn" onclick="switchTab('home')" style="display:none;background:var(--color-background-secondary);border:1px solid var(--color-border-secondary);border-radius:var(--border-radius-lg);padding:8px 14px;font-size:13px;font-weight:700;color:var(--color-text-secondary);cursor:pointer;-webkit-tap-highlight-color:transparent;font-family:var(--font-sans);">🏠 Accueil</button>
+    </div>
+
+    <!-- Affichage -->
+    <div style="background:var(--color-background-primary);border:1px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:0 16px;">
+      <div class="settings-screen-row">
+        <div>
+          <div style="font-size:14px;color:var(--color-text-primary);font-weight:500">Mode d'affichage</div>
+          <div style="font-size:12px;color:var(--color-text-secondary);margin-top:2px" id="display-mode-label">Liste</div>
+        </div>
+        <div class="toggle" id="display-mode-toggle" onclick="toggleDisplayMode()"><div class="toggle-knob"></div></div>
+      </div>
+    </div>
 
     <!-- Widgets -->
     <div style="background:var(--color-background-primary);border:1px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:14px 16px;">
@@ -473,7 +698,6 @@
 
     <!-- App info -->
     <div style="background:var(--color-background-primary);border:1px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:0 16px;">
-      <div class="settings-screen-row"><span style="font-size:14px;color:var(--color-text-primary);font-weight:500">Nom de l'app</span><span style="font-size:13px;color:var(--color-text-secondary)">Flow sh*t</span></div>
       <div class="settings-screen-row"><span style="font-size:14px;color:var(--color-text-primary);font-weight:500">Langue</span><span style="font-size:13px;color:var(--color-text-secondary)">Français</span></div>
       <div class="settings-screen-row">
         <div style="display:flex;align-items:center;gap:8px">
@@ -491,8 +715,41 @@
         <span style="font-size:13px;color:#639922;font-weight:600">✓ Sauvegardées</span>
       </div>
       <div class="settings-screen-row">
-        <span style="font-size:14px;color:var(--color-text-primary);font-weight:500">Notifications</span>
-        <div class="toggle on" onclick="this.classList.toggle('on')"><div class="toggle-knob"></div></div>
+        <div>
+          <div style="font-size:14px;color:var(--color-text-primary);font-weight:500">Notifications</div>
+          <div style="font-size:12px;color:var(--color-text-secondary)" id="notif-permission-label">Appuie pour activer</div>
+        </div>
+        <div class="toggle" id="notif-master-toggle" onclick="toggleNotifications(this)"><div class="toggle-knob"></div></div>
+      </div>
+      <div id="notif-settings-panel" style="display:none;padding:12px 0;border-bottom:1px solid var(--color-border-tertiary);">
+        <div style="font-size:12px;font-weight:700;color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:10px;">Rappels avant l'évènement</div>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px;" id="notif-delays-wrap">
+          <div class="notif-chip" data-val="15" onclick="toggleNotifDelay(this)">15 min</div>
+          <div class="notif-chip" data-val="30" onclick="toggleNotifDelay(this)">30 min</div>
+          <div class="notif-chip" data-val="60" onclick="toggleNotifDelay(this)">1 heure</div>
+          <div class="notif-chip" data-val="120" onclick="toggleNotifDelay(this)">2 heures</div>
+          <div class="notif-chip" data-val="1440" onclick="toggleNotifDelay(this)">1 jour</div>
+          <div class="notif-chip notif-chip-custom" onclick="openCustomDelay()">+ Personnalisé</div>
+        </div>
+        <div id="notif-custom-wrap" style="display:none;margin-bottom:12px;">
+          <div style="font-size:12px;color:var(--color-text-secondary);margin-bottom:6px;">Délai personnalisé</div>
+          <div style="display:flex;align-items:center;gap:8px;">
+            <input type="number" id="notif-custom-val" min="1" max="9999" placeholder="Ex: 45" style="width:80px;padding:8px;border:1px solid var(--color-border-secondary);border-radius:var(--border-radius-md);font-size:14px;background:var(--color-background-secondary);color:var(--color-text-primary);outline:none;" />
+            <select id="notif-custom-unit" style="padding:8px;border:1px solid var(--color-border-secondary);border-radius:var(--border-radius-md);font-size:14px;background:var(--color-background-secondary);color:var(--color-text-primary);outline:none;">
+              <option value="1">minutes</option>
+              <option value="60">heures</option>
+              <option value="1440">jours</option>
+            </select>
+            <button onclick="addCustomDelay()" style="padding:8px 14px;background:var(--color-accent);color:white;border:none;border-radius:var(--border-radius-md);font-size:13px;font-weight:700;cursor:pointer;">Ajouter</button>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between;">
+          <div>
+            <div style="font-size:13px;font-weight:500;color:var(--color-text-primary);">Évènements importants seulement</div>
+            <div style="font-size:12px;color:var(--color-text-secondary);">Ignore les évènements normaux</div>
+          </div>
+          <div class="toggle" id="notif-important-only" onclick="this.classList.toggle('on');saveNotifSettings()"><div class="toggle-knob"></div></div>
+        </div>
       </div>
       <div class="settings-screen-row">
         <span style="font-size:14px;color:#E24B4A;font-weight:500">Tout réinitialiser</span>
@@ -500,7 +757,7 @@
       </div>
     </div>
     <div style="display:flex;flex-direction:column;gap:8px">
-      <button class="export-btn" onclick="exportData()">📤 Exporter mes données</button>
+      <button class="import-btn-settings" onclick="exportData()">📤 Exporter mes données</button>
       <button class="import-btn-settings" onclick="document.getElementById('import-file').click()">📥 Importer mes données</button>
       <input type="file" id="import-file" accept=".json" style="display:none" onchange="importData(event)" />
     </div>
@@ -532,6 +789,13 @@
       </div>
       <div><label>Lieu</label><input type="text" id="ev-location" placeholder="Ex: Paris, Maison..." /></div>
       <div><label>Notes</label><textarea id="ev-notes" style="height:72px" placeholder="Informations complémentaires..."></textarea></div>
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-top:1px solid var(--color-border-tertiary);margin-top:2px;">
+        <div>
+          <div style="font-size:14px;font-weight:600;color:var(--color-text-primary)">⚠️ Important</div>
+          <div style="font-size:12px;color:var(--color-text-secondary)">Met cet évènement en avant</div>
+        </div>
+        <div class="toggle" id="ev-important-toggle" onclick="this.classList.toggle('on')"><div class="toggle-knob"></div></div>
+      </div>
 
       <!-- Récurrence -->
       <div>
@@ -594,6 +858,7 @@
         </div>
       </div>
       <div class="detail-row" id="ev-detail-notes-row" style="display:none"><div class="detail-label">Notes</div><div class="detail-value" id="ev-detail-notes"></div></div>
+      <div class="detail-row" id="ev-detail-important-row" style="display:none"><div class="detail-label">Priorité</div><div class="detail-value" style="color:#E24B4A;font-weight:600;">⚠️ Évènement important</div></div>
     </div>
   </div>
 
@@ -673,7 +938,7 @@
     <div class="detail-body">
       <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
         <span id="rd-time" style="font-size:13px;color:var(--color-text-secondary)"></span>
-        <span id="rd-cat" style="font-size:12px;padding:3px 10px;border-radius:20px;background:#EEEDFE;color:#534AB7;font-weight:600"></span>
+        <span id="rd-cat" style="font-size:12px;padding:3px 10px;border-radius:20px;background:var(--color-accent-light);color:var(--color-accent);font-weight:700"></span>
         <div id="rd-grade-wrap"></div>
       </div>
       <div id="rd-tags" style="display:flex;gap:6px;flex-wrap:wrap"></div>
@@ -693,14 +958,14 @@
         <div class="muscle-grid" id="muscle-grid"></div>
         <div style="display:flex;gap:6px;margin-top:8px;">
           <input type="text" id="custom-muscle-input" placeholder="Ajouter un groupe..." style="flex:1;padding:8px 10px;border:1px solid var(--color-border-secondary);border-radius:var(--border-radius-md);font-size:13px;background:var(--color-background-secondary);color:var(--color-text-primary);outline:none;" onkeydown="if(event.key==='Enter')addCustomMuscle()" />
-          <button onclick="addCustomMuscle()" style="padding:8px 14px;background:#534AB7;color:#EEEDFE;border:none;border-radius:var(--border-radius-md);font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;">+ Ajouter</button>
+          <button onclick="addCustomMuscle()" style="padding:8px 14px;background:var(--color-accent);color:#EEEDFE;border:none;border-radius:var(--border-radius-md);font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap;">+ Ajouter</button>
         </div>
       </div>
       <!-- Custom sets -->
       <div>
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
           <label style="margin:0;">Séries</label>
-          <button onclick="addExSet()" style="padding:4px 10px;background:#534AB7;color:#EEEDFE;border:none;border-radius:6px;font-size:12px;font-weight:700;cursor:pointer;">+ Série</button>
+          <button onclick="addExSet()" style="padding:4px 10px;background:var(--color-accent);color:#EEEDFE;border:none;border-radius:6px;font-size:12px;font-weight:700;cursor:pointer;">+ Série</button>
         </div>
         <!-- Column headers -->
         <div style="display:grid;grid-template-columns:20px 1fr 1fr 1fr 1fr 24px;gap:4px;margin-bottom:4px;padding:0 2px;">
@@ -812,16 +1077,16 @@
       <span class="detail-back" id="nd-back-btn" onclick="closeNoteDetail()">‹ Retour</span>
       <div class="detail-title" id="nd-title" style="font-size:15px"></div>
       <div style="display:flex;gap:4px;align-items:center;">
-        <button id="nd-edit-btn" onclick="toggleInlineEdit()" style="background:none;border:none;color:#AFA9EC;font-size:18px;cursor:pointer;padding:4px 6px;border-radius:6px;-webkit-tap-highlight-color:transparent;" title="Modifier">✏️</button>
-        <button onclick="deleteCurrentNote()" style="background:none;border:none;color:#AFA9EC;font-size:18px;cursor:pointer;padding:4px 6px;border-radius:6px;-webkit-tap-highlight-color:transparent;" title="Supprimer">🗑️</button>
-        <button onclick="shareCurrentNote()" style="background:none;border:none;color:#AFA9EC;font-size:18px;cursor:pointer;padding:4px 6px;border-radius:6px;-webkit-tap-highlight-color:transparent;" title="Partager">📤</button>
+        <button id="nd-edit-btn" onclick="toggleInlineEdit()" style="background:none;border:none;color:var(--color-text-secondary);font-size:18px;cursor:pointer;padding:4px 6px;border-radius:6px;-webkit-tap-highlight-color:transparent;" title="Modifier">✏️</button>
+        <button onclick="deleteCurrentNote()" style="background:none;border:none;color:var(--color-text-secondary);font-size:18px;cursor:pointer;padding:4px 6px;border-radius:6px;-webkit-tap-highlight-color:transparent;" title="Supprimer">🗑️</button>
+        <button onclick="shareCurrentNote()" style="background:none;border:none;color:var(--color-text-secondary);font-size:18px;cursor:pointer;padding:4px 6px;border-radius:6px;-webkit-tap-highlight-color:transparent;" title="Partager">📤</button>
       </div>
     </div>
     <div style="padding:24px 20px;flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;display:flex;flex-direction:column;gap:12px;">
       <div style="font-size:11px;color:var(--color-text-secondary);font-weight:600" id="nd-date"></div>
       <!-- READ MODE -->
-      <div id="nd-read-view">
-        <div id="nd-content" style="font-size:15px;color:var(--color-text-primary);line-height:1.75;white-space:pre-wrap;word-break:break-word;"></div>
+      <div id="nd-read-view" onclick="toggleInlineEdit()" style="cursor:text;">
+        <div id="nd-content" style="font-size:15px;color:var(--color-text-primary);line-height:1.75;white-space:pre-wrap;word-break:break-word;min-height:48px;"></div>
       </div>
       <!-- EDIT MODE -->
       <div id="nd-edit-view" style="display:none;flex:1;display:none;flex-direction:column;gap:10px;">
@@ -864,29 +1129,38 @@
       </div>
     </div>
     <!-- IMC Calculator -->
-    <div style="background:var(--color-background-primary);border:1px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:14px 16px;">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
-        <div style="font-size:12px;font-weight:700;color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:0.06em;">Calcul IMC</div>
-        <div class="tab-row" style="width:80px;margin:0;">
-          <button class="tab-btn active" id="imc-sex-m" onclick="setImcSex('M')">♂ H</button>
-          <button class="tab-btn" id="imc-sex-f" onclick="setImcSex('F')">♀ F</button>
+    <div style="background:var(--color-background-primary);border:1px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);">
+      <div onclick="toggleIMC()" style="display:flex;align-items:center;justify-content:space-between;padding:14px 16px;cursor:pointer;-webkit-tap-highlight-color:transparent;">
+        <div style="display:flex;align-items:center;gap:8px;">
+          <span style="font-size:15px;">⚖️</span>
+          <span style="font-size:14px;font-weight:600;color:var(--color-text-primary);">Calculer mon IMC</span>
         </div>
+        <span id="imc-chevron" style="font-size:16px;color:var(--color-text-secondary);transition:transform 0.2s;">›</span>
       </div>
-      <div style="display:flex;gap:10px;align-items:flex-end;margin-bottom:12px;">
-        <div style="flex:1;">
-          <label style="font-size:11px;font-weight:700;color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:0.05em;display:block;margin-bottom:5px;">Taille (cm)</label>
-          <input type="number" id="imc-height" min="50" max="250" placeholder="175" oninput="calcIMC()" style="width:100%;padding:10px;border:1px solid var(--color-border-secondary);border-radius:var(--border-radius-md);font-size:16px;font-weight:700;color:var(--color-text-primary);background:var(--color-background-secondary);box-sizing:border-box;outline:none;" />
+      <div id="imc-panel" style="display:none;padding:0 16px 16px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+          <div style="font-size:11px;font-weight:700;color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:0.06em;">Sexe</div>
+          <div class="tab-row" style="width:80px;margin:0;">
+            <button class="tab-btn active" id="imc-sex-m" onclick="setImcSex('M')">♂ H</button>
+            <button class="tab-btn" id="imc-sex-f" onclick="setImcSex('F')">♀ F</button>
+          </div>
         </div>
-        <div style="flex:1;">
-          <label style="font-size:11px;font-weight:700;color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:0.05em;display:block;margin-bottom:5px;">Poids (kg)</label>
-          <input type="number" id="imc-weight" min="20" max="500" step="0.1" placeholder="70" oninput="calcIMC()" style="width:100%;padding:10px;border:1px solid var(--color-border-secondary);border-radius:var(--border-radius-md);font-size:16px;font-weight:700;color:var(--color-text-primary);background:var(--color-background-secondary);box-sizing:border-box;outline:none;" />
+        <div style="display:flex;gap:10px;align-items:flex-end;margin-bottom:12px;">
+          <div style="flex:1;">
+            <label style="font-size:11px;font-weight:700;color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:0.05em;display:block;margin-bottom:5px;">Taille (cm)</label>
+            <input type="number" id="imc-height" min="50" max="250" placeholder="175" oninput="calcIMC()" style="width:100%;padding:10px;border:1px solid var(--color-border-secondary);border-radius:var(--border-radius-md);font-size:16px;font-weight:700;color:var(--color-text-primary);background:var(--color-background-secondary);box-sizing:border-box;outline:none;" />
+          </div>
+          <div style="flex:1;">
+            <label style="font-size:11px;font-weight:700;color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:0.05em;display:block;margin-bottom:5px;">Poids (kg)</label>
+            <input type="number" id="imc-weight" min="20" max="500" step="0.1" placeholder="70" oninput="calcIMC()" style="width:100%;padding:10px;border:1px solid var(--color-border-secondary);border-radius:var(--border-radius-md);font-size:16px;font-weight:700;color:var(--color-text-primary);background:var(--color-background-secondary);box-sizing:border-box;outline:none;" />
+          </div>
         </div>
-      </div>
-      <div id="imc-result" style="display:none;border-radius:var(--border-radius-md);padding:14px;text-align:center;">
-        <div id="imc-value" style="font-size:32px;font-weight:800;"></div>
-        <div id="imc-label" style="font-size:13px;font-weight:600;margin-top:4px;"></div>
-        <div id="imc-range" style="font-size:11px;color:var(--color-text-secondary);margin-top:4px;"></div>
-        <div id="imc-ideal" style="font-size:11px;color:var(--color-text-secondary);margin-top:2px;"></div>
+        <div id="imc-result" style="display:none;border-radius:var(--border-radius-md);padding:14px;text-align:center;">
+          <div id="imc-value" style="font-size:32px;font-weight:800;"></div>
+          <div id="imc-label" style="font-size:13px;font-weight:600;margin-top:4px;"></div>
+          <div id="imc-range" style="font-size:11px;color:var(--color-text-secondary);margin-top:4px;"></div>
+          <div id="imc-ideal" style="font-size:11px;color:var(--color-text-secondary);margin-top:2px;"></div>
+        </div>
       </div>
     </div>
     <!-- Add entry -->
@@ -895,9 +1169,20 @@
         <input type="number" id="weight-input" step="0.1" min="20" max="500" placeholder="70.5" style="width:100%;padding:10px;border:1px solid var(--color-border-secondary);border-radius:var(--border-radius-md);font-size:16px;font-weight:700;color:var(--color-text-primary);background:var(--color-background-secondary);box-sizing:border-box;outline:none;" />
       </div>
       <div style="flex:1"><label style="font-size:11px;font-weight:700;color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:0.05em;display:block;margin-bottom:5px">Date</label>
-        <input type="text" id="weight-date-input" maxlength="10" placeholder="jj/mm/aaaa" oninput="autoFormatDate(this)" style="width:100%;padding:10px;border:1px solid var(--color-border-secondary);border-radius:var(--border-radius-md);font-size:14px;color:var(--color-text-primary);background:var(--color-background-secondary);box-sizing:border-box;outline:none;" />
+        <div class="date-input-wrap">
+          <input type="text" id="weight-date-input" maxlength="10" placeholder="jj/mm/aaaa" oninput="autoFormatDate(this)" style="width:100%;padding:10px;padding-right:38px;border:1px solid var(--color-border-secondary);border-radius:var(--border-radius-md);font-size:14px;color:var(--color-text-primary);background:var(--color-background-secondary);box-sizing:border-box;outline:none;" />
+          <span class="cal-icon" onmousedown="toggleWeightCal(event)">📅</span>
+        </div>
+        <div id="weight-calendar-popup" class="calendar-popup" style="display:none;">
+          <div class="cal-header">
+            <button class="cal-nav" onclick="weightCalPrev()">‹</button>
+            <span class="cal-month-label" id="weight-cal-label"></span>
+            <button class="cal-nav" onclick="weightCalNext()">›</button>
+          </div>
+          <div class="cal-grid" id="weight-cal-grid"></div>
+        </div>
       </div>
-      <button onclick="addWeightEntry()" style="padding:10px 16px;background:#534AB7;color:white;border:none;border-radius:var(--border-radius-md);font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap;">+ Ajouter</button>
+      <button onclick="addWeightEntry()" style="padding:10px 16px;background:var(--color-accent);color:white;border:none;border-radius:var(--border-radius-md);font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap;">+ Ajouter</button>
     </div>
     <!-- Chart -->
     <div style="background:var(--color-background-primary);border:1px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:14px 16px;">
@@ -925,6 +1210,258 @@
     <p style="font-size:11px;color:var(--color-text-secondary);text-align:center;line-height:1.6;padding-bottom:8px;">Numéros gratuits, disponibles 24h/24 depuis tout téléphone.</p>
   </div>
 
+  <!-- CHANTIERS SCREEN -->
+  <div class="screen" id="screen-chantiers">
+    <div style="display:flex;align-items:center;justify-content:space-between;">
+      <div><div class="screen-title">Chantiers</div><div class="screen-subtitle">Suivi des chantiers</div></div>
+      <button onclick="openChantierModal(null)" style="padding:8px 16px;background:var(--color-accent);color:#EEEDFE;border:none;border-radius:var(--border-radius-lg);font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap;font-family:var(--font-sans);box-shadow:0 2px 8px rgba(83,74,183,0.3);">+ Nouveau</button>
+    </div>
+    <div class="cat-scroll" id="chantier-status-filter" style="margin-bottom:4px;"></div>
+    <div id="chantiers-list"></div>
+  </div>
+
+  <!-- CHANTIER DETAIL -->
+  <div class="ev-detail-overlay" id="chantier-detail" style="display:none;flex-direction:column;">
+    <div class="ev-detail-header">
+      <span class="ev-detail-back" onclick="closeChantierDetail()">‹ Retour</span>
+      <div class="ev-detail-title" id="ch-detail-title"></div>
+      <span style="width:60px"></span>
+    </div>
+    <div style="display:flex;justify-content:flex-end;gap:4px;padding:12px 16px 0;flex-shrink:0;">
+      <button class="icon-btn" onclick="editChantierFromDetail()">✏️</button>
+      <button class="icon-btn del" onclick="deleteChantierFromDetail()">🗑️</button>
+    </div>
+    <div class="ev-detail-body">
+      <div class="detail-row"><div class="detail-label">Statut</div><div class="detail-value" id="ch-detail-status"></div></div>
+      <div class="detail-row" id="ch-detail-date-row" style="display:none"><div class="detail-label">Date</div><div class="detail-value" id="ch-detail-date"></div></div>
+      <div class="detail-row" id="ch-detail-address-row" style="display:none">
+        <div class="detail-label">Adresse</div>
+        <div class="detail-value" id="ch-detail-address"></div>
+        <div class="map-btn-row">
+          <a id="ch-gmaps-link" class="map-btn map-btn-gmaps" target="_blank">🗺 Google Maps</a>
+          <a id="ch-waze-link" class="map-btn map-btn-waze" target="_blank">🚗 Waze</a>
+        </div>
+      </div>
+      <div class="detail-row" id="ch-detail-devis-row" style="display:none"><div class="detail-label">Devis</div><div class="detail-value" id="ch-detail-devis"></div></div>
+      <div class="detail-row" id="ch-detail-notes-row" style="display:none"><div class="detail-label">Notes</div><div class="detail-value" id="ch-detail-notes"></div></div>
+      <div id="ch-detail-photos" style="margin-top:8px;display:flex;flex-wrap:wrap;gap:8px;"></div>
+    </div>
+  </div>
+
+  <!-- CHANTIER MODAL -->
+  <div class="modal-overlay" id="chantier-modal" style="display:none;">
+    <div class="modal">
+      <div class="modal-title" id="chantier-modal-title">Nouveau chantier</div>
+      <div><label>Client</label><input type="text" id="ch-client" placeholder="Nom du client..." /></div>
+      <div><label>Adresse</label><input type="text" id="ch-address" placeholder="Adresse du chantier..." /></div>
+      <div><label>Statut</label>
+        <select id="ch-status" style="width:100%;padding:10px;border:1px solid var(--color-border-secondary);border-radius:var(--border-radius-md);font-size:14px;background:var(--color-background-secondary);color:var(--color-text-primary);outline:none;">
+          <option value="En cours">En cours</option>
+          <option value="Devis à faire">Devis à faire</option>
+          <option value="Devis à envoyer">Devis à envoyer</option>
+          <option value="Recontacter">Recontacter</option>
+          <option value="Facture à envoyer">Facture à envoyer</option>
+          <option value="Fini">Fini</option>
+          <option value="Terminé">Terminé</option>
+        </select>
+        <div style="display:flex;gap:8px;margin-top:6px;">
+          <input type="text" id="ch-custom-status" placeholder="Ajouter un statut personnalisé..." style="flex:1;padding:8px 10px;border:1px solid var(--color-border-secondary);border-radius:var(--border-radius-md);font-size:13px;background:var(--color-background-secondary);color:var(--color-text-primary);outline:none;" />
+          <button onclick="addCustomChantierStatus()" style="padding:8px 12px;background:var(--color-accent);color:white;border:none;border-radius:var(--border-radius-md);font-size:13px;font-weight:700;cursor:pointer;">+</button>
+        </div>
+      </div>
+      <div><label>Date</label>
+        <div class="date-input-wrap">
+          <input type="text" id="ch-date" placeholder="jj/mm/aaaa" maxlength="10" oninput="autoFormatDate(this)" />
+          <span class="cal-icon" onmousedown="toggleChantierCal(event)">📅</span>
+        </div>
+        <div id="chantier-calendar-popup" class="calendar-popup" style="display:none;">
+          <div class="cal-header">
+            <button class="cal-nav" onclick="chantierCalPrev()">‹</button>
+            <span class="cal-month-label" id="chantier-cal-label"></span>
+            <button class="cal-nav" onclick="chantierCalNext()">›</button>
+          </div>
+          <div class="cal-grid" id="chantier-cal-grid"></div>
+        </div>
+      </div>
+      <div><label>Devis (€)</label><input type="number" id="ch-devis" min="0" step="0.01" placeholder="Ex: 850.00" /></div>
+      <div><label>Notes</label><textarea id="ch-notes" style="height:72px" placeholder="Travaux à effectuer, accès, remarques..."></textarea></div>
+      <div>
+        <label>Photos</label>
+        <label style="display:inline-flex;align-items:center;gap:6px;padding:8px 14px;background:var(--color-background-secondary);border:1px solid var(--color-border-secondary);border-radius:var(--border-radius-md);cursor:pointer;font-size:13px;font-weight:600;color:var(--color-text-primary);">
+          📷 Ajouter des photos
+          <input type="file" accept="image/*" multiple style="display:none" onchange="handleChantierPhotos(event)" />
+        </label>
+        <div id="ch-photos-preview" style="display:flex;flex-wrap:wrap;gap:8px;margin-top:8px;"></div>
+      </div>
+      <div class="modal-actions">
+        <button class="btn-cancel" onclick="closeChantierModal()">Annuler</button>
+        <button class="btn-save" onclick="saveChantier()">Enregistrer</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- INVENTAIRE SCREEN -->
+  <div class="screen" id="screen-inventaire">
+    <div style="display:flex;align-items:center;justify-content:space-between;">
+      <div><div class="screen-title">Inventaire</div><div class="screen-subtitle">Tes stocks & matériaux</div></div>
+      <button class="add-btn" onclick="openInventaireModal(null)">+ Ajouter</button>
+    </div>
+    <div class="cat-scroll" id="inv-cat-filter" style="margin-bottom:4px;"></div>
+    <div id="inv-list"></div>
+  </div>
+
+  <!-- INVENTAIRE MODAL -->
+  <div class="modal-overlay" id="inventaire-modal" style="display:none;">
+    <div class="modal">
+      <div class="modal-title" id="inv-modal-title">Nouvel article</div>
+      <div><label>Nom</label><input type="text" id="inv-name" placeholder="Ex: Huile chaîne, Carburant..." /></div>
+      <div><label>Catégorie</label>
+        <input type="text" id="inv-cat" placeholder="Ex: Carburant, Outillage, EPI..." list="inv-cat-list" />
+        <datalist id="inv-cat-list"></datalist>
+      </div>
+      <div class="modal-row">
+        <div><label>Quantité</label><input type="number" id="inv-qty" min="0" step="0.1" placeholder="0" /></div>
+        <div><label>Unité</label><input type="text" id="inv-unit" placeholder="L, kg, pièces..." maxlength="10" /></div>
+      </div>
+      <div><label>Seuil d'alerte <span style="font-size:11px;color:var(--color-text-secondary);font-weight:400;">— stock bas en dessous</span></label>
+        <input type="number" id="inv-threshold" min="0" step="0.1" placeholder="Ex: 2" />
+      </div>
+      <div><label>Notes</label><input type="text" id="inv-notes" placeholder="Optionnel..." /></div>
+      <div class="modal-actions">
+        <button class="btn-cancel" onclick="closeInventaireModal()">Annuler</button>
+        <button class="btn-save" onclick="saveInventaireItem()">Enregistrer</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SOMMEIL SCREEN -->
+  <div class="screen" id="screen-sommeil">
+    <div><div class="screen-title">Sommeil</div><div class="screen-subtitle">Suivi de tes nuits</div></div>
+
+    <!-- Log entry -->
+    <div style="background:var(--color-background-primary);border:1px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:14px 16px;">
+      <div style="font-size:12px;font-weight:700;color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:10px;">Ajouter une nuit</div>
+      <div class="modal-row" style="margin-bottom:10px;">
+        <div>
+          <label>Date</label>
+          <div class="date-input-wrap">
+            <input type="text" id="sleep-date" maxlength="10" placeholder="jj/mm/aaaa" oninput="autoFormatDate(this)" style="padding:10px;border:1px solid var(--color-border-secondary);border-radius:var(--border-radius-md);font-size:14px;background:var(--color-background-secondary);color:var(--color-text-primary);outline:none;width:100%;box-sizing:border-box;" />
+            <span class="cal-icon" onmousedown="toggleSleepCal(event)">📅</span>
+          </div>
+          <div id="sleep-calendar-popup" class="calendar-popup" style="display:none;">
+            <div class="cal-header">
+              <button class="cal-nav" onclick="sleepCalPrev()">‹</button>
+              <span class="cal-month-label" id="sleep-cal-label"></span>
+              <button class="cal-nav" onclick="sleepCalNext()">›</button>
+            </div>
+            <div class="cal-grid" id="sleep-cal-grid"></div>
+          </div>
+        </div>
+        <div><label>Durée (h) <span style="font-size:11px;color:var(--color-text-secondary);font-weight:400;">— optionnel</span></label><input type="number" id="sleep-duration" min="0" max="24" step="0.5" placeholder="Auto" style="padding:10px;border:1px solid var(--color-border-secondary);border-radius:var(--border-radius-md);font-size:14px;background:var(--color-background-secondary);color:var(--color-text-primary);outline:none;width:100%;box-sizing:border-box;" /></div>
+      </div>
+      <div class="modal-row" style="margin-bottom:12px;">
+        <div><label>Coucher</label><input type="text" id="sleep-bedtime" maxlength="5" placeholder="23:00" oninput="autoFormatTime(this);calcSleepDuration()" onblur="completeTime(this)" style="padding:10px;border:1px solid var(--color-border-secondary);border-radius:var(--border-radius-md);font-size:14px;background:var(--color-background-secondary);color:var(--color-text-primary);outline:none;width:100%;box-sizing:border-box;" /></div>
+        <div><label>Lever</label><input type="text" id="sleep-waketime" maxlength="5" placeholder="07:00" oninput="autoFormatTime(this);calcSleepDuration()" onblur="completeTime(this)" style="padding:10px;border:1px solid var(--color-border-secondary);border-radius:var(--border-radius-md);font-size:14px;background:var(--color-background-secondary);color:var(--color-text-primary);outline:none;width:100%;box-sizing:border-box;" /></div>
+      </div>
+      <button onclick="addSleepEntry()" style="width:100%;padding:11px;background:var(--color-accent);color:white;border:none;border-radius:var(--border-radius-md);font-size:14px;font-weight:700;cursor:pointer;">Enregistrer</button>
+    </div>
+
+    <!-- Chart -->
+    <div style="background:var(--color-background-primary);border:1px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:14px 16px;margin-top:10px;">
+      <div style="font-size:12px;font-weight:700;color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:10px;">7 dernières nuits</div>
+      <canvas id="sleep-chart" height="140"></canvas>
+      <div id="sleep-stats" style="display:flex;gap:0;margin-top:12px;border-top:1px solid var(--color-border-tertiary);padding-top:12px;"></div>
+    </div>
+
+    <!-- Log list -->
+    <div id="sleep-log-list" style="margin-top:10px;"></div>
+  </div>
+
+  <!-- OBJECTIFS SCREEN -->
+  <div class="screen" id="screen-objectifs">
+    <div style="display:flex;align-items:center;justify-content:space-between;">
+      <div><div class="screen-title">Objectifs</div><div class="screen-subtitle">Tes succès en cours</div></div>
+      <button onclick="openGoalModal(null)" style="padding:8px 16px;background:var(--color-accent);color:#EEEDFE;border:none;border-radius:var(--border-radius-lg);font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap;font-family:var(--font-sans);box-shadow:0 2px 8px rgba(83,74,183,0.3);">+ Nouveau</button>
+    </div>
+    <div id="goals-list"></div>
+  </div>
+
+  <!-- GOAL MODAL -->
+  <div class="modal-overlay" id="goal-modal" style="display:none;">
+    <div class="modal">
+      <div class="modal-title" id="goal-modal-title">Nouvel objectif</div>
+      <div><label>Nom de l'objectif</label><input type="text" id="goal-name" placeholder="Ex: Sport, Lecture, Voyage..." /></div>
+      <div>
+        <label>Date de fin <span style="font-size:11px;color:var(--color-text-secondary);font-weight:400;">— optionnel</span></label>
+        <div class="date-input-wrap">
+          <input type="text" id="goal-deadline" placeholder="jj/mm/aaaa" maxlength="10" oninput="autoFormatDate(this)" />
+          <span class="cal-icon" onmousedown="toggleGoalCal(event)">📅</span>
+        </div>
+        <div id="goal-calendar-popup" class="calendar-popup" style="display:none;">
+          <div class="cal-header">
+            <button class="cal-nav" onclick="goalCalPrev()">‹</button>
+            <span class="cal-month-label" id="goal-cal-label"></span>
+            <button class="cal-nav" onclick="goalCalNext()">›</button>
+          </div>
+          <div class="cal-grid" id="goal-cal-grid"></div>
+        </div>
+      </div>
+      <div class="modal-actions">
+        <button class="btn-cancel" onclick="closeGoalModal()">Annuler</button>
+        <button class="btn-save" onclick="saveGoal()">Enregistrer</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TARGET MODAL -->
+  <div class="modal-overlay" id="target-modal" style="display:none;">
+    <div class="modal">
+      <div class="modal-title" id="target-modal-title">Nouvelle cible</div>
+      <div><label>Description</label><input type="text" id="target-desc" placeholder="Ex: Courir 100km, Lire 12 livres..." /></div>
+      <div class="modal-row">
+        <div><label>Cible</label><input type="number" id="target-goal" min="1" placeholder="100" /></div>
+        <div><label>Unité</label><input type="text" id="target-unit" placeholder="km, livres..." maxlength="10" /></div>
+      </div>
+      <div class="modal-row">
+        <div><label>Déjà accompli <span style="font-size:11px;color:var(--color-text-secondary);font-weight:400;">— optionnel</span></label>
+          <input type="number" id="target-current" min="0" step="0.1" placeholder="0" />
+        </div>
+        <div><label>Date limite <span style="font-size:11px;color:var(--color-text-secondary);font-weight:400;">— optionnel</span></label>
+          <div class="date-input-wrap">
+            <input type="text" id="target-deadline" placeholder="jj/mm/aaaa" maxlength="10" oninput="autoFormatDate(this)" />
+            <span class="cal-icon" onmousedown="toggleTargetCal(event)">📅</span>
+          </div>
+          <div id="target-calendar-popup" class="calendar-popup" style="display:none;">
+            <div class="cal-header">
+              <button class="cal-nav" onclick="targetCalPrev()">‹</button>
+              <span class="cal-month-label" id="target-cal-label"></span>
+              <button class="cal-nav" onclick="targetCalNext()">›</button>
+            </div>
+            <div class="cal-grid" id="target-cal-grid"></div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-actions">
+        <button class="btn-cancel" onclick="closeTargetModal()">Annuler</button>
+        <button class="btn-save" onclick="saveTarget()">Enregistrer</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MÉTÉO SCREEN -->
+  <div class="screen" id="screen-meteo">
+    <div><div class="screen-title">Météo</div><div class="screen-subtitle">Météo du jour</div></div>
+    <div style="background:var(--color-background-primary);border:1px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:14px 16px;">
+      <div style="display:flex;gap:8px;align-items:center;">
+        <input type="text" id="meteo-city-input" placeholder="Ex: Morlaix, Brest..." style="flex:1;min-width:0;padding:10px 12px;border:1px solid var(--color-border-secondary);border-radius:var(--border-radius-md);font-size:14px;background:var(--color-background-secondary);color:var(--color-text-primary);outline:none;" onkeydown="if(event.key==='Enter')fetchMeteo()" />
+        <button onclick="fetchMeteoGPS()" title="Localisation auto" style="flex-shrink:0;width:42px;padding:10px 0;background:var(--color-background-secondary);border:1px solid var(--color-border-secondary);border-radius:var(--border-radius-md);font-size:16px;cursor:pointer;text-align:center;">📍</button>
+        <button onclick="toggleMeteoFavorite()" id="meteo-star-btn" title="Sauvegarder" style="flex-shrink:0;width:42px;padding:10px 0;background:var(--color-background-secondary);border:1px solid var(--color-border-secondary);border-radius:var(--border-radius-md);font-size:16px;cursor:pointer;text-align:center;">☆</button>
+      </div>
+    </div>
+    <div id="meteo-favorites-wrap" style="display:none;margin-top:10px;display:flex;flex-wrap:wrap;gap:8px;"></div>
+    <div id="meteo-result" style="margin-top:0;"></div>
+  </div>
+
   <!-- CONVERTISSEUR SCREEN -->
   <div class="screen" id="screen-convertisseur">
     <div><div class="screen-title">Convertisseur</div><div class="screen-subtitle">Toutes tes conversions</div></div>
@@ -948,7 +1485,7 @@
       </div>
       <!-- Result -->
       <div id="conv-result" style="margin-top:14px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:16px;text-align:center;display:none;">
-        <div id="conv-result-value" style="font-size:28px;font-weight:800;color:#534AB7;"></div>
+        <div id="conv-result-value" style="font-size:28px;font-weight:800;color:var(--color-accent);"></div>
         <div id="conv-result-label" style="font-size:13px;color:var(--color-text-secondary);margin-top:4px;"></div>
       </div>
       <div id="conv-devise-note" style="display:none;margin-top:8px;font-size:11px;color:var(--color-text-secondary);text-align:center;">⚠️ Taux de change indicatifs — actualisés manuellement</div>
@@ -971,6 +1508,11 @@
     <button class="nav-item" id="nav-poids" onclick="switchTab('poids')" style="display:none"><span class="nav-icon">⚖️</span><span class="nav-label">Poids</span><div class="nav-dot"></div></button>
     <button class="nav-item" id="nav-urgences" onclick="switchTab('urgences')" style="display:none"><span class="nav-icon">🚨</span><span class="nav-label">Urgences</span><div class="nav-dot"></div></button>
     <button class="nav-item" id="nav-convertisseur" onclick="switchTab('convertisseur')" style="display:none"><span class="nav-icon">🔀</span><span class="nav-label">Convertir</span><div class="nav-dot"></div></button>
+    <button class="nav-item" id="nav-meteo" onclick="switchTab('meteo')" style="display:none"><span class="nav-icon">🌤️</span><span class="nav-label">Météo</span><div class="nav-dot"></div></button>
+    <button class="nav-item" id="nav-objectifs" onclick="switchTab('objectifs')" style="display:none"><span class="nav-icon">🎯</span><span class="nav-label">Objectifs</span><div class="nav-dot"></div></button>
+    <button class="nav-item" id="nav-sommeil" onclick="switchTab('sommeil')" style="display:none"><span class="nav-icon">😴</span><span class="nav-label">Sommeil</span><div class="nav-dot"></div></button>
+    <button class="nav-item" id="nav-inventaire" onclick="switchTab('inventaire')" style="display:none"><span class="nav-icon">📦</span><span class="nav-label">Inventaire</span><div class="nav-dot"></div></button>
+    <button class="nav-item" id="nav-chantiers" onclick="switchTab('chantiers')" style="display:none"><span class="nav-icon">🏗️</span><span class="nav-label">Chantiers</span><div class="nav-dot"></div></button>
   </nav>
   </div>
 </div>
@@ -1018,10 +1560,10 @@
     input.value = '';
     renderMuscleGrid('muscle-grid', selectedMuscles);
   }
-  const tabs=['home','planning','recettes','sport','settings','historique','notes','poids','urgences','convertisseur'];
+  const tabs=['home','planning','recettes','sport','settings','historique','notes','poids','urgences','convertisseur','meteo','objectifs','sommeil','inventaire','chantiers'];
 
   // ── WIDGETS STATE ──
-  const WIDGET_TABS = ['planning','recettes','sport','historique','notes','poids','urgences','convertisseur'];
+  const WIDGET_TABS = ['planning','recettes','sport','historique','notes','poids','urgences','convertisseur','meteo','objectifs','sommeil','inventaire','chantiers'];
   const WIDGET_META = {
     planning:      { icon:'📅', label:'Planning',      desc:'Évènements & rappels' },
     recettes:      { icon:'🍽️', label:'Recettes',      desc:'Tes recettes favorites' },
@@ -1031,9 +1573,14 @@
     poids:         { icon:'⚖️', label:'Poids',          desc:'Suivi du poids' },
     urgences:      { icon:'🚨', label:'Urgences',       desc:'Numéros d\'urgence' },
     convertisseur: { icon:'🔀', label:'Convertisseur',  desc:'Longueur, poids, temp...' },
+    meteo:         { icon:'🌤️', label:'Météo',          desc:'Météo du jour' },
+    objectifs:     { icon:'🎯', label:'Objectifs',      desc:'Tes succès & cibles' },
+    sommeil:       { icon:'😴', label:'Sommeil',        desc:'Suivi de tes nuits' },
+    inventaire:    { icon:'📦', label:'Inventaire',     desc:'Stocks & matériaux' },
+    chantiers:     { icon:'🏗️', label:'Chantiers',      desc:'Suivi chantiers Élagage' },
   };
-  let activeWidgets = {planning:true, recettes:true, sport:true, historique:true, notes:false, poids:false, urgences:false, convertisseur:false};
-  let widgetOrder   = ['planning','recettes','sport','historique','notes','poids','urgences','convertisseur'];
+  let activeWidgets = {planning:true,recettes:true,sport:true,historique:true,notes:false,poids:false,urgences:false,convertisseur:false,meteo:false,objectifs:false,sommeil:false,inventaire:false,chantiers:false};
+  let widgetOrder   = ['planning','recettes','sport','historique','notes','poids','urgences','convertisseur','meteo','objectifs','sommeil','inventaire','chantiers'];
 
   // ── WIDGET RENDER ──
   function renderWidgetList() {
@@ -1125,13 +1672,18 @@
     widgetOrder = [...document.querySelectorAll('#widget-list .widget-item')].map(el => el.dataset.tab);
     localStorage.setItem('flowshit-widget-order', JSON.stringify(widgetOrder));
     applyWidgets();
+    if (displayMode === 'bureau') renderLauncherGrid();
   }
 
   function toggleWidget(tab, toggleEl) {
     toggleEl.classList.toggle('on');
     activeWidgets[tab] = toggleEl.classList.contains('on');
     localStorage.setItem('flowshit-widgets', JSON.stringify(activeWidgets));
+    // Sync widgetOrder from current DOM order before re-rendering
+    const items = document.querySelectorAll('#widget-list .widget-item');
+    if (items.length) widgetOrder = [...items].map(el => el.dataset.tab);
     applyWidgets();
+    if (displayMode === 'bureau') renderLauncherGrid();
   }
 
   function applyWidgets() {
@@ -1186,7 +1738,7 @@
   // ── PERSISTENCE (localStorage) ──
   function save() {
     try {
-      const payload = {events,recipes,exercises,routines,workoutHistory,notes,weightLog,weightUnit};
+      const payload = {events,recipes,exercises,routines,workoutHistory,notes,weightLog,weightUnit,goals,sleepLog,inventaire,chantiers};
       localStorage.setItem('flowshit-v1', JSON.stringify(payload));
       const ind=document.getElementById('save-indicator');
       if(ind){ ind.classList.add('show'); setTimeout(()=>ind.classList.remove('show'),1500); }
@@ -1206,6 +1758,11 @@
         workoutHistory=d.workoutHistory||[];
         notes=d.notes||[]; weightLog=d.weightLog||[];
         weightUnit=d.weightUnit||'kg';
+        goals=d.goals||[];
+        sleepLog=d.sleepLog||[];
+        inventaire=d.inventaire||[];
+        chantiers=d.chantiers||[];
+        chantierCustomStatuses = JSON.parse(localStorage.getItem('flowshit-chantier-statuses')||'[]');
       }
     } catch(e) { console.warn('Load failed',e); }
     renderAll();
@@ -1253,6 +1810,16 @@
     renderEvents(); renderHomeEvents(); renderRecipes(); renderCatFilter();
     renderExercises(); renderRoutines(); updateCounts(); renderHistory();
     renderNotes(); renderWeightLog(); renderWeightChart(); renderUrgences(); initConvertisseur();
+    const savedCity = localStorage.getItem('flowshit-meteo-city');
+    if (savedCity) { document.getElementById('meteo-city-input').value = savedCity; meteoCurrentCity = savedCity; updateMeteoStarBtn(savedCity); }
+    renderMeteoFavorites();
+    renderGoals();
+    renderSleepLog(); renderSleepChart();
+    renderInventaire();
+    renderChantiers();
+    const now = new Date();
+    const sleepDateEl = document.getElementById('sleep-date');
+    if (sleepDateEl) sleepDateEl.value = String(now.getDate()).padStart(2,'0')+'/'+String(now.getMonth()+1).padStart(2,'0')+'/'+now.getFullYear();
     renderWidgetList(); applyWidgets(); applyDarkMode();
   }
 
@@ -1266,13 +1833,20 @@
   function switchTab(tab) {
     // Redirect to home if widget is disabled
     if (WIDGET_TABS && WIDGET_TABS.includes(tab) && !activeWidgets[tab]) { tab = 'home'; }
+    // Exit launcher edit mode on any navigation
+    if (launcherEditing) exitLauncherEdit();
     tabs.forEach(t=>{
       document.getElementById('screen-'+t).classList.remove('active');
       const n=document.getElementById('nav-'+t); if(n)n.classList.remove('active');
     });
     document.getElementById('screen-'+tab).classList.add('active');
     const an=document.getElementById('nav-'+tab); if(an)an.classList.add('active');
-    if(tab==='home')renderHomeEvents();
+    if(tab==='home'){
+      renderHomeEvents();
+      if (displayMode === 'bureau') renderLauncherGrid();
+      // In bureau mode, hide back button when going home
+      if (displayMode === 'bureau') document.getElementById('launcher-back').style.display = 'none';
+    }
     if(tab==='recettes')renderCatFilter();
     if(tab==='convertisseur')initConvertisseur();
   }
@@ -1287,6 +1861,7 @@
   // ── EVENTS ──
   function autoFormatDate(el){let v=el.value.replace(/\D/g,'');if(v.length>2&&v.length<=4)v=v.slice(0,2)+'/'+v.slice(2);else if(v.length>4)v=v.slice(0,2)+'/'+v.slice(2,4)+'/'+v.slice(4,8);el.value=v;}
   function autoFormatTime(el){let v=el.value.replace(/\D/g,'');if(v.length>2)v=v.slice(0,2)+':'+v.slice(2,4);el.value=v;}
+  function completeTime(el){let v=el.value.trim();if(/^\d{1,2}$/.test(v)){el.value=v.padStart(2,'0')+':00';calcSleepDuration();}else if(/^\d{1,2}:\d{1}$/.test(v)){el.value=v+'0';calcSleepDuration();}}
   function toggleCal(e){if(e)e.preventDefault();const p=document.getElementById('calendar-popup');if(p.style.display==='none'){const now=new Date(),val=document.getElementById('ev-date').value;if(val.length===10){const pt=val.split('/');calYear=parseInt(pt[2]);calMonth=parseInt(pt[1])-1;}else{calYear=now.getFullYear();calMonth=now.getMonth();}renderCal();p.style.display='block';}else p.style.display='none';}
   function hideCal(){document.getElementById('calendar-popup').style.display='none';}
   function calPrev(){calMonth--;if(calMonth<0){calMonth=11;calYear--;}renderCal();}
@@ -1369,6 +1944,7 @@
     ['ev-title','ev-time','ev-location','ev-notes','ev-recurrence-enddate'].forEach(i => document.getElementById(i).value='');
     document.getElementById('ev-recurrence').value = '';
     document.getElementById('ev-recurrence-end').style.display = 'none';
+    document.getElementById('ev-important-toggle').classList.remove('on');
     hideCal();
     document.getElementById('event-modal').style.display = 'flex';
   }
@@ -1389,11 +1965,13 @@
       notes: document.getElementById('ev-notes').value.trim(),
       recurrence: recurrence || null,
       recurrenceEnd: recurrence && recurrenceEnd ? recurrenceEnd : null,
+      important: document.getElementById('ev-important-toggle').classList.contains('on'),
     };
     if (editingEventId) { const idx = events.findIndex(e => e.id === editingEventId); if (idx !== -1) events[idx] = data; }
     else events.push(data);
     events.sort((a,b) => a.sortKey > b.sortKey ? 1 : -1);
     closeEventModal(); renderEvents(); renderHomeEvents(); updateCounts(); save();
+    scheduleAllNotifications();
     // If editing from detail view, reopen it with updated data
     if (editingEventId) openEvDetail(editingEventId);
   }
@@ -1424,6 +2002,7 @@
     const nr = document.getElementById('ev-detail-notes-row');
     if (e.notes) { document.getElementById('ev-detail-notes').textContent = e.notes; nr.style.display = ''; }
     else nr.style.display = 'none';
+    document.getElementById('ev-detail-important-row').style.display = e.important ? '' : 'none';
     // Edit button: prefill recurrence when editing
     document.getElementById('ev-detail-overlay').dataset.editId = id;
     document.getElementById('ev-detail-overlay').style.display = 'flex';
@@ -1441,6 +2020,7 @@
     document.getElementById('ev-recurrence').value = e.recurrence || '';
     document.getElementById('ev-recurrence-enddate').value = e.recurrenceEnd || '';
     document.getElementById('ev-recurrence-end').style.display = e.recurrence ? '' : 'none';
+    document.getElementById('ev-important-toggle').classList.toggle('on', !!e.important);
     hideCal();
     document.getElementById('event-modal').style.display = 'flex';
   }
@@ -1462,6 +2042,7 @@
     document.getElementById('ev-recurrence').value = e.recurrence || '';
     document.getElementById('ev-recurrence-enddate').value = e.recurrenceEnd || '';
     document.getElementById('ev-recurrence-end').style.display = e.recurrence ? '' : 'none';
+    document.getElementById('ev-important-toggle').classList.toggle('on', !!e.important);
     hideCal();
     document.getElementById('event-modal').style.display = 'flex';
   }
@@ -1512,8 +2093,8 @@
     const allEvents = getVisibleEvents();
     if (allEvents.length === 0) { list.innerHTML = '<div class="empty-state"><span class="empty-icon">📭</span><div class="empty-title">Aucun évènement</div><div class="empty-text">Appuie sur le bouton pour en ajouter un</div></div>'; return; }
     list.innerHTML = allEvents.map(e => `
-      <div class="event-card" onclick="openEvDetail(${e.id})">
-        <div class="event-dot" style="${e.recurrence ? 'background:linear-gradient(135deg,#534AB7,#AFA9EC)' : ''}"></div>
+      <div class="event-card${e.important?' important':''}" onclick="openEvDetail(${e.id})">
+        <div class="event-dot${e.important?' important':''}" style="${e.recurrence ? 'background:linear-gradient(135deg,#534AB7,#AFA9EC)' : ''}"></div>
         <div style="flex:1">
           <div class="event-title">${recurrenceIcon(e.recurrence)}${e.title}</div>
           <div class="event-meta">📅 ${e.date}${e.time ? ' · '+e.time : ''}</div>
@@ -1603,8 +2184,8 @@
       return;
     }
     container.innerHTML = evs.map(e => `
-      <div class="event-card" onclick="openEvDetail(${e.id})" style="margin-bottom:8px;">
-        <div class="event-dot" style="${e.recurrence?'background:linear-gradient(135deg,#534AB7,#AFA9EC)':''}"></div>
+      <div class="event-card${e.important?' important':''}" onclick="openEvDetail(${e.id})" style="margin-bottom:8px;">
+        <div class="event-dot${e.important?' important':''}" style="${e.recurrence?'background:linear-gradient(135deg,#534AB7,#AFA9EC)':''}"></div>
         <div style="flex:1">
           <div class="event-title">${recurrenceIcon(e.recurrence)}${e.title}</div>
           ${e.time ? `<div class="event-meta">⏰ ${e.time}</div>` : ''}
@@ -1650,11 +2231,11 @@
       if (+parts[2] !== today.getFullYear()) dayLabel += ` ${parts[2]}`;
 
       const items = groups[dateStr].map(e => `
-        <div class="schedule-item" onclick="openEvDetail(${e.id})">
+        <div class="schedule-item${e.important?' important':''}" onclick="openEvDetail(${e.id})">
           <div class="schedule-time">${e.time || '—'}</div>
-          <div class="schedule-dot" style="${e.recurrence ? 'background:linear-gradient(135deg,#534AB7,#AFA9EC)' : ''}"></div>
+          <div class="schedule-dot" style="${e.recurrence ? 'background:linear-gradient(135deg,#534AB7,#AFA9EC)' : (e.important ? 'background:#E24B4A' : '')}"></div>
           <div style="flex:1;min-width:0;">
-            <div class="schedule-title">${recurrenceIcon(e.recurrence)}${e.title}</div>
+            <div class="schedule-title${e.important?' important':''}">${recurrenceIcon(e.recurrence)}${e.title}</div>
             ${e.location ? `<div class="schedule-meta">📍 ${e.location}</div>` : ''}
           </div>
           <div style="display:flex;gap:4px;flex-shrink:0;">
@@ -1925,7 +2506,7 @@
         if(s.weight) parts.push(s.weight+' kg');
         if(s.rest) parts.push('repos '+fmtTime(s.rest));
         return `<div style="font-size:11px;color:var(--color-text-secondary);padding:2px 0;border-bottom:1px solid var(--color-border-tertiary);">
-          <span style="font-weight:700;color:#534AB7;margin-right:6px;">S${i+1}</span>${parts.join(' · ')||'—'}
+          <span style="font-weight:700;color:var(--color-accent);margin-right:6px;">S${i+1}</span>${parts.join(' · ')||'—'}
         </div>`;
       }).join('') : '';
       return`<div class="card"><div class="card-row"><div style="flex:1">
@@ -2029,7 +2610,7 @@
             <div class="card-title">💪 ${h.routineName}</div>
             ${h.durationMin>0?`<div class="card-meta">⏱ ${h.durationMin} min</div>`:''}
             <div style="margin-top:8px;display:flex;flex-wrap:wrap;gap:4px">
-              ${(h.exerciseNames||[]).map(n=>`<span style="font-size:11px;padding:2px 8px;border-radius:20px;background:#EEEDFE;color:#534AB7;font-weight:500">${n}</span>`).join('')}
+              ${(h.exerciseNames||[]).map(n=>`<span style="font-size:11px;padding:2px 8px;border-radius:20px;background:var(--color-accent-light);color:var(--color-accent);font-weight:600">${n}</span>`).join('')}
             </div>
           </div>
           <button class="icon-btn del" onclick="deleteHistoryEntry(${h.id})">✕</button>
@@ -2042,6 +2623,148 @@
   function resetTimer(){clearInterval(timerInterval);timerRunning=false;timerSeconds=0;document.getElementById('timer-display').className='timer-display';document.getElementById('timer-display').textContent='00:00';document.getElementById('timer-toggle-btn').textContent='Démarrer';}
   function updateTimerDisplay(){const m=Math.floor(timerSeconds/60),s=timerSeconds%60;document.getElementById('timer-display').textContent=String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');}
   function closeWorkout(){clearInterval(timerInterval);timerRunning=false;Object.keys(exSetCounters).forEach(k=>delete exSetCounters[k]);document.getElementById('workout-overlay').style.display='none';}
+
+  // ── NOTIFICATIONS ──
+  let notifSettings = { enabled: false, delays: [], importantOnly: false };
+  let notifTimers = [];
+
+  function loadNotifSettings() {
+    try {
+      const raw = localStorage.getItem('flowshit-notif');
+      if (raw) notifSettings = JSON.parse(raw);
+    } catch(e) {}
+    applyNotifUI();
+  }
+
+  function saveNotifSettings() {
+    notifSettings.importantOnly = document.getElementById('notif-important-only').classList.contains('on');
+    localStorage.setItem('flowshit-notif', JSON.stringify(notifSettings));
+    scheduleAllNotifications();
+  }
+
+  function applyNotifUI() {
+    const master = document.getElementById('notif-master-toggle');
+    const panel = document.getElementById('notif-settings-panel');
+    const label = document.getElementById('notif-permission-label');
+    if (!master) return;
+    if (notifSettings.enabled) {
+      master.classList.add('on');
+      panel.style.display = '';
+      label.textContent = 'Activées';
+      label.style.color = '#639922';
+    } else {
+      master.classList.remove('on');
+      panel.style.display = 'none';
+      label.textContent = 'Appuie pour activer';
+      label.style.color = '';
+    }
+    document.getElementById('notif-important-only').classList.toggle('on', !!notifSettings.importantOnly);
+    // Render delay chips
+    renderNotifDelayChips();
+  }
+
+  function renderNotifDelayChips() {
+    const wrap = document.getElementById('notif-delays-wrap');
+    if (!wrap) return;
+    const presets = [{val:15,label:'15 min'},{val:30,label:'30 min'},{val:60,label:'1 heure'},{val:120,label:'2 heures'},{val:1440,label:'1 jour'}];
+    const presetVals = presets.map(p => p.val);
+    const customDelays = (notifSettings.delays || []).filter(d => !presetVals.includes(d));
+    let html = presets.map(p => `<div class="notif-chip${notifSettings.delays.includes(p.val)?' active':''}" data-val="${p.val}" onclick="toggleNotifDelay(this)">${p.label}</div>`).join('');
+    customDelays.forEach(d => {
+      const label = d < 60 ? d+' min' : d < 1440 ? (d/60)+' h' : (d/1440)+' j';
+      html += `<div class="notif-chip active" data-val="${d}" onclick="toggleNotifDelay(this)">${label} ✕</div>`;
+    });
+    html += `<div class="notif-chip notif-chip-custom" onclick="openCustomDelay()">+ Personnalisé</div>`;
+    wrap.innerHTML = html;
+  }
+
+  async function toggleNotifications(el) {
+    if (notifSettings.enabled) {
+      notifSettings.enabled = false;
+      saveNotifSettings();
+      applyNotifUI();
+      clearAllNotifTimers();
+      return;
+    }
+    if (Notification.permission === 'denied') {
+      showToast('⛔ Notifications bloquées — modifie les paramètres du navigateur');
+      return;
+    }
+    const perm = await Notification.requestPermission();
+    if (perm === 'granted') {
+      notifSettings.enabled = true;
+      if (!notifSettings.delays.length) notifSettings.delays = [30];
+      saveNotifSettings();
+      applyNotifUI();
+      scheduleAllNotifications();
+      showToast('🔔 Notifications activées !');
+    } else {
+      showToast('⛔ Permission refusée');
+    }
+  }
+
+  function toggleNotifDelay(el) {
+    const val = parseInt(el.dataset.val);
+    const idx = notifSettings.delays.indexOf(val);
+    if (idx !== -1) notifSettings.delays.splice(idx, 1);
+    else notifSettings.delays.push(val);
+    saveNotifSettings();
+    renderNotifDelayChips();
+  }
+
+  function openCustomDelay() {
+    document.getElementById('notif-custom-wrap').style.display = '';
+    document.getElementById('notif-custom-val').focus();
+  }
+
+  function addCustomDelay() {
+    const val = parseInt(document.getElementById('notif-custom-val').value);
+    const unit = parseInt(document.getElementById('notif-custom-unit').value);
+    if (!val || val < 1) return;
+    const totalMin = val * unit;
+    if (!notifSettings.delays.includes(totalMin)) notifSettings.delays.push(totalMin);
+    document.getElementById('notif-custom-val').value = '';
+    document.getElementById('notif-custom-wrap').style.display = 'none';
+    saveNotifSettings();
+    renderNotifDelayChips();
+    showToast('✅ Délai ajouté');
+  }
+
+  function clearAllNotifTimers() {
+    notifTimers.forEach(t => clearTimeout(t));
+    notifTimers = [];
+  }
+
+  function scheduleAllNotifications() {
+    clearAllNotifTimers();
+    if (!notifSettings.enabled || !notifSettings.delays.length) return;
+    if (Notification.permission !== 'granted') return;
+    const now = Date.now();
+    const allEvents = getVisibleEvents();
+    allEvents.forEach(e => {
+      if (notifSettings.importantOnly && !e.important) return;
+      const parts = e.date.split('/');
+      if (parts.length !== 3) return;
+      const [dd, mm, yyyy] = parts;
+      const timeStr = e.time || '00:00';
+      const [hh, min] = timeStr.split(':');
+      const evTime = new Date(+yyyy, +mm-1, +dd, +hh||0, +min||0, 0).getTime();
+      notifSettings.delays.forEach(delayMin => {
+        const fireAt = evTime - delayMin * 60000;
+        if (fireAt <= now) return;
+        const ms = fireAt - now;
+        const label = delayMin < 60 ? `dans ${delayMin} min` : delayMin < 1440 ? `dans ${delayMin/60}h` : `demain`;
+        const t = setTimeout(() => {
+          new Notification(`${e.important ? '⚠️ ' : '🗓 '}${e.title}`, {
+            body: `${label}${e.location ? ' · 📍 '+e.location : ''}`,
+            icon: getDefaultIconSrc(),
+            tag: `flowshit-${e.id}-${delayMin}`,
+          });
+        }, ms);
+        notifTimers.push(t);
+      });
+    });
+  }
 
   // ── DARK MODE ──
   let darkMode = localStorage.getItem('flowshit-dark') === 'true';
@@ -2226,6 +2949,13 @@
     return fromUnit === 'kg' ? +(val * 2.20462).toFixed(1) : +(val / 2.20462).toFixed(1);
   }
   let imcSex = 'M';
+  function toggleIMC() {
+    const panel = document.getElementById('imc-panel');
+    const chevron = document.getElementById('imc-chevron');
+    const open = panel.style.display === 'none';
+    panel.style.display = open ? 'block' : 'none';
+    chevron.style.transform = open ? 'rotate(90deg)' : '';
+  }
 
   function setImcSex(sex) {
     imcSex = sex;
@@ -2396,6 +3126,934 @@
       const data = URGENCES_DATA[key];
       el.innerHTML = data.map((e, i) => urgenceRow(e, i === 0, i === data.length - 1)).join('');
     });
+  }
+
+  // ── CHANTIERS ──
+  let chantiers = [];
+  let chantierCustomStatuses = [];
+  let chantierActiveFilter = 'Tous';
+  let editingChantierId = null;
+  let openDetailChantierId = null;
+  let chantierCalYear, chantierCalMonth;
+  let currentChantierPhotos = []; // base64 photos during editing
+
+  const CHANTIER_BASE_STATUSES = ['En cours','Devis à faire','Devis à envoyer','Recontacter','Facture à envoyer','Fini','Terminé'];
+
+  function statusClass(s) {
+    const map = { 'En cours':'en-cours','Devis à faire':'devis-faire','Devis à envoyer':'devis-envoyer','Recontacter':'recontacter','Facture à envoyer':'facture','Fini':'fini','Terminé':'termine' };
+    return 'status-' + (map[s] || 'custom');
+  }
+
+  function allChantierStatuses() {
+    return [...CHANTIER_BASE_STATUSES, ...chantierCustomStatuses];
+  }
+
+  function addCustomChantierStatus() {
+    const input = document.getElementById('ch-custom-status');
+    const val = input.value.trim();
+    if (!val) return;
+    if (!chantierCustomStatuses.includes(val)) {
+      chantierCustomStatuses.push(val);
+      localStorage.setItem('flowshit-chantier-statuses', JSON.stringify(chantierCustomStatuses));
+    }
+    // Add to select
+    const sel = document.getElementById('ch-status');
+    const exists = [...sel.options].some(o => o.value === val);
+    if (!exists) { const opt = document.createElement('option'); opt.value = val; opt.textContent = val; sel.appendChild(opt); }
+    sel.value = val;
+    input.value = '';
+    showToast('✅ Statut ajouté');
+  }
+
+  function openChantierModal(id) {
+    editingChantierId = id;
+    currentChantierPhotos = [];
+    document.getElementById('chantier-modal-title').textContent = id ? 'Modifier le chantier' : 'Nouveau chantier';
+    // Rebuild status select with custom statuses
+    const sel = document.getElementById('ch-status');
+    sel.innerHTML = allChantierStatuses().map(s => `<option value="${s}">${s}</option>`).join('');
+    if (id !== null) {
+      const c = chantiers.find(x => x.id === id); if (!c) return;
+      document.getElementById('ch-client').value = c.client;
+      document.getElementById('ch-address').value = c.address || '';
+      sel.value = c.status;
+      document.getElementById('ch-date').value = c.date || '';
+      document.getElementById('ch-devis').value = c.devis ?? '';
+      document.getElementById('ch-notes').value = c.notes || '';
+      currentChantierPhotos = [...(c.photos || [])];
+    } else {
+      ['ch-client','ch-address','ch-date','ch-notes'].forEach(i => document.getElementById(i).value = '');
+      document.getElementById('ch-devis').value = '';
+      sel.value = 'En cours';
+    }
+    renderChantierPhotosPreview();
+    document.getElementById('chantier-modal').style.display = 'flex';
+  }
+
+  function closeChantierModal() { document.getElementById('chantier-modal').style.display = 'none'; }
+
+  function handleChantierPhotos(e) {
+    const files = [...e.target.files];
+    files.forEach(f => {
+      const reader = new FileReader();
+      reader.onload = ev => { currentChantierPhotos.push(ev.target.result); renderChantierPhotosPreview(); };
+      reader.readAsDataURL(f);
+    });
+    e.target.value = '';
+  }
+
+  function removeChantierPhoto(idx) { currentChantierPhotos.splice(idx, 1); renderChantierPhotosPreview(); }
+
+  function renderChantierPhotosPreview() {
+    document.getElementById('ch-photos-preview').innerHTML = currentChantierPhotos.map((src, i) =>
+      `<div style="position:relative;display:inline-block;">
+        <img src="${src}" class="chantier-photo-thumb" />
+        <button onclick="removeChantierPhoto(${i})" style="position:absolute;top:-4px;right:-4px;width:18px;height:18px;border-radius:50%;background:#E24B4A;color:white;border:none;font-size:11px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1;">✕</button>
+      </div>`
+    ).join('');
+  }
+
+  function saveChantier() {
+    const client = document.getElementById('ch-client').value.trim();
+    if (!client) return;
+    const parts = document.getElementById('ch-date').value.trim().split('/');
+    const sortKey = parts.length === 3 ? `${parts[2]}${parts[1]}${parts[0]}` : '';
+    const data = {
+      id: editingChantierId || Date.now(),
+      client,
+      address: document.getElementById('ch-address').value.trim(),
+      status: document.getElementById('ch-status').value,
+      date: document.getElementById('ch-date').value.trim(),
+      sortKey,
+      devis: document.getElementById('ch-devis').value !== '' ? parseFloat(document.getElementById('ch-devis').value) : null,
+      notes: document.getElementById('ch-notes').value.trim(),
+      photos: [...currentChantierPhotos],
+    };
+    if (editingChantierId) {
+      const idx = chantiers.findIndex(x => x.id === editingChantierId);
+      if (idx !== -1) chantiers[idx] = data;
+    } else {
+      chantiers.push(data);
+    }
+    closeChantierModal();
+    renderChantiers();
+    if (editingChantierId) openChantierDetail(editingChantierId);
+    save();
+  }
+
+  function deleteChantier(id) {
+    chantiers = chantiers.filter(x => x.id !== id);
+    renderChantiers();
+    save();
+  }
+
+  function openChantierDetail(id) {
+    const c = chantiers.find(x => x.id === id); if (!c) return;
+    openDetailChantierId = id;
+    document.getElementById('ch-detail-title').textContent = c.client;
+    document.getElementById('ch-detail-status').innerHTML = `<span class="chantier-status-badge ${statusClass(c.status)}">${c.status}</span>`;
+    const dateRow = document.getElementById('ch-detail-date-row');
+    if (c.date) { document.getElementById('ch-detail-date').textContent = c.date; dateRow.style.display = ''; } else dateRow.style.display = 'none';
+    const addrRow = document.getElementById('ch-detail-address-row');
+    if (c.address) {
+      document.getElementById('ch-detail-address').textContent = c.address;
+      const enc = encodeURIComponent(c.address);
+      document.getElementById('ch-gmaps-link').href = `https://www.google.com/maps/search/?api=1&query=${enc}`;
+      document.getElementById('ch-waze-link').href = `https://waze.com/ul?q=${enc}`;
+      addrRow.style.display = '';
+    } else addrRow.style.display = 'none';
+    const devisRow = document.getElementById('ch-detail-devis-row');
+    if (c.devis !== null && c.devis !== undefined) { document.getElementById('ch-detail-devis').textContent = c.devis.toLocaleString('fr-FR', {style:'currency',currency:'EUR'}); devisRow.style.display = ''; } else devisRow.style.display = 'none';
+    const notesRow = document.getElementById('ch-detail-notes-row');
+    if (c.notes) { document.getElementById('ch-detail-notes').textContent = c.notes; notesRow.style.display = ''; } else notesRow.style.display = 'none';
+    document.getElementById('ch-detail-photos').innerHTML = (c.photos||[]).map(src =>
+      `<img src="${src}" class="chantier-photo-thumb" onclick="openPhotoFullscreen('${src}')" />`
+    ).join('');
+    document.getElementById('chantier-detail').style.display = 'flex';
+  }
+
+  function closeChantierDetail() { document.getElementById('chantier-detail').style.display = 'none'; openDetailChantierId = null; }
+
+  function editChantierFromDetail() { if (!openDetailChantierId) return; const id = openDetailChantierId; closeChantierDetail(); openChantierModal(id); }
+
+  function deleteChantierFromDetail() {
+    if (!openDetailChantierId) return;
+    deleteChantier(openDetailChantierId);
+    closeChantierDetail();
+  }
+
+  function openPhotoFullscreen(src) {
+    const overlay = document.createElement('div');
+    overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.92);z-index:9999;display:flex;align-items:center;justify-content:center;';
+    overlay.onclick = () => overlay.remove();
+    overlay.innerHTML = `<img src="${src}" style="max-width:100%;max-height:100%;object-fit:contain;" />`;
+    document.body.appendChild(overlay);
+  }
+
+  function setChantierFilter(f) { chantierActiveFilter = f; renderChantierFilter(); renderChantierList(); }
+
+  function renderChantierFilter() {
+    const statuses = ['Tous', ...new Set(chantiers.map(c => c.status))];
+    document.getElementById('chantier-status-filter').innerHTML = statuses.map(s =>
+      `<div class="cat-chip${s===chantierActiveFilter?' active':''}" onclick="setChantierFilter('${s}')">${s}</div>`
+    ).join('');
+  }
+
+  function renderChantierList() {
+    const list = document.getElementById('chantiers-list'); if (!list) return;
+    const filtered = chantierActiveFilter === 'Tous' ? chantiers : chantiers.filter(c => c.status === chantierActiveFilter);
+    if (!filtered.length) {
+      list.innerHTML = '<div class="empty-state"><span class="empty-icon">🗺</span><div class="empty-title">Aucun chantier</div><div class="empty-text">Ajoute ton premier chantier !</div></div>';
+      return;
+    }
+    list.innerHTML = filtered.map(c => `
+      <div class="chantier-card" onclick="openChantierDetail(${c.id})">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:6px;">
+          <div style="font-size:15px;font-weight:700;color:var(--color-text-primary);">${c.client}</div>
+          <div style="display:flex;align-items:center;gap:6px;flex-shrink:0;">
+            <span class="chantier-status-badge ${statusClass(c.status)}">${c.status}</span>
+            <button class="icon-btn" onclick="event.stopPropagation();openChantierModal(${c.id})">✏️</button>
+            <button class="icon-btn del" onclick="event.stopPropagation();deleteChantier(${c.id})">✕</button>
+          </div>
+        </div>
+        ${c.address ? `<div style="font-size:12px;color:var(--color-text-secondary);">📍 ${c.address}</div>` : ''}
+        ${c.date ? `<div style="font-size:12px;color:var(--color-text-secondary);">📅 ${c.date}</div>` : ''}
+        ${c.devis !== null && c.devis !== undefined ? `<div style="font-size:12px;color:var(--color-accent);font-weight:700;margin-top:2px;">💶 ${c.devis.toLocaleString('fr-FR',{style:'currency',currency:'EUR'})}</div>` : ''}
+        ${c.notes ? `<div style="font-size:12px;color:var(--color-text-secondary);margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${c.notes}</div>` : ''}
+        ${(c.photos||[]).length ? `<div style="font-size:11px;color:var(--color-text-secondary);margin-top:4px;">📷 ${c.photos.length} photo${c.photos.length>1?'s':''}</div>` : ''}
+      </div>`).join('');
+  }
+
+  function renderChantiers() { renderChantierFilter(); renderChantierList(); }
+
+  // Calendar for chantier date
+  function toggleChantierCal(e) {
+    if (e) e.preventDefault();
+    const p = document.getElementById('chantier-calendar-popup');
+    if (p.style.display === 'none') {
+      const now = new Date(), val = document.getElementById('ch-date').value;
+      if (val.length === 10) { const pt = val.split('/'); chantierCalYear = parseInt(pt[2]); chantierCalMonth = parseInt(pt[1])-1; }
+      else { chantierCalYear = now.getFullYear(); chantierCalMonth = now.getMonth(); }
+      renderChantierCal(); p.style.display = 'block';
+    } else p.style.display = 'none';
+  }
+  function chantierCalPrev() { chantierCalMonth--; if (chantierCalMonth<0){chantierCalMonth=11;chantierCalYear--;} renderChantierCal(); }
+  function chantierCalNext() { chantierCalMonth++; if (chantierCalMonth>11){chantierCalMonth=0;chantierCalYear++;} renderChantierCal(); }
+  function renderChantierCal() {
+    const months=['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'];
+    document.getElementById('chantier-cal-label').textContent = months[chantierCalMonth]+' '+chantierCalYear;
+    const grid = document.getElementById('chantier-cal-grid');
+    let html = ['L','M','M','J','V','S','D'].map(d=>`<div class="cal-day-name">${d}</div>`).join('');
+    const first = new Date(chantierCalYear, chantierCalMonth, 1);
+    let sd = first.getDay(); sd = sd===0?6:sd-1;
+    const dim = new Date(chantierCalYear, chantierCalMonth+1, 0).getDate();
+    for(let i=0;i<sd;i++) html+=`<div class="cal-day empty"></div>`;
+    const sv = document.getElementById('ch-date').value;
+    for(let d=1;d<=dim;d++){const dd=String(d).padStart(2,'0'),mm=String(chantierCalMonth+1).padStart(2,'0'),val=`${dd}/${mm}/${chantierCalYear}`;html+=`<div class="cal-day${sv===val?' selected':''}" onclick="pickChantierDate('${val}')">${d}</div>`;}
+    grid.innerHTML = html;
+  }
+  function pickChantierDate(val) { document.getElementById('ch-date').value=val; document.getElementById('chantier-calendar-popup').style.display='none'; }
+
+  // ── INVENTAIRE ──
+  let inventaire = [];
+  let invActiveCategory = 'Tous';
+  let editingInvId = null;
+
+  function openInventaireModal(id) {
+    editingInvId = id;
+    document.getElementById('inv-modal-title').textContent = id ? 'Modifier l\'article' : 'Nouvel article';
+    if (id !== null) {
+      const item = inventaire.find(x => x.id === id);
+      if (!item) return;
+      document.getElementById('inv-name').value = item.name;
+      document.getElementById('inv-cat').value = item.cat || '';
+      document.getElementById('inv-qty').value = item.qty;
+      document.getElementById('inv-unit').value = item.unit || '';
+      document.getElementById('inv-threshold').value = item.threshold ?? '';
+      document.getElementById('inv-notes').value = item.notes || '';
+    } else {
+      ['inv-name','inv-cat','inv-unit','inv-notes'].forEach(id => document.getElementById(id).value = '');
+      document.getElementById('inv-qty').value = '';
+      document.getElementById('inv-threshold').value = '';
+    }
+    updateInvCatDatalist();
+    document.getElementById('inventaire-modal').style.display = 'flex';
+  }
+
+  function closeInventaireModal() { document.getElementById('inventaire-modal').style.display = 'none'; }
+
+  function updateInvCatDatalist() {
+    const cats = [...new Set(inventaire.map(i => i.cat).filter(Boolean))];
+    document.getElementById('inv-cat-list').innerHTML = cats.map(c => `<option value="${c}">`).join('');
+  }
+
+  function saveInventaireItem() {
+    const name = document.getElementById('inv-name').value.trim();
+    if (!name) return;
+    const qty = parseFloat(document.getElementById('inv-qty').value) || 0;
+    const threshold = document.getElementById('inv-threshold').value !== '' ? parseFloat(document.getElementById('inv-threshold').value) : null;
+    const data = {
+      id: editingInvId || Date.now(),
+      name,
+      cat: document.getElementById('inv-cat').value.trim(),
+      qty,
+      unit: document.getElementById('inv-unit').value.trim(),
+      threshold,
+      notes: document.getElementById('inv-notes').value.trim(),
+    };
+    if (editingInvId) {
+      const idx = inventaire.findIndex(x => x.id === editingInvId);
+      if (idx !== -1) inventaire[idx] = data;
+    } else {
+      inventaire.push(data);
+    }
+    closeInventaireModal();
+    renderInventaire();
+    save();
+  }
+
+  function deleteInvItem(id) {
+    inventaire = inventaire.filter(x => x.id !== id);
+    renderInventaire();
+    save();
+  }
+
+  function updateInvQty(id, val) {
+    const item = inventaire.find(x => x.id === id);
+    if (!item) return;
+    const qty = parseFloat(val);
+    if (isNaN(qty) || qty < 0) return;
+    item.qty = qty;
+    // Update low stock styling live
+    const input = document.getElementById('inv-input-'+id);
+    const isLow = item.threshold !== null && qty <= item.threshold;
+    if (input) input.classList.toggle('low', isLow);
+    const card = document.getElementById('inv-card-'+id);
+    if (card) card.classList.toggle('low-stock', isLow);
+    save();
+  }
+
+  function setInvCategory(cat) {
+    invActiveCategory = cat;
+    renderInvCatFilter();
+    renderInvList();
+  }
+
+  function renderInvCatFilter() {
+    const cats = ['Tous', ...new Set(inventaire.map(i => i.cat).filter(Boolean))];
+    document.getElementById('inv-cat-filter').innerHTML = cats.map(c =>
+      `<div class="cat-chip${c===invActiveCategory?' active':''}" onclick="setInvCategory('${c}')">${c}</div>`
+    ).join('');
+  }
+
+  function renderInvList() {
+    const list = document.getElementById('inv-list');
+    if (!list) return;
+    const filtered = invActiveCategory === 'Tous' ? inventaire : inventaire.filter(i => i.cat === invActiveCategory);
+    if (!filtered.length) {
+      list.innerHTML = '<div class="empty-state"><span class="empty-icon">📦</span><div class="empty-title">Aucun article</div><div class="empty-text">Ajoute ton premier article !</div></div>';
+      return;
+    }
+    // Sort: low stock first, then alphabetical
+    const sorted = [...filtered].sort((a, b) => {
+      const aLow = a.threshold !== null && a.qty <= a.threshold;
+      const bLow = b.threshold !== null && b.qty <= b.threshold;
+      if (aLow !== bLow) return aLow ? -1 : 1;
+      return a.name.localeCompare(b.name);
+    });
+    list.innerHTML = sorted.map(item => {
+      const isLow = item.threshold !== null && item.qty <= item.threshold;
+      return `
+        <div class="inv-item${isLow?' low-stock':''}" id="inv-card-${item.id}">
+          <div style="flex:1;min-width:0;">
+            <div style="display:flex;align-items:center;gap:6px;">
+              <div class="inv-item-name">${item.name}</div>
+              ${isLow ? '<span class="inv-low-badge">⚠️ Stock bas</span>' : ''}
+            </div>
+            ${item.cat ? `<div class="inv-item-cat">${item.cat}${item.notes?' · '+item.notes:''}</div>` : (item.notes?`<div class="inv-item-cat">${item.notes}</div>`:'')}
+            ${item.threshold !== null ? `<div style="font-size:11px;color:var(--color-text-secondary);margin-top:1px;">Seuil : ${item.threshold}${item.unit?' '+item.unit:''}</div>` : ''}
+          </div>
+          <div class="inv-qty-wrap">
+            <input class="inv-qty-input${isLow?' low':''}" id="inv-input-${item.id}" type="number" min="0" step="0.1" value="${item.qty}" onchange="updateInvQty(${item.id},this.value)" />
+            <span class="inv-unit-label">${item.unit||''}</span>
+            <button class="icon-btn" onclick="openInventaireModal(${item.id})">✏️</button>
+            <button class="icon-btn del" onclick="deleteInvItem(${item.id})">✕</button>
+          </div>
+        </div>`;
+    }).join('');
+  }
+
+  function renderInventaire() {
+    renderInvCatFilter();
+    renderInvList();
+  }
+
+  // ── SOMMEIL ──
+  let sleepLog = [];
+
+  let sleepCalYear, sleepCalMonth;
+  function toggleSleepCal(e) {
+    if (e) e.preventDefault();
+    const p = document.getElementById('sleep-calendar-popup');
+    if (p.style.display === 'none') {
+      const now = new Date(), val = document.getElementById('sleep-date').value;
+      if (val.length === 10) { const pt = val.split('/'); sleepCalYear = parseInt(pt[2]); sleepCalMonth = parseInt(pt[1])-1; }
+      else { sleepCalYear = now.getFullYear(); sleepCalMonth = now.getMonth(); }
+      renderSleepCal(); p.style.display = 'block';
+    } else p.style.display = 'none';
+  }
+  function sleepCalPrev() { sleepCalMonth--; if (sleepCalMonth < 0) { sleepCalMonth = 11; sleepCalYear--; } renderSleepCal(); }
+  function sleepCalNext() { sleepCalMonth++; if (sleepCalMonth > 11) { sleepCalMonth = 0; sleepCalYear++; } renderSleepCal(); }
+  function renderSleepCal() {
+    const months = ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'];
+    document.getElementById('sleep-cal-label').textContent = months[sleepCalMonth] + ' ' + sleepCalYear;
+    const grid = document.getElementById('sleep-cal-grid');
+    let html = ['L','M','M','J','V','S','D'].map(d => `<div class="cal-day-name">${d}</div>`).join('');
+    const first = new Date(sleepCalYear, sleepCalMonth, 1);
+    let sd = first.getDay(); sd = sd === 0 ? 6 : sd - 1;
+    const dim = new Date(sleepCalYear, sleepCalMonth + 1, 0).getDate();
+    for (let i = 0; i < sd; i++) html += `<div class="cal-day empty"></div>`;
+    const sv = document.getElementById('sleep-date').value;
+    for (let d = 1; d <= dim; d++) {
+      const dd = String(d).padStart(2,'0'), mm = String(sleepCalMonth+1).padStart(2,'0'), val = `${dd}/${mm}/${sleepCalYear}`;
+      html += `<div class="cal-day${sv===val?' selected':''}" onclick="pickSleepDate('${val}')">${d}</div>`;
+    }
+    grid.innerHTML = html;
+  }
+  function pickSleepDate(val) { document.getElementById('sleep-date').value = val; document.getElementById('sleep-calendar-popup').style.display = 'none'; }
+
+  function calcSleepDuration() {
+    const bed = document.getElementById('sleep-bedtime').value.trim();
+    const wake = document.getElementById('sleep-waketime').value.trim();
+    if (bed.length === 5 && wake.length === 5 && bed.includes(':') && wake.includes(':')) {
+      const [bh, bm] = bed.split(':').map(Number);
+      const [wh, wm] = wake.split(':').map(Number);
+      if (isNaN(bh)||isNaN(bm)||isNaN(wh)||isNaN(wm)) return;
+      let mins = (wh * 60 + wm) - (bh * 60 + bm);
+      if (mins <= 0) mins += 24 * 60;
+      document.getElementById('sleep-duration').value = (mins / 60).toFixed(2).replace(/\.?0+$/, '');
+    }
+  }
+
+  function addSleepEntry() {
+    const date = document.getElementById('sleep-date').value.trim();
+    let bedtime = document.getElementById('sleep-bedtime').value.trim();
+    let waketime = document.getElementById('sleep-waketime').value.trim();
+    // Complete partial times like "14" → "14:00"
+    if (/^\d{1,2}$/.test(bedtime)) bedtime = bedtime.padStart(2,'0') + ':00';
+    if (/^\d{1,2}$/.test(waketime)) waketime = waketime.padStart(2,'0') + ':00';
+    if (/^\d{1,2}:\d{1}$/.test(bedtime)) bedtime = bedtime + '0';
+    if (/^\d{1,2}:\d{1}$/.test(waketime)) waketime = waketime + '0';
+    let duration;
+    // Priority: calc from times if both valid
+    if (bedtime.length === 5 && waketime.length === 5 && bedtime.includes(':') && waketime.includes(':')) {
+      const [bh, bm] = bedtime.split(':').map(Number);
+      const [wh, wm] = waketime.split(':').map(Number);
+      if (!isNaN(bh) && !isNaN(bm) && !isNaN(wh) && !isNaN(wm)) {
+        let mins = (wh * 60 + wm) - (bh * 60 + bm);
+        if (mins <= 0) mins += 24 * 60;
+        duration = parseFloat((mins / 60).toFixed(2));
+      }
+    }
+    // Fallback to manual durée
+    if (!duration) duration = parseFloat(document.getElementById('sleep-duration').value);
+    if (!date) { showToast('❌ Date requise'); return; }
+    if (isNaN(duration) || duration <= 0) { showToast('❌ Durée ou coucher/lever requis'); return; }
+    const parts = date.split('/');
+    const sortKey = parts.length === 3 ? `${parts[2]}${parts[1]}${parts[0]}` : date;
+    // Remove existing entry for same date
+    sleepLog = sleepLog.filter(e => e.date !== date);
+    sleepLog.push({ id: Date.now(), date, sortKey, duration, bedtime, waketime });
+    sleepLog.sort((a, b) => b.sortKey.localeCompare(a.sortKey));
+    ['sleep-duration','sleep-bedtime','sleep-waketime'].forEach(id => document.getElementById(id).value = '');
+    renderSleepLog();
+    renderSleepChart();
+    save();
+    showToast('😴 Nuit enregistrée');
+  }
+
+  function deleteSleepEntry(id) {
+    sleepLog = sleepLog.filter(e => e.id !== id);
+    renderSleepLog();
+    renderSleepChart();
+    save();
+  }
+
+  function renderSleepLog() {
+    const list = document.getElementById('sleep-log-list');
+    if (!list) return;
+    if (!sleepLog.length) { list.innerHTML = '<div class="empty-state"><span class="empty-icon">😴</span><div class="empty-title">Aucune nuit enregistrée</div><div class="empty-text">Ajoute ta première nuit !</div></div>'; return; }
+    list.innerHTML = sleepLog.slice(0, 14).map(e => {
+      const hrs = Math.floor(e.duration);
+      const mins = Math.round((e.duration - hrs) * 60);
+      const label = mins > 0 ? `${hrs}h${String(mins).padStart(2,'0')}` : `${hrs}h`;
+      const quality = e.duration >= 7.5 ? '🟢' : e.duration >= 6 ? '🟡' : '🔴';
+      return `<div style="background:var(--color-background-primary);border:1px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:12px 16px;display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <span style="font-size:18px;">${quality}</span>
+          <div>
+            <div style="font-size:14px;font-weight:600;color:var(--color-text-primary);">${e.date}</div>
+            ${e.bedtime||e.waketime ? `<div style="font-size:12px;color:var(--color-text-secondary);">${e.bedtime?'🌙 '+e.bedtime:''}${e.bedtime&&e.waketime?' → ':''}${e.waketime?'☀️ '+e.waketime:''}</div>` : ''}
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;">
+          <span style="font-size:18px;font-weight:700;color:var(--color-text-primary);">${label}</span>
+          <button class="icon-btn del" onclick="deleteSleepEntry(${e.id})">✕</button>
+        </div>
+      </div>`;
+    }).join('');
+  }
+
+  function renderSleepChart() {
+    const canvas = document.getElementById('sleep-chart');
+    const statsEl = document.getElementById('sleep-stats');
+    if (!canvas) return;
+
+    const recent = sleepLog.slice(0, 7).reverse();
+    const allDurations = sleepLog.map(e => e.duration);
+    const avg = allDurations.length ? allDurations.reduce((a,b)=>a+b,0)/allDurations.length : 0;
+    const fmt = h => { const hrs=Math.floor(h); const m=Math.round((h-hrs)*60); return m>0?`${hrs}h${String(m).padStart(2,'0')}`:`${hrs}h`; };
+
+    if (statsEl && sleepLog.length) {
+      const best = Math.max(...allDurations);
+      const worst = Math.min(...allDurations);
+      statsEl.innerHTML = [['Moyenne',fmt(avg),'#534AB7'],['Meilleure',fmt(best),'#27ae60'],['Pire',fmt(worst),'#E24B4A']]
+        .map(([label,val,color])=>`<div style="flex:1;text-align:center;"><div style="font-size:16px;font-weight:700;color:${color};">${val}</div><div style="font-size:11px;color:var(--color-text-secondary);">${label}</div></div>`).join('');
+    }
+
+    if (!recent.length) { canvas.style.display='none'; return; }
+    canvas.style.display='';
+
+    const isDark = document.body.classList.contains('dark');
+    const gridColor = isDark ? 'rgba(255,255,255,0.07)' : 'rgba(0,0,0,0.06)';
+    const textColor = isDark ? '#9b96c0' : '#6b6880';
+    const W = canvas.offsetWidth || 300;
+    const H = 140;
+    canvas.width = W * window.devicePixelRatio;
+    canvas.height = H * window.devicePixelRatio;
+    const ctx = canvas.getContext('2d');
+    ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+
+    const pad = {t:10, r:10, b:28, l:36};
+    const cw = W - pad.l - pad.r;
+    const ch = H - pad.t - pad.b;
+    const maxH = 12;
+    const yScale = v => pad.t + ch - (v / maxH) * ch;
+    const n = recent.length;
+    const barW = Math.min(32, (cw / n) * 0.6);
+    const slot = cw / n;
+
+    // Grid lines
+    ctx.strokeStyle = gridColor; ctx.lineWidth = 1;
+    [0,3,6,9,12].forEach(v => {
+      const y = yScale(v);
+      ctx.beginPath(); ctx.moveTo(pad.l, y); ctx.lineTo(pad.l+cw, y); ctx.stroke();
+      ctx.fillStyle = textColor; ctx.font = '10px -apple-system,sans-serif'; ctx.textAlign = 'right';
+      ctx.fillText(v+'h', pad.l-4, y+3);
+    });
+
+    // Bars
+    recent.forEach((e, i) => {
+      const x = pad.l + slot*i + slot/2 - barW/2;
+      const barH = (e.duration / maxH) * ch;
+      const y = pad.t + ch - barH;
+      ctx.fillStyle = e.duration >= 7.5 ? 'rgba(39,174,96,0.75)' : e.duration >= 6 ? 'rgba(83,74,183,0.75)' : 'rgba(226,75,74,0.65)';
+      const r = 4;
+      ctx.beginPath();
+      ctx.moveTo(x+r, y); ctx.lineTo(x+barW-r, y);
+      ctx.quadraticCurveTo(x+barW, y, x+barW, y+r);
+      ctx.lineTo(x+barW, y+barH); ctx.lineTo(x, y+barH);
+      ctx.lineTo(x, y+r); ctx.quadraticCurveTo(x, y, x+r, y);
+      ctx.closePath(); ctx.fill();
+      // Label
+      const parts = e.date.split('/');
+      ctx.fillStyle = textColor; ctx.font = '10px -apple-system,sans-serif'; ctx.textAlign = 'center';
+      ctx.fillText(parts[0]+'/'+parts[1], pad.l + slot*i + slot/2, H - pad.b + 14);
+    });
+
+    // Average dashed line
+    if (avg > 0) {
+      const y = yScale(avg);
+      ctx.strokeStyle = '#AFA9EC'; ctx.lineWidth = 1.5; ctx.setLineDash([4,3]);
+      ctx.beginPath(); ctx.moveTo(pad.l, y); ctx.lineTo(pad.l+cw, y); ctx.stroke();
+      ctx.setLineDash([]);
+    }
+  }
+
+  // ── OBJECTIFS ──
+  let goals = [];
+  let editingGoalId = null;
+  let editingTargetId = null;
+  let editingTargetGoalId = null;
+
+  function openGoalModal(id) {
+    editingGoalId = id;
+    document.getElementById('goal-modal-title').textContent = id ? 'Modifier l\'objectif' : 'Nouvel objectif';
+    if (id !== null) {
+      const g = goals.find(x => x.id === id);
+      if (!g) return;
+      document.getElementById('goal-name').value = g.name;
+      document.getElementById('goal-deadline').value = g.deadline || '';
+    } else {
+      document.getElementById('goal-name').value = '';
+      document.getElementById('goal-deadline').value = '';
+    }
+    document.getElementById('goal-calendar-popup').style.display = 'none';
+    document.getElementById('goal-modal').style.display = 'flex';
+  }
+
+  function closeGoalModal() { document.getElementById('goal-modal').style.display = 'none'; }
+
+  function saveGoal() {
+    const name = document.getElementById('goal-name').value.trim();
+    if (!name) return;
+    const icon = '🎯';
+    const deadline = document.getElementById('goal-deadline').value.trim() || null;
+    if (editingGoalId !== null) {
+      const g = goals.find(x => x.id === editingGoalId);
+      if (g) { g.name = name; g.icon = icon; g.deadline = deadline; }
+    } else {
+      goals.push({ id: Date.now(), name, icon, deadline, targets: [] });
+    }
+    closeGoalModal();
+    renderGoals();
+    save();
+  }
+
+  // Goal calendar
+  let goalCalYear, goalCalMonth;
+  function toggleGoalCal(e){if(e)e.preventDefault();const p=document.getElementById('goal-calendar-popup');if(p.style.display==='none'){const now=new Date(),val=document.getElementById('goal-deadline').value;if(val.length===10){const pt=val.split('/');goalCalYear=parseInt(pt[2]);goalCalMonth=parseInt(pt[1])-1;}else{goalCalYear=now.getFullYear();goalCalMonth=now.getMonth();}renderGoalCal();p.style.display='block';}else p.style.display='none';}
+  function goalCalPrev(){goalCalMonth--;if(goalCalMonth<0){goalCalMonth=11;goalCalYear--;}renderGoalCal();}
+  function goalCalNext(){goalCalMonth++;if(goalCalMonth>11){goalCalMonth=0;goalCalYear++;}renderGoalCal();}
+  function renderGoalCal(){const months=['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'];document.getElementById('goal-cal-label').textContent=months[goalCalMonth]+' '+goalCalYear;const grid=document.getElementById('goal-cal-grid');let html=['L','M','M','J','V','S','D'].map(d=>`<div class="cal-day-name">${d}</div>`).join('');const first=new Date(goalCalYear,goalCalMonth,1);let sd=first.getDay();sd=sd===0?6:sd-1;const dim=new Date(goalCalYear,goalCalMonth+1,0).getDate();for(let i=0;i<sd;i++)html+=`<div class="cal-day empty"></div>`;const sv=document.getElementById('goal-deadline').value;for(let d=1;d<=dim;d++){const dd=String(d).padStart(2,'0'),mm=String(goalCalMonth+1).padStart(2,'0'),val=`${dd}/${mm}/${goalCalYear}`;html+=`<div class="cal-day${sv===val?' selected':''}" onclick="pickGoalDate('${val}')">${d}</div>`;}grid.innerHTML=html;}
+  function pickGoalDate(val){document.getElementById('goal-deadline').value=val;document.getElementById('goal-calendar-popup').style.display='none';}
+
+  // Target calendar
+  let targetCalYear, targetCalMonth;
+  function toggleTargetCal(e){if(e)e.preventDefault();const p=document.getElementById('target-calendar-popup');if(p.style.display==='none'){const now=new Date(),val=document.getElementById('target-deadline').value;if(val.length===10){const pt=val.split('/');targetCalYear=parseInt(pt[2]);targetCalMonth=parseInt(pt[1])-1;}else{targetCalYear=now.getFullYear();targetCalMonth=now.getMonth();}renderTargetCal();p.style.display='block';}else p.style.display='none';}
+  function targetCalPrev(){targetCalMonth--;if(targetCalMonth<0){targetCalMonth=11;targetCalYear--;}renderTargetCal();}
+  function targetCalNext(){targetCalMonth++;if(targetCalMonth>11){targetCalMonth=0;targetCalYear++;}renderTargetCal();}
+  function renderTargetCal(){const months=['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'];document.getElementById('target-cal-label').textContent=months[targetCalMonth]+' '+targetCalYear;const grid=document.getElementById('target-cal-grid');let html=['L','M','M','J','V','S','D'].map(d=>`<div class="cal-day-name">${d}</div>`).join('');const first=new Date(targetCalYear,targetCalMonth,1);let sd=first.getDay();sd=sd===0?6:sd-1;const dim=new Date(targetCalYear,targetCalMonth+1,0).getDate();for(let i=0;i<sd;i++)html+=`<div class="cal-day empty"></div>`;const sv=document.getElementById('target-deadline').value;for(let d=1;d<=dim;d++){const dd=String(d).padStart(2,'0'),mm=String(targetCalMonth+1).padStart(2,'0'),val=`${dd}/${mm}/${targetCalYear}`;html+=`<div class="cal-day${sv===val?' selected':''}" onclick="pickTargetDate('${val}')">${d}</div>`;}grid.innerHTML=html;}
+  function pickTargetDate(val){document.getElementById('target-deadline').value=val;document.getElementById('target-calendar-popup').style.display='none';}
+
+  function deleteGoal(id) {
+    goals = goals.filter(g => g.id !== id);
+    renderGoals();
+    save();
+  }
+
+  function openTargetModal(goalId, targetId) {
+    editingTargetGoalId = goalId;
+    editingTargetId = targetId;
+    document.getElementById('target-modal-title').textContent = targetId ? 'Modifier la cible' : 'Nouvelle cible';
+    if (targetId !== null) {
+      const g = goals.find(x => x.id === goalId);
+      const t = g && g.targets.find(x => x.id === targetId);
+      if (!t) return;
+      document.getElementById('target-desc').value = t.desc;
+      document.getElementById('target-goal').value = t.goal;
+      document.getElementById('target-unit').value = t.unit || '';
+      document.getElementById('target-deadline').value = t.deadline || '';
+      document.getElementById('target-current').value = t.current || 0;
+    } else {
+      document.getElementById('target-desc').value = '';
+      document.getElementById('target-goal').value = '';
+      document.getElementById('target-unit').value = '';
+      document.getElementById('target-deadline').value = '';
+      document.getElementById('target-current').value = '';
+    }
+    document.getElementById('target-calendar-popup').style.display = 'none';
+    document.getElementById('target-modal').style.display = 'flex';
+  }
+
+  function closeTargetModal() { document.getElementById('target-modal').style.display = 'none'; }
+
+  function saveTarget() {
+    const desc = document.getElementById('target-desc').value.trim();
+    const goal = parseFloat(document.getElementById('target-goal').value);
+    if (!desc || !goal || goal <= 0) return;
+    const unit = document.getElementById('target-unit').value.trim();
+    const deadline = document.getElementById('target-deadline').value.trim();
+    const currentVal = parseFloat(document.getElementById('target-current').value) || 0;
+    const g = goals.find(x => x.id === editingTargetGoalId);
+    if (!g) return;
+    if (editingTargetId !== null) {
+      const t = g.targets.find(x => x.id === editingTargetId);
+      if (t) { t.desc = desc; t.goal = goal; t.unit = unit; t.deadline = deadline; t.current = currentVal; }
+    } else {
+      g.targets.push({ id: Date.now(), desc, goal, unit, deadline, current: currentVal });
+    }
+    closeTargetModal();
+    renderGoals();
+    save();
+  }
+
+  function deleteTarget(goalId, targetId) {
+    const g = goals.find(x => x.id === goalId);
+    if (!g) return;
+    g.targets = g.targets.filter(t => t.id !== targetId);
+    renderGoals();
+    save();
+  }
+
+  function editTargetCurrent(goalId, targetId, spanEl) {
+    const g = goals.find(x => x.id === goalId); if (!g) return;
+    const t = g.targets.find(x => x.id === targetId); if (!t) return;
+    const input = document.createElement('input');
+    input.type = 'number';
+    input.min = 0;
+    input.step = 0.1;
+    input.value = t.current || 0;
+    input.style.cssText = `width:64px;padding:3px 6px;border:1.5px solid var(--color-accent);border-radius:6px;font-size:13px;font-weight:700;color:var(--color-accent);background:var(--color-background-primary);outline:none;text-align:center;font-family:var(--font-sans);`;
+    spanEl.replaceWith(input);
+    input.focus();
+    input.select();
+    function commit() {
+      const val = Math.max(0, parseFloat(input.value) || 0);
+      t.current = val;
+      renderGoals();
+      save();
+    }
+    input.addEventListener('blur', commit);
+    input.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); commit(); } if (e.key === 'Escape') renderGoals(); });
+  }
+
+  function incrementTarget(goalId, targetId, delta) {
+    const g = goals.find(x => x.id === goalId);
+    if (!g) return;
+    const t = g.targets.find(x => x.id === targetId);
+    if (!t) return;
+    t.current = Math.max(0, Math.min(t.goal, (t.current || 0) + delta));
+    renderGoals();
+    save();
+  }
+
+  function renderGoals() {
+    const list = document.getElementById('goals-list');
+    if (!list) return;
+    if (!goals.length) {
+      list.innerHTML = '<div class="empty-state"><span class="empty-icon">🎯</span><div class="empty-title">Aucun objectif</div><div class="empty-text">Crée ton premier objectif !</div></div>';
+      return;
+    }
+    const today = new Date(); today.setHours(0,0,0,0);
+    list.innerHTML = goals.map(g => {
+      const targetsHTML = g.targets.length ? g.targets.map(t => {
+        const current = t.current || 0;
+        const pct = Math.min(100, Math.round((current / t.goal) * 100));
+        const done = current >= t.goal;
+        let deadlineHTML = '';
+        if (t.deadline) {
+          const parts = t.deadline.split('/');
+          const dl = new Date(+parts[2], +parts[1]-1, +parts[0]);
+          const overdue = !done && dl < today;
+          const daysLeft = Math.ceil((dl - today) / 86400000);
+          const label = overdue ? '⚠️ Expiré' : daysLeft === 0 ? "Aujourd'hui" : daysLeft === 1 ? 'Demain' : `${daysLeft}j restants`;
+          deadlineHTML = `<span class="target-deadline${overdue?' overdue':''}">📅 ${label}</span>`;
+        }
+        return `
+          <div class="target-item">
+            <div class="target-label">
+              <span>${done ? '✅ ' : ''}${t.desc}</span>
+              <div style="display:flex;align-items:center;gap:6px;">
+                ${deadlineHTML}
+                <button class="icon-btn" style="font-size:12px;color:var(--color-text-secondary)" onclick="openTargetModal(${g.id},${t.id})">✏️</button>
+                <button class="icon-btn del" style="font-size:12px;" onclick="deleteTarget(${g.id},${t.id})">✕</button>
+              </div>
+            </div>
+            <div class="progress-bar-wrap"><div class="progress-bar-fill${done?' done':''}" style="width:${pct}%"></div></div>
+            <div class="target-controls">
+              <button class="target-count-btn" onclick="incrementTarget(${g.id},${t.id},-1)">−</button>
+              <span class="target-progress-text${done?' done':''}" onclick="editTargetCurrent(${g.id},${t.id},this)" title="Tap pour modifier" style="cursor:pointer;text-decoration:underline dotted;">${current} / ${t.goal}${t.unit?' '+t.unit:''}</span>
+              <button class="target-count-btn" onclick="incrementTarget(${g.id},${t.id},1)">+</button>
+              <span style="font-size:12px;color:var(--color-text-secondary);margin-left:4px;">${pct}%</span>
+            </div>
+          </div>`;
+      }).join('') : `<div style="font-size:13px;color:var(--color-text-secondary);padding:4px 0;">Aucune cible — ajoute en une !</div>`;
+
+      const completedTargets = g.targets.filter(t => (t.current||0) >= t.goal).length;
+      const totalTargets = g.targets.length;
+
+      return `
+        <div class="goal-card">
+          <div class="goal-header">
+            <div class="goal-title"><span style="font-size:20px;">${g.icon||'🎯'}</span>${g.name}${totalTargets ? `<span style="font-size:12px;font-weight:500;color:var(--color-text-secondary);margin-left:4px;">${completedTargets}/${totalTargets}</span>` : ''}${g.deadline ? `<span style="font-size:11px;font-weight:600;color:var(--color-text-secondary);margin-left:4px;">· ${g.deadline}</span>` : ''}</div>
+            <div style="display:flex;gap:6px;">
+              <button class="icon-btn" onclick="openTargetModal(${g.id},null)" style="font-size:13px;color:var(--color-accent);font-weight:700;">+ Cible</button>
+              <button class="icon-btn" onclick="openGoalModal(${g.id})">✏️</button>
+              <button class="icon-btn del" onclick="deleteGoal(${g.id})">✕</button>
+            </div>
+          </div>
+          <div class="goal-body">${targetsHTML}</div>
+        </div>`;
+    }).join('');
+  }
+
+  // ── MÉTÉO ──
+  const WMO_CODES = {
+    0:'Ciel dégagé',1:'Principalement dégagé',2:'Partiellement nuageux',3:'Couvert',
+    45:'Brouillard',48:'Brouillard givrant',
+    51:'Bruine légère',53:'Bruine modérée',55:'Bruine dense',
+    61:'Pluie légère',63:'Pluie modérée',65:'Pluie forte',
+    71:'Neige légère',73:'Neige modérée',75:'Neige forte',77:'Grains de neige',
+    80:'Averses légères',81:'Averses modérées',82:'Averses violentes',
+    85:'Averses de neige',86:'Averses de neige fortes',
+    95:'Orage',96:'Orage avec grêle',99:'Orage violent avec grêle',
+  };
+  const WMO_ICONS = {
+    0:'☀️',1:'🌤',2:'⛅',3:'☁️',
+    45:'🌫',48:'🌫',
+    51:'🌦',53:'🌦',55:'🌧',
+    61:'🌧',63:'🌧',65:'🌧',
+    71:'🌨',73:'🌨',75:'❄️',77:'🌨',
+    80:'🌦',81:'🌧',82:'⛈',
+    85:'🌨',86:'❄️',
+    95:'⛈',96:'⛈',99:'⛈',
+  };
+
+  let meteoCache = null;
+  let meteoCacheCity = '';
+  let meteoFavorites = JSON.parse(localStorage.getItem('flowshit-meteo-favs') || '[]');
+  let meteoCurrentCity = '';
+
+  function saveMeteoFavorites() {
+    localStorage.setItem('flowshit-meteo-favs', JSON.stringify(meteoFavorites));
+  }
+
+  function renderMeteoFavorites() {
+    const wrap = document.getElementById('meteo-favorites-wrap');
+    if (!wrap) return;
+    if (!meteoFavorites.length) { wrap.style.display = 'none'; return; }
+    wrap.style.display = 'flex';
+    wrap.innerHTML = meteoFavorites.map(city => `
+      <div style="display:flex;align-items:center;gap:4px;background:var(--color-background-secondary);border:1px solid var(--color-border-secondary);border-radius:20px;padding:5px 10px 5px 12px;">
+        <span style="font-size:13px;font-weight:600;color:var(--color-text-primary);cursor:pointer;" onclick="loadMeteoFavorite('${city}')">${city}</span>
+        <span style="font-size:12px;color:var(--color-text-secondary);cursor:pointer;padding:0 2px;" onclick="removeMeteoFavorite('${city}')">✕</span>
+      </div>`).join('');
+  }
+
+  function toggleMeteoFavorite() {
+    const city = meteoCurrentCity || document.getElementById('meteo-city-input').value.trim();
+    if (!city) return;
+    const idx = meteoFavorites.indexOf(city);
+    if (idx !== -1) {
+      meteoFavorites.splice(idx, 1);
+      showToast('⭐ Retiré des favoris');
+    } else {
+      meteoFavorites.push(city);
+      showToast('⭐ Ajouté aux favoris');
+    }
+    saveMeteoFavorites();
+    renderMeteoFavorites();
+    updateMeteoStarBtn(city);
+  }
+
+  function removeMeteoFavorite(city) {
+    meteoFavorites = meteoFavorites.filter(c => c !== city);
+    saveMeteoFavorites();
+    renderMeteoFavorites();
+    updateMeteoStarBtn(meteoCurrentCity);
+  }
+
+  function loadMeteoFavorite(city) {
+    document.getElementById('meteo-city-input').value = city;
+    fetchMeteo();
+  }
+
+  function updateMeteoStarBtn(city) {
+    const btn = document.getElementById('meteo-star-btn');
+    if (!btn) return;
+    const isFav = meteoFavorites.includes(city);
+    btn.textContent = isFav ? '⭐' : '☆';
+    btn.style.borderColor = isFav ? '#f5a623' : '';
+  }
+
+  async function fetchMeteoGPS() {
+    const result = document.getElementById('meteo-result');
+    result.innerHTML = '<div style="padding:20px;text-align:center;color:var(--color-text-secondary);font-size:13px;">📍 Localisation en cours...</div>';
+    if (!navigator.geolocation) { showToast('GPS non disponible'); return; }
+    navigator.geolocation.getCurrentPosition(
+      async pos => {
+        const { latitude: lat, longitude: lon } = pos.coords;
+        // Reverse geocode to get city name
+        try {
+          const r = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json`);
+          const d = await r.json();
+          const city = d.address.city || d.address.town || d.address.village || d.address.municipality || 'Ma position';
+          document.getElementById('meteo-city-input').value = city;
+          await fetchMeteoByCoords(lat, lon, city);
+        } catch(e) {
+          await fetchMeteoByCoords(lat, lon, 'Ma position');
+        }
+      },
+      () => showToast('⛔ Localisation refusée')
+    );
+  }
+
+  async function fetchMeteo() {
+    const city = document.getElementById('meteo-city-input').value.trim();
+    if (!city) return;
+    const result = document.getElementById('meteo-result');
+    result.innerHTML = '<div style="padding:20px;text-align:center;color:var(--color-text-secondary);font-size:13px;">🔍 Recherche...</div>';
+    try {
+      const r = await fetch(`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(city)}&format=json&limit=1`);
+      const d = await r.json();
+      if (!d.length) { result.innerHTML = '<div style="padding:20px;text-align:center;color:#E24B4A;font-size:13px;">Ville introuvable</div>'; return; }
+      await fetchMeteoByCoords(+d[0].lat, +d[0].lon, city);
+    } catch(e) {
+      result.innerHTML = '<div style="padding:20px;text-align:center;color:#E24B4A;font-size:13px;">Erreur réseau</div>';
+    }
+  }
+
+  async function fetchMeteoByCoords(lat, lon, city) {
+    const result = document.getElementById('meteo-result');
+    try {
+      const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,apparent_temperature,weathercode,windspeed_10m,relativehumidity_2m&daily=weathercode,temperature_2m_max,temperature_2m_min,precipitation_sum&timezone=auto&forecast_days=4`;
+      const r = await fetch(url);
+      const d = await r.json();
+      const c = d.current;
+      const daily = d.daily;
+      const code = c.weathercode;
+      const icon = WMO_ICONS[code] || '🌡';
+      const desc = WMO_CODES[code] || 'Inconnu';
+      localStorage.setItem('flowshit-meteo-city', city);
+      meteoCurrentCity = city;
+      updateMeteoStarBtn(city);
+
+      const dayNames = ['Dim','Lun','Mar','Mer','Jeu','Ven','Sam'];
+      const forecastHTML = daily.time.slice(1).map((dateStr, i) => {
+        const date = new Date(dateStr);
+        const dIcon = WMO_ICONS[daily.weathercode[i+1]] || '🌡';
+        return `
+          <div style="flex:1;text-align:center;background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:10px 6px;">
+            <div style="font-size:11px;font-weight:700;color:var(--color-text-secondary);margin-bottom:4px;">${dayNames[date.getDay()]}</div>
+            <div style="font-size:20px;margin-bottom:4px;">${dIcon}</div>
+            <div style="font-size:12px;font-weight:700;color:var(--color-text-primary);">${Math.round(daily.temperature_2m_max[i+1])}°</div>
+            <div style="font-size:11px;color:var(--color-text-secondary);">${Math.round(daily.temperature_2m_min[i+1])}°</div>
+            ${daily.precipitation_sum[i+1] > 0 ? `<div style="font-size:10px;color:var(--color-accent);margin-top:2px;">💧${daily.precipitation_sum[i+1]}mm</div>` : ''}
+          </div>`;
+      }).join('');
+
+      result.innerHTML = `
+        <div style="background:var(--color-background-primary);border:1px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:20px 16px;margin-top:10px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+            <div>
+              <div style="font-size:13px;font-weight:700;color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:0.06em;">${city}</div>
+              <div style="font-size:42px;font-weight:700;color:var(--color-text-primary);line-height:1.1;">${Math.round(c.temperature_2m)}°<span style="font-size:18px;color:var(--color-text-secondary);">C</span></div>
+              <div style="font-size:13px;color:var(--color-text-secondary);margin-top:2px;">${desc} · Ressenti ${Math.round(c.apparent_temperature)}°</div>
+            </div>
+            <div style="font-size:64px;line-height:1;">${icon}</div>
+          </div>
+          <div style="display:flex;gap:16px;padding:12px 0;border-top:1px solid var(--color-border-tertiary);border-bottom:1px solid var(--color-border-tertiary);margin-bottom:14px;">
+            <div style="text-align:center;flex:1;"><div style="font-size:18px;">💨</div><div style="font-size:12px;font-weight:600;color:var(--color-text-primary);">${Math.round(c.windspeed_10m)} km/h</div><div style="font-size:11px;color:var(--color-text-secondary);">Vent</div></div>
+            <div style="text-align:center;flex:1;"><div style="font-size:18px;">💧</div><div style="font-size:12px;font-weight:600;color:var(--color-text-primary);">${c.relativehumidity_2m}%</div><div style="font-size:11px;color:var(--color-text-secondary);">Humidité</div></div>
+            <div style="text-align:center;flex:1;"><div style="font-size:18px;">🌡</div><div style="font-size:12px;font-weight:600;color:var(--color-text-primary);">${Math.round(daily.temperature_2m_max[0])}° / ${Math.round(daily.temperature_2m_min[0])}°</div><div style="font-size:11px;color:var(--color-text-secondary);">Max / Min</div></div>
+          </div>
+          <div style="font-size:12px;font-weight:700;color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:8px;">3 prochains jours</div>
+          <div style="display:flex;gap:8px;">${forecastHTML}</div>
+        </div>`;
+    } catch(e) {
+      result.innerHTML = '<div style="padding:20px;text-align:center;color:#E24B4A;font-size:13px;">Erreur météo</div>';
+    }
   }
 
   // ── CONVERTISSEUR ──
@@ -2615,7 +4273,189 @@
     renderConvQuick();
   }
 
-  // ── DATETIME ──
+  function toggleSettings() {
+    const isSettings = document.getElementById('screen-settings').classList.contains('active');
+    switchTab(isSettings ? 'home' : 'settings');
+  }
+
+  // ── DISPLAY MODE ──
+  let displayMode = localStorage.getItem('flowshit-display-mode') || 'liste'; // 'liste' | 'bureau'
+
+  function applyDisplayMode() {
+    const isBureau = displayMode === 'bureau';
+    document.body.classList.toggle('mode-bureau', isBureau);
+    const toggle = document.getElementById('display-mode-toggle');
+    if (toggle) toggle.classList.toggle('on', isBureau);
+    const label = document.getElementById('display-mode-label');
+    if (label) label.textContent = isBureau ? 'Bureau' : 'Liste';
+    const launcherContainer = document.getElementById('launcher-grid-container');
+    if (launcherContainer) launcherContainer.style.display = isBureau ? 'block' : 'none';
+    const homeBtn = document.getElementById('settings-home-btn');
+    if (homeBtn) homeBtn.style.display = isBureau ? '' : 'none';
+    if (isBureau) renderLauncherGrid();
+  }
+
+  function toggleDisplayMode() {
+    displayMode = displayMode === 'liste' ? 'bureau' : 'liste';
+    localStorage.setItem('flowshit-display-mode', displayMode);
+    applyDisplayMode();
+  }
+
+  // ── LAUNCHER EDIT MODE ──
+  let launcherEditing = false;
+  let launcherDragSrc = null;
+
+  function enterLauncherEdit() {
+    launcherEditing = true;
+    document.body.classList.add('launcher-editing');
+    document.querySelectorAll('.launcher-icon').forEach(el => el.classList.add('wobbling'));
+  }
+
+  function exitLauncherEdit() {
+    launcherEditing = false;
+    document.body.classList.remove('launcher-editing');
+    document.querySelectorAll('.launcher-icon').forEach(el => el.classList.remove('wobbling'));
+  }
+
+  function renderLauncherGrid() {
+    const grid = document.getElementById('launcher-grid');
+    if (!grid) return;
+    const visibleTabs = widgetOrder.filter(t => activeWidgets[t]);
+    grid.innerHTML = visibleTabs.map(tab => {
+      const m = WIDGET_META[tab];
+      return `<div class="launcher-icon${launcherEditing?' wobbling':''}" data-tab="${tab}">
+        <div class="launcher-icon-wrap">${m.icon}</div>
+        <span class="launcher-icon-label">${m.label}</span>
+      </div>`;
+    }).join('');
+    initLauncherDrag();
+  }
+
+  function initLauncherDrag() {
+    const grid = document.getElementById('launcher-grid');
+    if (!grid) return;
+    const icons = grid.querySelectorAll('.launcher-icon');
+
+    icons.forEach(icon => {
+      let longPressTimer = null;
+
+      // Long press to enter edit mode
+      icon.addEventListener('touchstart', e => {
+        if (launcherEditing) {
+          // Already in edit mode — start drag immediately
+          startLauncherTouchDrag(icon, e);
+          return;
+        }
+        longPressTimer = setTimeout(() => {
+          enterLauncherEdit();
+          startLauncherTouchDrag(icon, e);
+        }, 500);
+      }, {passive: true});
+
+      icon.addEventListener('touchend', () => {
+        clearTimeout(longPressTimer);
+        // Normal tap — open if not editing
+        if (!launcherEditing) {
+          launcherOpen(icon.dataset.tab);
+        }
+      });
+
+      icon.addEventListener('touchmove', () => clearTimeout(longPressTimer), {passive: true});
+
+      // Click (desktop / non-drag)
+      icon.addEventListener('click', () => {
+        if (!launcherEditing) launcherOpen(icon.dataset.tab);
+      });
+    });
+  }
+
+  function startLauncherTouchDrag(srcIcon, startEvent) {
+    const grid = document.getElementById('launcher-grid');
+    launcherDragSrc = srcIcon;
+    srcIcon.classList.add('dragging-icon');
+
+    const clone = srcIcon.cloneNode(true);
+    const rect = srcIcon.getBoundingClientRect();
+    clone.style.cssText = `position:fixed;left:${rect.left}px;top:${rect.top}px;width:${rect.width}px;opacity:0.9;z-index:999;pointer-events:none;transition:none;`;
+    clone.querySelectorAll('.launcher-icon-wrap').forEach(el => el.style.animation = 'none');
+    document.body.appendChild(clone);
+
+    let lastTouch = startEvent.touches[0];
+
+    function onMove(e) {
+      const t = e.touches[0];
+      const dx = t.clientX - lastTouch.clientX;
+      const dy = t.clientY - lastTouch.clientY;
+      clone.style.left = (parseFloat(clone.style.left) + dx) + 'px';
+      clone.style.top  = (parseFloat(clone.style.top)  + dy) + 'px';
+      lastTouch = t;
+
+      // Find icon under finger
+      clone.style.pointerEvents = 'none';
+      const target = document.elementFromPoint(t.clientX, t.clientY)?.closest('.launcher-icon');
+      grid.querySelectorAll('.launcher-icon').forEach(i => i.classList.remove('drag-over-icon'));
+      if (target && target !== srcIcon) {
+        target.classList.add('drag-over-icon');
+        // Reorder in DOM
+        const icons = [...grid.querySelectorAll('.launcher-icon')];
+        const srcIdx = icons.indexOf(srcIcon);
+        const tgtIdx = icons.indexOf(target);
+        if (srcIdx < tgtIdx) grid.insertBefore(srcIcon, target.nextSibling);
+        else grid.insertBefore(srcIcon, target);
+      }
+      e.preventDefault();
+    }
+
+    function onEnd() {
+      clone.remove();
+      srcIcon.classList.remove('dragging-icon');
+      grid.querySelectorAll('.launcher-icon').forEach(i => i.classList.remove('drag-over-icon'));
+      // Save new order
+      widgetOrder = [...grid.querySelectorAll('.launcher-icon')].map(el => el.dataset.tab);
+      // Merge back non-visible tabs at end
+      const hidden = widgetOrder.filter(t => !activeWidgets[t]);
+      // Rebuild full order: visible in new order + hidden ones appended
+      const allHidden = WIDGET_TABS.filter(t => !activeWidgets[t]);
+      widgetOrder = [...widgetOrder, ...allHidden.filter(t => !widgetOrder.includes(t))];
+      localStorage.setItem('flowshit-widget-order', JSON.stringify(widgetOrder));
+      // Re-render settings list to reflect new order
+      renderWidgetList();
+      document.removeEventListener('touchmove', onMove);
+      document.removeEventListener('touchend', onEnd);
+    }
+
+    document.addEventListener('touchmove', onMove, {passive: false});
+    document.addEventListener('touchend', onEnd);
+  }
+
+  function launcherOpen(tab) {
+    // Show the back button, hide nav, switch to screen
+    document.getElementById('launcher-back').style.display = 'block';
+    tabs.forEach(t => {
+      document.getElementById('screen-'+t).classList.remove('active');
+    });
+    document.getElementById('screen-'+tab).classList.add('active');
+    if (tab === 'convertisseur') initConvertisseur();
+  }
+
+  function launcherBack() {
+    exitLauncherEdit();
+    document.getElementById('launcher-back').style.display = 'none';
+    tabs.forEach(t => {
+      document.getElementById('screen-'+t).classList.remove('active');
+    });
+    document.getElementById('screen-home').classList.add('active');
+    renderLauncherGrid();
+  }
+
+  // ── DISPLAY MODE (suite) ──
+  let weightCalYear, weightCalMonth;
+  function toggleWeightCal(e){if(e)e.preventDefault();const p=document.getElementById('weight-calendar-popup');if(p.style.display==='none'){const now=new Date(),val=document.getElementById('weight-date-input').value;if(val.length===10){const pt=val.split('/');weightCalYear=parseInt(pt[2]);weightCalMonth=parseInt(pt[1])-1;}else{weightCalYear=now.getFullYear();weightCalMonth=now.getMonth();}renderWeightCal();p.style.display='block';}else p.style.display='none';}
+  function weightCalPrev(){weightCalMonth--;if(weightCalMonth<0){weightCalMonth=11;weightCalYear--;}renderWeightCal();}
+  function weightCalNext(){weightCalMonth++;if(weightCalMonth>11){weightCalMonth=0;weightCalYear++;}renderWeightCal();}
+  function renderWeightCal(){const months=['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'];document.getElementById('weight-cal-label').textContent=months[weightCalMonth]+' '+weightCalYear;const grid=document.getElementById('weight-cal-grid');let html=['L','M','M','J','V','S','D'].map(d=>`<div class="cal-day-name">${d}</div>`).join('');const first=new Date(weightCalYear,weightCalMonth,1);let sd=first.getDay();sd=sd===0?6:sd-1;const dim=new Date(weightCalYear,weightCalMonth+1,0).getDate();for(let i=0;i<sd;i++)html+=`<div class="cal-day empty"></div>`;const sv=document.getElementById('weight-date-input').value;for(let d=1;d<=dim;d++){const dd=String(d).padStart(2,'0'),mm=String(weightCalMonth+1).padStart(2,'0'),val=`${dd}/${mm}/${weightCalYear}`;html+=`<div class="cal-day${sv===val?' selected':''}" onclick="pickWeightDate('${val}')">${d}</div>`;}grid.innerHTML=html;}
+  function pickWeightDate(val){document.getElementById('weight-date-input').value=val;document.getElementById('weight-calendar-popup').style.display='none';}
+
   function updateDateTime(){const now=new Date();const days=['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'];const months=['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'];document.getElementById('date-display').textContent=days[now.getDay()]+' '+now.getDate()+' '+months[now.getMonth()]+' '+now.getFullYear();}
 
   // ── INIT ──
@@ -2634,6 +4474,8 @@
   loadMuscles();
   load();
   loadWidgets();
+  loadNotifSettings();
+  applyDisplayMode();
   setTimeout(()=>setWeightUnit(weightUnit),0);
 </script>
 </body>
